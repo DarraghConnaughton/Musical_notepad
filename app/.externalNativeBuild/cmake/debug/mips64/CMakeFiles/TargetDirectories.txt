@@ -1,3 +1,3 @@
-/home/darragh/final_project/MusicalNotepad/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/rebuild_cache.dir
-/home/darragh/final_project/MusicalNotepad/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/edit_cache.dir
-/home/darragh/final_project/MusicalNotepad/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/native-lib.dir
+/home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/rebuild_cache.dir
+/home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/edit_cache.dir
+/home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/native-lib.dir
