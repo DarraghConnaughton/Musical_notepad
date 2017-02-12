@@ -25,3 +25,14 @@ I have calculated the magnitude and frequency using:
 * frequency - Index * SampleRate/N
 
 The output is rather strange. I am using a pure tone of 440Hz, although my answer does not reflect this. 
+
+#Fourth Entry
+
+I got in touch with Bryan Duggan from DIT, the creator of Tunepal, inquiring about the technique he used to obtain musical notes from audio recording. He used PYIN 
+for my tunepal, a C++ library that utilises the YIN algorithm. He recommends this algorithm as it is more accurate than using FFT for pitch detection. I am currently
+using TarsosDSP, a java library that offers the Yin algorithm. 
+
+Goals for the upcoming week: 
+* Detect single notes using YIN algorithm. 
+* Meet with Bryan Duggan.
+* Research multiple note detection. 
