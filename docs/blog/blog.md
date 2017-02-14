@@ -36,3 +36,10 @@ Goals for the upcoming week:
 * Detect single notes using YIN algorithm. 
 * Meet with Bryan Duggan.
 * Research multiple note detection. 
+
+#Fifth Entry
+
+I have successfully implemented pitch detection. The system now recognises each note that is played. I have also developed a way of keeping track of what octave that note is on. This will come in handy later on, when I attempt to convert this array of scattered notes, into formal sheet music. I do not deem it necessary to meet with Bryan Duggan anymore. I understand his advice and shouldn't take up any more of his time. New goals include: 
+
+* Research timing, time signature, deriving length of each note played.
+* Bug: Third octave pitch detection doesn't work correctly. 
