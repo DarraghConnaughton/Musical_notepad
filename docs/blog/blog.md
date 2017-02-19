@@ -43,3 +43,11 @@ I have successfully implemented pitch detection. The system now recognises each 
 
 * Research timing, time signature, deriving length of each note played.
 * Bug: Third octave pitch detection doesn't work correctly. 
+
+#Sixth Entry
+
+Successful weekend. I now have the note played being displayed on the screen. The length of each note is saved as well. My plans for the coming week:
+
+* Clean up display.
+* Set up a database.
+* Do something with the length of notes.
