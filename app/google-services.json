@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "641716481203",
+    "firebase_url": "https://musicalnotepad-9002a.firebaseio.com",
+    "project_id": "musicalnotepad-9002a",
+    "storage_bucket": "musicalnotepad-9002a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641716481203:android:e8d4a0fcd0fac20c",
+        "android_client_info": {
+          "package_name": "com.darragh.musicalnotepad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641716481203-u8dvtmhapdl7uvs2j5ujm1ilq3mtavgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [{"current_key" : "AIzaSyCRcbnWaDelVgwM8s3jRfV6S5w6_lq5Q0A" }],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

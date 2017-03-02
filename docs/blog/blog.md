@@ -51,3 +51,30 @@ Successful weekend. I now have the note played being displayed on the screen. Th
 * Clean up display.
 * Set up a database.
 * Do something with the length of notes.
+
+#Seventh Entry
+
+I have successfully installed a LAMP stack. This stack consists of Apache, MySQL and PHP. This post is a subpost of #Sixth 
+dealing with the task: Set up a database. Steps include: 
+
+* Secure Apache with Let's Encrypt
+* Install phpMyAdmin
+
+#Eighth Entry
+
+I have decided to use Firebase data base instead. I have connected to the database and sent data. There is no authentication at the moment, this can be added at a later
+stage. I have decided to refactor the code. It is getting quite messy, soon it will be difficult to make any sense of it. 
+
+#Ninth Entry
+
+I have experienced a sea of difficulty trying to write my pitches to a MIDI file. Questioning if this is the correct approach. MIDI would allow for quick display of 
+musical notation, but may not be worth the time and effort. My approach:
+
+* Music21 directly input notes to be displayed, timing not a consideration at the moment.
+
+This is the same library I would have used to print the notation anyways. There are difficulties however. Music21 is a Python library, which will cause some problems.
+My solution to this is either: 
+
+* Android-python27: allowing python to be part of my project.
+* SL4A: same as above, different approach.
+* Create a python server that handles the musical notation. Not sure of the limitations here. 
