@@ -78,3 +78,16 @@ My solution to this is either:
 * Android-python27: allowing python to be part of my project.
 * SL4A: same as above, different approach.
 * Create a python server that handles the musical notation. Not sure of the limitations here. 
+
+#Tenth Entry
+
+This is a long overdue entry, a lot has changed. I decided to use a javascript library - abcjs to print my sheet music. In order to do this I needed to set up a 
+WebView inside my application that would display the HTML. I have this successfully working at the moment, printing a generic song. I am also able to pass parameters 
+from the Java side as well. I am now working on the display of the project. I have created a login and register page. These pages connect to the firebase database. 
+I am currently debugging the transition stage between pages, as my app keeps briefly crashing. Overall I am delighted with my progress. A fellow class mate suggested I 
+use a pager to display my content, this will come in time. My current goals are as follows:
+
+* Fix bug occuring with activity swapping. 
+* Create logout button.
+* Save temporary song in database under the current user and recall it. 
+* logout/in and try retrieve the saved song.
