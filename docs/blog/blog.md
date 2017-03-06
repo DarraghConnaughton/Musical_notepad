@@ -91,3 +91,11 @@ use a pager to display my content, this will come in time. My current goals are 
 * Create logout button.
 * Save temporary song in database under the current user and recall it. 
 * logout/in and try retrieve the saved song.
+
+#Eleventh Entry
+
+Great progress has been made yet again, woo. I have removed the bug mentioned above. I have also created the log in button. I have implemented the page mentioned above,
+it looks very slick. Goals:
+
+* Store and retrieve song, ensuring song is stored under user profile. 
+* Create activity that prints the name of each song that is available to choose from, making each option clickable. 
