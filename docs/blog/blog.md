@@ -99,3 +99,13 @@ it looks very slick. Goals:
 
 * Store and retrieve song, ensuring song is stored under user profile. 
 * Create activity that prints the name of each song that is available to choose from, making each option clickable. 
+
+#12
+
+Testing is now the main priority: Unit testing. 
+
+#13
+Unit testing still needs to occur. Save and retrieve from the database now works correctly. New focus is:
+
+* Unit testing
+* ListView 
