@@ -109,3 +109,6 @@ Unit testing still needs to occur. Save and retrieve from the database now works
 
 * Unit testing
 * ListView 
+
+#14 
+ListView complete, the primary focus is unit testing. I also have to submit my project summary. 
