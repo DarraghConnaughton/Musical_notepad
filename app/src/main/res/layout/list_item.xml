@@ -22,7 +22,7 @@
         <LinearLayout
             android:id="@+id/mainHolder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="504dp"
             android:background="?android:selectableItemBackground"
             android:orientation="horizontal" />
 

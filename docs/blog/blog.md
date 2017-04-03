@@ -112,3 +112,13 @@ Unit testing still needs to occur. Save and retrieve from the database now works
 
 #14 
 ListView complete, the primary focus is unit testing. I also have to submit my project summary. 
+
+#15
+It has been a while since I have updated my blog. I have completed my unit tests for testing hz-to-frequency, discovering a bug with the 3rd and 4th octaves during 
+the process. I have made the ListView clickable, activating another activity, and sending the timestamp of the clicked song through the Intent. The new activity prints
+the song onto the WebView. I am delighted with this progress. It is a Monday morning, a long eventful week spans before me. Here are my goals:
+
+* Clustering algorithm #1 : k-means algorithm. 
+* Back button on new activity that will bring me back to databaseentries.xml.
+* Format output, after clustering, and print data onto the WebView. 
+* Unit test - signIn (Android Espresso).
