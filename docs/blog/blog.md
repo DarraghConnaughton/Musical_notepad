@@ -122,3 +122,14 @@ the song onto the WebView. I am delighted with this progress. It is a Monday mor
 * Back button on new activity that will bring me back to databaseentries.xml.
 * Format output, after clustering, and print data onto the WebView. 
 * Unit test - signIn (Android Espresso).
+
+#16
+
+I have successfully implemented a K-means cluster. I have opted for 2 clusters, representing crochet and quavers respectively, although the code for a third exists.
+I have successfully created the back button mentioned above aswell, although the xml holds virtually no beauty. I have also formatted the output; this has introduced
+plenty for me to focus on now for the next week. I have also created a flat-to-sharp converter and a keysignature object to handle printing:
+
+* Debug flat-to-sharp converter. This includes getting the correct output.
+* Serious amount of refactoring is needed. 
+* Write tests for the new components. 
+* Tidy XML; Make the project look presentable.
