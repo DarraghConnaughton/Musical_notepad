@@ -133,3 +133,7 @@ plenty for me to focus on now for the next week. I have also created a flat-to-s
 * Serious amount of refactoring is needed. 
 * Write tests for the new components. 
 * Tidy XML; Make the project look presentable.
+
+#17 
+
+A serious amount of tests have been written. The flat-to-sharp converter works. I have discovered a bug, if there is no input, it crashes. The output is now correct for DMajor, it looks really good. I will try GMajor now to see if all is well. I need to test CMajor as well. 
