@@ -1,11 +1,11 @@
 Executable : /home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake
 arguments : 
--H/home/darragh/final_project/2017-ca400-YOUR_NAME/app
--B/home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/mips
+-H/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app
+-B/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/mips
 -GAndroid Gradle - Ninja
 -DANDROID_ABI=mips
 -DANDROID_NDK=/home/darragh/Android/Sdk/ndk-bundle
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/darragh/final_project/2017-ca400-YOUR_NAME/app/build/intermediates/cmake/release/obj/mips
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/build/intermediates/cmake/release/obj/mips
 -DCMAKE_BUILD_TYPE=Release
 -DCMAKE_MAKE_PROGRAM=/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja
 -DCMAKE_TOOLCHAIN_FILE=/home/darragh/Android/Sdk/ndk-bundle/build/cmake/android.toolchain.cmake

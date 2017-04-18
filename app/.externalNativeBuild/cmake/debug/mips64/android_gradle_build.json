@@ -1,9 +1,12 @@
 
 {
-	"buildFiles" : [ "/home/darragh/final_project/2017-ca400-YOUR_NAME/app/CMakeLists.txt" ],
+	"buildFiles" : 
+	[
+		"/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/CMakeLists.txt"
+	],
 	"cleanCommands" : 
 	[
-		"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64 --target clean"
+		"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64 --target clean"
 	],
 	"cppFileExtensions" : [ "cpp" ],
 	"libraries" : 
@@ -12,18 +15,18 @@
 		{
 			"abi" : "mips64",
 			"artifactName" : "native-lib",
-			"buildCommand" : "/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64 --target native-lib",
+			"buildCommand" : "/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64 --target native-lib",
 			"buildType" : "debug",
 			"files" : 
 			[
 				
 				{
 					"flags" : "  -target mips64el-none-linux-android -gcc-toolchain /home/darragh/Android/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/linux-x86_64 --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-21/arch-mips64  -Dnative_lib_EXPORTS -isystem /home/darragh/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/darragh/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/include -isystem /home/darragh/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC    -c ",
-					"src" : "/home/darragh/final_project/2017-ca400-YOUR_NAME/app/src/main/cpp/native-lib.cpp",
-					"workingDirectory" : "/home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64"
+					"src" : "/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/mips64"
 				}
 			],
-			"output" : "/home/darragh/final_project/2017-ca400-YOUR_NAME/app/build/intermediates/cmake/debug/obj/mips64/libnative-lib.so",
+			"output" : "/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/build/intermediates/cmake/debug/obj/mips64/libnative-lib.so",
 			"toolchain" : "8433630526961142625"
 		}
 	},

@@ -1,9 +1,12 @@
 
 {
-	"buildFiles" : [ "/home/darragh/final_project/2017-ca400-YOUR_NAME/app/CMakeLists.txt" ],
+	"buildFiles" : 
+	[
+		"/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/CMakeLists.txt"
+	],
 	"cleanCommands" : 
 	[
-		"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/armeabi --target clean"
+		"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/armeabi --target clean"
 	],
 	"cppFileExtensions" : [ "cpp" ],
 	"libraries" : 
@@ -12,18 +15,18 @@
 		{
 			"abi" : "armeabi",
 			"artifactName" : "native-lib",
-			"buildCommand" : "/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/armeabi --target native-lib",
+			"buildCommand" : "/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/armeabi --target native-lib",
 			"buildType" : "debug",
 			"files" : 
 			[
 				
 				{
 					"flags" : "  -target armv5te-none-linux-androideabi -gcc-toolchain /home/darragh/Android/Sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64 --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-arm  -Dnative_lib_EXPORTS -isystem /home/darragh/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/darragh/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/include -isystem /home/darragh/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC    -c ",
-					"src" : "/home/darragh/final_project/2017-ca400-YOUR_NAME/app/src/main/cpp/native-lib.cpp",
-					"workingDirectory" : "/home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/armeabi"
+					"src" : "/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/debug/armeabi"
 				}
 			],
-			"output" : "/home/darragh/final_project/2017-ca400-YOUR_NAME/app/build/intermediates/cmake/debug/obj/armeabi/libnative-lib.so",
+			"output" : "/home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/build/intermediates/cmake/debug/obj/armeabi/libnative-lib.so",
 			"toolchain" : "8433630526961142625"
 		}
 	},

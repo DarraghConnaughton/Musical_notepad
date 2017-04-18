@@ -1,19 +1,19 @@
 The target system is: Android - 16 - i686
-The host system is: Linux - 4.4.0-59-generic - x86_64
+The host system is: Linux - 4.4.0-72-generic - x86_64
 Determining if the C compiler works passed with the following output:
-Change Dir: /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_a6427"
-[1/2] Building C object CMakeFiles/cmTC_a6427.dir/testCCompiler.c.o
-[2/2] Linking C executable cmTC_a6427
+Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_59f43"
+[1/2] Building C object CMakeFiles/cmTC_59f43.dir/testCCompiler.c.o
+[2/2] Linking C executable cmTC_59f43
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_0a678"
-[1/2] Building C object CMakeFiles/cmTC_0a678.dir/CMakeCCompilerABI.c.o
-[2/2] Linking C executable cmTC_0a678
+Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_611ac"
+[1/2] Building C object CMakeFiles/cmTC_611ac.dir/CMakeCCompilerABI.c.o
+[2/2] Linking C executable cmTC_611ac
 Android clang version 3.8.256229  (based on LLVM 3.8.256229)
 Target: i686-none-linux-android
 Thread model: posix
@@ -22,16 +22,16 @@ Found candidate GCC installation: /home/darragh/Android/Sdk/ndk-bundle/toolchain
 Selected GCC installation: /home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x
 Candidate multilib: .;@m32
 Selected multilib: .;@m32
- "/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86 -pie -z relro --build-id --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_0a678 /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_0a678.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtend_android.o
+ "/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86 -pie -z relro --build-id --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_611ac /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_611ac.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtend_android.o
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(i686-linux-android-ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_0a678"]
-  ignore line: [[1/2] Building C object CMakeFiles/cmTC_0a678.dir/CMakeCCompilerABI.c.o]
-  ignore line: [[2/2] Linking C executable cmTC_0a678]
+  ignore line: [Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_611ac"]
+  ignore line: [[1/2] Building C object CMakeFiles/cmTC_611ac.dir/CMakeCCompilerABI.c.o]
+  ignore line: [[2/2] Linking C executable cmTC_611ac]
   ignore line: [Android clang version 3.8.256229  (based on LLVM 3.8.256229)]
   ignore line: [Target: i686-none-linux-android]
   ignore line: [Thread model: posix]
@@ -42,7 +42,7 @@ Parsed C implicit link information from above output:
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m32]
-  link line: [ "/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86 -pie -z relro --build-id --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_0a678 /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_0a678.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtend_android.o]
+  link line: [ "/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86 -pie -z relro --build-id --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_611ac /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_611ac.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtend_android.o]
     arg [/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld] ==> ignore
     arg [--sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86] ==> ignore
     arg [-pie] ==> ignore
@@ -54,7 +54,7 @@ Parsed C implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_0a678] ==> ignore
+    arg [cmTC_611ac] ==> ignore
     arg [/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o] ==> ignore
     arg [-L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x]
     arg [-L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> dir [/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib]
@@ -77,7 +77,7 @@ Parsed C implicit link information from above output:
     arg [-znow] ==> ignore
     arg [--gc-sections] ==> ignore
     arg [-znocopyreloc] ==> ignore
-    arg [CMakeFiles/cmTC_0a678.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_611ac.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [-ldl] ==> lib [dl]
     arg [-lc] ==> lib [c]
@@ -95,19 +95,19 @@ Parsed C implicit link information from above output:
 
 
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_b8608"
-[1/2] Building CXX object CMakeFiles/cmTC_b8608.dir/testCXXCompiler.cxx.o
-[2/2] Linking CXX executable cmTC_b8608
+Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_c4123"
+[1/2] Building CXX object CMakeFiles/cmTC_c4123.dir/testCXXCompiler.cxx.o
+[2/2] Linking CXX executable cmTC_c4123
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp
+Change Dir: /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_9c4ae"
-[1/2] Building CXX object CMakeFiles/cmTC_9c4ae.dir/CMakeCXXCompilerABI.cpp.o
-[2/2] Linking CXX executable cmTC_9c4ae
+Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_a0f0e"
+[1/2] Building CXX object CMakeFiles/cmTC_a0f0e.dir/CMakeCXXCompilerABI.cpp.o
+[2/2] Linking CXX executable cmTC_a0f0e
 Android clang version 3.8.256229  (based on LLVM 3.8.256229)
 Target: i686-none-linux-android
 Thread model: posix
@@ -116,16 +116,16 @@ Found candidate GCC installation: /home/darragh/Android/Sdk/ndk-bundle/toolchain
 Selected GCC installation: /home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x
 Candidate multilib: .;@m32
 Selected multilib: .;@m32
- "/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86 -pie -z relro --build-id --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_9c4ae /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_9c4ae.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtend_android.o
+ "/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86 -pie -z relro --build-id --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_a0f0e /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_a0f0e.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtend_android.o
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(i686-linux-android-ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/darragh/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/darragh/Final_Year/final_project/2017-ca400-YOUR_NAME/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_9c4ae"]
-  ignore line: [[1/2] Building CXX object CMakeFiles/cmTC_9c4ae.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [[2/2] Linking CXX executable cmTC_9c4ae]
+  ignore line: [Run Build Command:"/home/darragh/Android/Sdk/cmake/3.6.3155560/bin/ninja" "cmTC_a0f0e"]
+  ignore line: [[1/2] Building CXX object CMakeFiles/cmTC_a0f0e.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [[2/2] Linking CXX executable cmTC_a0f0e]
   ignore line: [Android clang version 3.8.256229  (based on LLVM 3.8.256229)]
   ignore line: [Target: i686-none-linux-android]
   ignore line: [Thread model: posix]
@@ -136,7 +136,7 @@ Parsed CXX implicit link information from above output:
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m32]
-  link line: [ "/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86 -pie -z relro --build-id --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_9c4ae /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_9c4ae.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtend_android.o]
+  link line: [ "/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86 -pie -z relro --build-id --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_a0f0e /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x -L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_a0f0e.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtend_android.o]
     arg [/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld] ==> ignore
     arg [--sysroot=/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86] ==> ignore
     arg [-pie] ==> ignore
@@ -148,7 +148,7 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_9c4ae] ==> ignore
+    arg [cmTC_a0f0e] ==> ignore
     arg [/home/darragh/Android/Sdk/ndk-bundle/platforms/android-16/arch-x86/usr/lib/crtbegin_dynamic.o] ==> ignore
     arg [-L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x]
     arg [-L/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib] ==> dir [/home/darragh/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib]
@@ -171,7 +171,7 @@ Parsed CXX implicit link information from above output:
     arg [-znow] ==> ignore
     arg [--gc-sections] ==> ignore
     arg [-znocopyreloc] ==> ignore
-    arg [CMakeFiles/cmTC_9c4ae.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_a0f0e.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc] ==> lib [gcc]

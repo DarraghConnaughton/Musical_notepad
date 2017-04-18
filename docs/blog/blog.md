@@ -137,3 +137,10 @@ plenty for me to focus on now for the next week. I have also created a flat-to-s
 #17 
 
 A serious amount of tests have been written. The flat-to-sharp converter works. I have discovered a bug, if there is no input, it crashes. The output is now correct for DMajor, it looks really good. I will try GMajor now to see if all is well. I need to test CMajor as well. 
+
+#18 
+I have implemented each of the keys. There are a few minor things I need to sort before moving onwards:
+
+* Don't call concatenate function in the presence of spaces.
+* Create a delete button.
+* Test output by changing minimum required length to print. 
