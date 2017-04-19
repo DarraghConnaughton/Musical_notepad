@@ -35,7 +35,6 @@ class PitchDetector {
         dispatcher.addAudioProcessor(p);
         t = new Thread(dispatcher, "Audio Dispatcher");
         t.start();
-
     }
 
     private static void concatenate(){
@@ -56,11 +55,9 @@ class PitchDetector {
         note_length=new ArrayList<>(updatedLengths);
     }
 
-    String stopRecording(TextView outputDisplay,KeySignature keySignature){
-        dispatcher.stop();
+    private void processAudioInput(){
         note = new ArrayList<>();
         note_length = new ArrayList<>();
-        outputDisplay.setVisibility(View.VISIBLE);
         String currentNote="";
         int currentLength=0;
         int array_Size= list.size();
@@ -78,20 +75,27 @@ class PitchDetector {
                 currentNote = list.get(i);
             }
             else if(i==(array_Size-1)){
-                    note.add(currentNote);
-                    note_length.add(currentLength);
+                note.add(currentNote);
+                note_length.add(currentLength);
             }
         }
-        System.out.println("----- PRECONCATENATE -----");
-        for(int i=0; i<note.size(); i++){
-            System.out.println(note.get(i) + " - " + note_length.get(i));
-        }
-        concatenate();
-        System.out.println("----- POSTCONCATENATE -----");
+    }
 
-        for(int i=0; i<note.size(); i++){
-            System.out.println(note.get(i) + " - " + note_length.get(i));
-        }
+    String stopRecording(TextView outputDisplay,KeySignature keySignature){
+        dispatcher.stop();
+        outputDisplay.setVisibility(View.VISIBLE);
+        processAudioInput();
+
+//        System.out.println("----- PRECONCATENATE -----");
+//        for(int i=0; i<note.size(); i++){
+//            System.out.println(note.get(i) + " - " + note_length.get(i));
+//        }
+        concatenate();
+//        System.out.println("----- POSTCONCATENATE -----");
+//
+//        for(int i=0; i<note.size(); i++){
+//            System.out.println(note.get(i) + " - " + note_length.get(i));
+//        }
         return kMeans.kMeanController(fillCluster(note,note_length),keySignature);
 
     }
@@ -107,6 +111,7 @@ class PitchDetector {
 
 
 
+    //YOU MIGHT NEED TO DO SOMETHING ABOUT THESE HARDCODED VALUES.
     public String hz_to_note(float frequency,int octave){
         if(frequency>538.808f && frequency<=1077.616f){
             float temp_frequency;

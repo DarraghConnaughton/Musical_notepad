@@ -21,25 +21,20 @@ import com.google.firebase.database.ValueEventListener;
  * */
 
 public class songDisplay extends AppCompatActivity {
-    public static WebView myWebView;
+    private WebView myWebView;
     public static DatabaseReference databaseReference;
-    public static Song currentSong;
-    private static Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         Intent intent = getIntent();
-//        currentSong(songFromJSON());
         setContentView(R.layout.songdisplay);
 
-        back = (Button) findViewById(R.id.backButton);
-        System.out.println(back);
+        Button back = (Button) findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getApplicationContext(),PagerControl.class);
                 intent.putExtra("previousPage","SongDisplay");
                 finish();
@@ -47,27 +42,8 @@ public class songDisplay extends AppCompatActivity {
             }
         });
         databaseReference = FirebaseDatabase.getInstance().getReference();
-//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Iterable<DataSnapshot> snap = dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("/songId/").child("1490380372746").getChildren();
-//                currentSong = songFromJSON(snap);
-//
-//                jsInterface.setSong(currentSong);
-//                myWebView.addJavascriptInterface(jsInterface, "Android");
-//                myWebView.loadUrl("file:///android_asset/webDisplay.html");
-//                WebSettings webSettings = myWebView.getSettings();
-//                webSettings.setJavaScriptEnabled(true);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError){}
-//        });
-
-
         enableWebView(intent.getStringExtra("Timestamp"));
     }
-
 
     public Song songFromJSON(Iterable<DataSnapshot> dataSnapshot){
         Song song = new Song();

@@ -144,3 +144,12 @@ I have implemented each of the keys. There are a few minor things I need to sort
 * Don't call concatenate function in the presence of spaces.
 * Create a delete button.
 * Test output by changing minimum required length to print. 
+
+#19 
+Great progress has been made. All task in #18 have been completed. I have a long click popupMenu which gives the user the option to delete an entry or view. I am 
+currently refactoring my code, it was badly needed. So far so good:
+
+* Implement a directory hierarchy which segregates scripts based on their functionality.
+* Refactor code, include: create tools for webView/SongToJson.
+
+--- Fun note, my .gitignore included *.java, my java files were never backed up onto git.... ever. Scary to think of what could of happened. #gitNoob
