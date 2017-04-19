@@ -1,8 +1,8 @@
 package com.darragh.musicalnotepad;
 
-import org.junit.Test;
+import com.darragh.musicalnotepad.Pitch_Detector.KeySignature;
 
-import jm.midi.event.KeySig;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 

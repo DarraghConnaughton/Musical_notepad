@@ -1,8 +1,12 @@
 package com.darragh.musicalnotepad;
 
+import com.darragh.musicalnotepad.Cluster.Cluster;
+import com.darragh.musicalnotepad.Cluster.ClusterNode;
+import com.darragh.musicalnotepad.Cluster.kMeans;
+import com.darragh.musicalnotepad.Pitch_Detector.KeySignature;
+
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 

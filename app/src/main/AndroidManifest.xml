@@ -20,16 +20,16 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Register">
+        <activity android:name=".Login_Register.Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignIn"></activity>
+        <activity android:name=".Login_Register.SignIn"></activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".PagerControl"></activity>
-        <activity android:name=".songDisplay"></activity>
+        <activity android:name=".Pagers.PagerControl"></activity>
+        <activity android:name=".Pagers.songDisplay"></activity>
     </application>
 
 
