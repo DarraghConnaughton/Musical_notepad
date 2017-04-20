@@ -153,3 +153,9 @@ currently refactoring my code, it was badly needed. So far so good:
 * Refactor code, include: create tools for webView/SongToJson.
 
 --- Fun note, my .gitignore included *.java, my java files were never backed up onto git.... ever. Scary to think of what could of happened. #gitNoob
+
+#20
+Goals from task #19 have been taken care of. I have decided to code kMeans Cluster from scratch. Currently the cluster are hardcoded, which leaves little room for expansion, not to mention the smell emitting from it. I am at the final stage of this now, with a brand new test suit. It is possible for kmeans to get into an infinite loop, I have decided to add a counter to prevent this from happening. 
+
+* Finish KMeans.
+* Cluster to notes will be rewritten also. 

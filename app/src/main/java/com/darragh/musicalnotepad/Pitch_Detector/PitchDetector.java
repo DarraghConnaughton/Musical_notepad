@@ -99,7 +99,8 @@ public class PitchDetector {
 //        for(int i=0; i<note.size(); i++){
 //            System.out.println(note.get(i) + " - " + note_length.get(i));
 //        }
-        return kMeans.kMeanController(fillCluster(note,note_length),keySignature);
+        return null;
+//        return kMeans.kMeanController(fillCluster(note,note_length),keySignature);
 
     }
 
