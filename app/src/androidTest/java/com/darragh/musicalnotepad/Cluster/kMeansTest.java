@@ -1,5 +1,7 @@
 package com.darragh.musicalnotepad.Cluster;
 
+import com.darragh.musicalnotepad.Pitch_Detector.KeySignature;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -36,18 +38,128 @@ public class kMeansTest {
 
     }
 
+    private static int[] getPositions(ArrayList<ClusterNode> nodes){
+        int[] positions = new int[nodes.size()];
+        for(int i=0; i<nodes.size(); i++){
+            positions[i] = nodes.get(i).position;
+        }
+        return positions;
+    }
+
+    //Time to test the clusterToABCFormat Converter.
+    @Test
+    public void sortOctave(){
+        String[] input = {"_A2", "A2", "^A1", "A1"};
+        String[] expectedOctave = {"_a", "a", "^A", "A"};
+        for(int i=0; i<input.length; i++){
+            assertEquals(clusterToABCFormat.sortOctave(input[i]), expectedOctave[i]);
+        }
+    }
+
+    //I am going to test a basic noteProgression using the cluster below.
+    @Test
+    public void testABCFormat(){
+        assertEquals(kMeans.main(convergence_testCluster(),new KeySignature("DMajor")),"_A^aF=f2=C2(c|c2)z3(E3|\nE)=F4(A3|A)");
+    }
+
+    //Test the aggregate of k separate clusters, maintain chronological order.
+    private static int[] expectedPositions(ArrayList<ClusterNode> nodes){
+        int[] expected = new int[nodes.size()];
+        for(int i=0; i< expected.length; i++){
+            expected[i] = i;
+        }
+        return expected;
+    }
+    private static String[] getNotes(ArrayList<ClusterNode> nodes){
+        String[] notes = new String[nodes.size()];
+        for(int i=0; i<notes.length; i++){
+            notes[i] = nodes.get(i).note;
+        }
+        return notes;
+    }
+
+    private static String[] expectedNotes(ArrayList<ClusterNode> nodes){
+        String[] notes = new String[nodes.size()];
+        for(int i=0; i<notes.length; i++){
+            notes[i] = nodes.get(i).note;
+        }
+        return notes;
+    }
+
+    @Test
+    public void aggregateCluster(){
+        kMeans.main(convergence_testCluster(),new KeySignature("DMajor"));
+        assertArrayEquals(getPositions(kMeans.getAggregatedCluster()),expectedPositions(kMeans.getAggregatedCluster()));
+        assertArrayEquals(getNotes(kMeans.getAggregatedCluster()),expectedNotes(kMeans.getAggregatedCluster()));
+    }
+
+
+    //Testing termination of KMeans over multiple iteration. Example give here deals with an infinite
+    //loop.
+    public static ArrayList<ClusterNode> convergence_testCluster(){
+        ArrayList<ClusterNode> testCluster = new ArrayList<>();
+        testCluster.add(new ClusterNode(0,5,"_A1"));
+        testCluster.add(new ClusterNode(1,6,"^A2"));
+        testCluster.add(new ClusterNode(2,7,"^F1"));
+        testCluster.add(new ClusterNode(3,10,"F2"));
+        testCluster.add(new ClusterNode(4,12,"C1"));
+        testCluster.add(new ClusterNode(5,14,"^C2"));
+        testCluster.add(new ClusterNode(6,15,"SPACE"));
+        testCluster.add(new ClusterNode(7,18,"E1"));
+        testCluster.add(new ClusterNode(8,20,"F1"));
+        testCluster.add(new ClusterNode(9,21,"A1"));
+        return testCluster;
+    }
+
+    private static int[] lengths_expectedClusterOne(){
+        int[] expected = {5,6,7};
+        return expected;
+    }
+
+    private static int[] lengths_expectedClusterTwo(){
+        int[] expected = {10,12};
+        return expected;
+    }
+
+    private static int [] lengths_expectedClusterThree(){
+        int[] expected = {14,15};
+        return expected;
+    }
+
+    private static int[] lengths_expectedClusterFour(){
+        int[] expected = {18,20,21};
+        return expected;
+    }
+
+    @Test
+    public void convergence(){
+        kMeans.main(convergence_testCluster(),new KeySignature("DMajor"));
+        //Cluster1
+        assertArrayEquals(extractLengths(0),lengths_expectedClusterOne());
+        assertArrayEquals(extractClusterNumbers(0),expected_extractClusterOneNumbers());
+        //Cluster2
+        assertArrayEquals(extractLengths(1),lengths_expectedClusterTwo());
+        assertArrayEquals(extractClusterNumbers(1),expected_extractClusterTwoNumbers());
+        //Cluster3
+        assertArrayEquals(extractLengths(2),lengths_expectedClusterThree());
+        assertArrayEquals(extractClusterNumbers(2),expected_extractClusterThreeNumbers());
+        //Cluster3
+        assertArrayEquals(extractLengths(3),lengths_expectedClusterFour());
+        assertArrayEquals(extractClusterNumbers(3),expected_extractClusterFourNumbers());
+    }
+
     //----Test the Assignment values to the closest cluster, marking the cluster flag in the process.
     private static ArrayList<ClusterNode> fillClosest_OneCluster(){
         ArrayList<ClusterNode> testCluster = new ArrayList<>();
-        testCluster.add(new ClusterNode(0,5,"A"));
-        testCluster.add(new ClusterNode(1,6,"A"));
-        testCluster.add(new ClusterNode(2,7,"A"));
-        testCluster.add(new ClusterNode(3,10,"A"));
+        testCluster.add(new ClusterNode(0,18,"A"));
+        testCluster.add(new ClusterNode(1,20,"A"));
+        testCluster.add(new ClusterNode(2,5,"A"));
+        testCluster.add(new ClusterNode(3,6,"A"));
         testCluster.add(new ClusterNode(4,12,"A"));
         testCluster.add(new ClusterNode(5,14,"A"));
         testCluster.add(new ClusterNode(6,15,"A"));
-        testCluster.add(new ClusterNode(7,18,"A"));
-        testCluster.add(new ClusterNode(8,20,"A"));
+        testCluster.add(new ClusterNode(7,7,"A"));
+        testCluster.add(new ClusterNode(8,10,"A"));
         testCluster.add(new ClusterNode(9,21,"A"));
         return testCluster;
     }
@@ -60,7 +172,7 @@ public class kMeansTest {
         return lengths;
     }
 
-    private int[] extractClusterNumbers(int clusterNumber){
+    private static int[] extractClusterNumbers(int clusterNumber){
         int[] numbers = new int[kMeans.getClusterList().get(clusterNumber).clusterList.size()];
         for(int i=0; i<numbers.length; i++){
             numbers[i] = kMeans.getClusterList().get(clusterNumber).clusterList.get(i).cluster;
@@ -68,42 +180,42 @@ public class kMeansTest {
         return numbers;
     }
 
-    private int[] expected_extractLengthClusterOne(){
+    private static int[] expected_extractLengthClusterOne(){
         int[] expected = {5,6,7};
         return expected;
     }
 
-    private int[] expected_extractClusterOneNumbers(){
+    private static int[] expected_extractClusterOneNumbers(){
         int[] expected = {1,1,1};
         return expected;
     }
 
-    private int[] expected_extractLengthClusterTwo(){
+    private static int[] expected_extractLengthClusterTwo(){
         int[] expected = {10,12};
         return expected;
     }
 
-    private int[] expected_extractClusterTwoNumbers(){
+    private static int[] expected_extractClusterTwoNumbers(){
         int[] expected = {2,2};
         return expected;
     }
 
-    private int[] expected_extractLengthClusterThree(){
+    private static int[] expected_extractLengthClusterThree(){
         int[] expected = {14,15};
         return expected;
     }
 
-    private int[] expected_extractClusterThreeNumbers(){
+    private static int[] expected_extractClusterThreeNumbers(){
         int[] expected = {3,3};
         return expected;
     }
 
-    private int[] expected_extractLengthClusterFour(){
+    private static int[] expected_extractLengthClusterFour(){
         int[] expected = {18,20,21};
         return expected;
     }
 
-    private int[] expected_extractClusterFourNumbers(){
+    private static int[] expected_extractClusterFourNumbers(){
         int[] expected = {4,4,4};
         return expected;
     }

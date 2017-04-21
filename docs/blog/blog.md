@@ -159,3 +159,7 @@ Goals from task #19 have been taken care of. I have decided to code kMeans Clust
 
 * Finish KMeans.
 * Cluster to notes will be rewritten also. 
+
+#21
+
+KMeans is complete and tested. I have completed the ABCFormatConverter. It handles any note length at the moment, maintaining the correct beat count for each bar. When the note carries over the bar, a tie has been introduced. This section has been tested as well. Minute problem however, Accidentals within the keySignature are not taken care of. This needs to be fixed. I was reading about Coefficient of Variation, which may come in handy as a second condition for determining the number of clusters. Short notes are not being represented as cleanly as I want. 

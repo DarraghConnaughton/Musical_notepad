@@ -1,5 +1,7 @@
 package com.darragh.musicalnotepad.Cluster;
 
+import com.darragh.musicalnotepad.Pitch_Detector.KeySignature;
+
 import java.util.ArrayList;
 
 public class kMeans {
@@ -8,7 +10,7 @@ public class kMeans {
     private static double lowest, highest;
     private static ArrayList<Cluster> clusterList;
     private static double[] previousCentroids;
-
+    private static ArrayList<ClusterNode> aggregatedCluster;
     //For testing purposes
     public static int getNumberOfClusters(){
         return numberOfClusters;
@@ -16,7 +18,10 @@ public class kMeans {
     public static ArrayList<Cluster> getClusterList(){
         return clusterList;
     }
+    public static ArrayList<ClusterNode> getAggregatedCluster(){ return aggregatedCluster; }
 
+
+    //-----------------------
     public static void setClusterNodeSet(ArrayList<ClusterNode> initClusterNodeSet){
         clusterNodeSet = initClusterNodeSet;
     }
@@ -143,7 +148,51 @@ public class kMeans {
         return true;
     }
 
-    public static void main(ArrayList<ClusterNode> initClusterNodeSet){
+    private static int correctCluster(int position, int[] positions){
+        for(int i=0; i<positions.length; i++){
+            if(positions[i]==position){
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private static ArrayList<ClusterNode> aggregateCluster(){
+        int[] clusterPositions = new int[numberOfClusters];
+        ArrayList<ClusterNode> aggregatedCluster = new ArrayList<>();
+        for(int i=0; i<clusterNodeSet.size(); i++){
+            int[] positions = new int[numberOfClusters];
+            for(int j=0; j<numberOfClusters; j++){
+                if(clusterList.get(j).clusterList.size()>clusterPositions[j]){
+                    positions[j] = clusterList.get(j).clusterList.get(clusterPositions[j]).position;
+                }
+                else{
+                    positions[j] = -1;
+                }
+            }
+            switch(correctCluster(i,positions)){
+                case 0:
+                    aggregatedCluster.add(clusterList.get(0).clusterList.get(clusterPositions[0]));
+                    clusterPositions[0]++;
+                    break;
+                case 1:
+                    aggregatedCluster.add(clusterList.get(1).clusterList.get(clusterPositions[1]));
+                    clusterPositions[1]++;
+                    break;
+                case 2:
+                    aggregatedCluster.add(clusterList.get(2).clusterList.get(clusterPositions[2]));
+                    clusterPositions[2]++;
+                    break;
+                case 3:
+                    aggregatedCluster.add(clusterList.get(3).clusterList.get(clusterPositions[3]));
+                    clusterPositions[3]++;
+                    break;
+            }
+        }
+        return aggregatedCluster;
+    }
+
+    public static String main(ArrayList<ClusterNode> initClusterNodeSet, KeySignature keySignature){
         initiateKMeans(initClusterNodeSet);
         iterateKMeans();
         int counter=0;
@@ -152,6 +201,9 @@ public class kMeans {
             iterateKMeans();
             counter++;
         }
-
+        for(ClusterNode node: clusterNodeSet){
+            System.out.println(node.note + " length: " + node.length);
+        }
+        return clusterToABCFormat.formatCluster(aggregateCluster(),keySignature);
     }
 }

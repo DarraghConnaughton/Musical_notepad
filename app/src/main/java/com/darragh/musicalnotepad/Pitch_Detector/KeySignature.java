@@ -1,5 +1,7 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
+import com.darragh.musicalnotepad.Cluster.ClusterNode;
+
 import java.util.Arrays;
 import java.util.List;
 

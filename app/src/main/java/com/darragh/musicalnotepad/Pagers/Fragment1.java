@@ -181,7 +181,7 @@ public class Fragment1 extends Fragment{
             @Override
             public void onClick(View v) {
                 record.setEnabled(true);
-                WebViewController.disableWebView();
+                WebViewController.disableWebView(myWebView);
                 save.setEnabled(false);
                 discard.setEnabled(false);
                 save.setVisibility(View.INVISIBLE);

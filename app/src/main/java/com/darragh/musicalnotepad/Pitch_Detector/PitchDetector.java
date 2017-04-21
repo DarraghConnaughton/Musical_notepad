@@ -88,20 +88,8 @@ public class PitchDetector {
         dispatcher.stop();
         outputDisplay.setVisibility(View.VISIBLE);
         processAudioInput();
-
-//        System.out.println("----- PRECONCATENATE -----");
-//        for(int i=0; i<note.size(); i++){
-//            System.out.println(note.get(i) + " - " + note_length.get(i));
-//        }
         concatenate();
-//        System.out.println("----- POSTCONCATENATE -----");
-//
-//        for(int i=0; i<note.size(); i++){
-//            System.out.println(note.get(i) + " - " + note_length.get(i));
-//        }
-        return null;
-//        return kMeans.kMeanController(fillCluster(note,note_length),keySignature);
-
+        return kMeans.main(fillCluster(note,note_length),keySignature);
     }
 
     public static ArrayList<ClusterNode> fillCluster(ArrayList<String> note, ArrayList<Integer> note_length){

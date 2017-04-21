@@ -12,7 +12,7 @@ import static com.darragh.musicalnotepad.MainActivity.myWebView;
 
 public class WebViewController extends Activity {
 
-    public static void disableWebView(){
+    public static void disableWebView(WebView myWebView){
         myWebView.loadUrl("about:blank");
     }
 
