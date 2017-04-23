@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MusicalNotepad</string>
+    <!--Firebase URL-->
+    <string name="songId">/songId/</string>
+    <string name="users">/users/</string>
+    <!--PitchDectector:-->
+    <string name="AudioDispatcher">Audio Dispatcher</string>
+    <!--Note values-->
+    <string name="C">C</string>
+
+    <!--Popup Menu-->
+    <string name="deleteEntry">Delete Entry</string>
+    <string name="displayEntry">Display Entry</string>
+    <string name="Timestamp">Timestamp</string>
+    <string name="timestamp">timestamp</string>
+    <string name="name">name</string>
 </resources>

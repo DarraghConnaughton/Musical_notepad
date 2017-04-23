@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="keysignatureArray">
+        <item>"CMajor"</item>
+        <item>"GMajor"</item>
+        <item>"DMajor"</item>
+        <item>"AMajor"</item>
+        <item>"EMajor"</item>
+        <item>"BMajor"</item>
+        <item>"FMajor"</item>
+        <item>"BbMajor"</item>
+        <item>"EbMajor"</item>
+        <item>"AbMajor"</item>
+        <item>"DbMajor"</item>
+    </string-array>
+
+    <string-array name="timesignatureArray">
+        <item>"4/4"</item>
+        <item>"2/4"</item>
+        <item>"3/4"</item>
+        <item>"5/4"</item>
+        <item>"3/8"</item>
+        <item>"6/8"</item>
+        <item>"9/8"</item>
+    </string-array>
+</resources>

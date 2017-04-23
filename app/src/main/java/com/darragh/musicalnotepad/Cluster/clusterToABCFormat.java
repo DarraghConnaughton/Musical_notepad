@@ -9,8 +9,10 @@ public class clusterToABCFormat {
     private static int barCounter;
     private static String potentialNaturalNote(KeySignature key, String note){
         for(String listNote: key.getNotes()){
-            if(note.substring(0,1).equals(listNote.substring(1,listNote.length()))){
-                return "=";
+            if(!listNote.equals("")){
+                if(note.substring(0,1).equals(listNote.substring(1,listNote.length()))){
+                    return "=";
+                }
             }
         }
         return "";
@@ -30,8 +32,8 @@ public class clusterToABCFormat {
         return "";
     }
 
-    public static String barLines(String noteProgression){
-        if(beatCounter>8){
+    public static String barLines(String noteProgression,int timesignature){
+        if(beatCounter>timesignature){
             return noteProgression+"|";
         }
         return "";
@@ -63,19 +65,23 @@ public class clusterToABCFormat {
         beatCounter+=length;
     }
 
-    private static String modifyNote(String note, int length){
-        return note.substring(0,note.length()-1)+length;
-    }
+//    private static String modifyNote(String note, int length){
+//        return note.substring(0,note.length()-1)+length;
+//    }
 
-    public static String formatCluster(ArrayList<ClusterNode> nodes, KeySignature key){
+    public static String formatCluster(ArrayList<ClusterNode> nodes, KeySignature key,int timesignature){
         String noteProgression = "";
         beatCounter=0;
+        System.out.println("TIMESIGNATURE: "+timesignature);
+
         for(ClusterNode node: nodes){
             incrementBeatCounter(node.cluster);
-            if(beatCounter>8){
+            System.out.println(node.note + " length -> " + node.cluster + "  beatCounter: " + beatCounter);
+            if(beatCounter>=timesignature){
+                System.out.println("Inside...");
                 barCounter++;
-                int excess_beats = beatCounter-8;
-                beatCounter = excess_beats-1;
+                int excess_beats = beatCounter-timesignature;
+                beatCounter = excess_beats;
                 int fill_bar = node.cluster-excess_beats;
                 if(excess_beats>0){
                     node.cluster=fill_bar;
@@ -84,6 +90,10 @@ public class clusterToABCFormat {
                     noteProgression = noteProgression + "|" + newLineCounter();
                     noteProgression = processNode(noteProgression,node,key,"",")");
                     beatCounter = excess_beats;
+                } else {
+                    noteProgression = processNode(noteProgression,node,key,"","");
+                    beatCounter=0;
+                    noteProgression = noteProgression + "|" + newLineCounter();
                 }
             }
             else {

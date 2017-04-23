@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.darragh.musicalnotepad.Cluster.ClusterNode;
 import com.darragh.musicalnotepad.Cluster.kMeans;
+import com.darragh.musicalnotepad.R;
 
 import java.util.ArrayList;
 
@@ -69,7 +70,6 @@ public class PitchDetector {
             if(i==0){
                 currentNote=list.get(i);
             } else if(!currentNote.equals(list.get(i))) {
-                System.out.println("Note change! " + list.get(i) + " - "+  currentLength);
                 if(currentLength>2){
                     note.add(currentNote);
                     note_length.add(currentLength);
@@ -84,17 +84,19 @@ public class PitchDetector {
         }
     }
 
-    public String stopRecording(TextView outputDisplay,KeySignature keySignature){
+    public String stopRecording(TextView outputDisplay,KeySignature keySignature, int timeSignature){
         dispatcher.stop();
         outputDisplay.setVisibility(View.VISIBLE);
         processAudioInput();
         concatenate();
-        return kMeans.main(fillCluster(note,note_length),keySignature);
+        if(note.size()>1){
+            return kMeans.main(fillCluster(note,note_length),keySignature,timeSignature);
+        }
+        return "";
     }
 
     public static ArrayList<ClusterNode> fillCluster(ArrayList<String> note, ArrayList<Integer> note_length){
         ArrayList<ClusterNode> clusterNodeArrayList = new ArrayList<ClusterNode>();
-        System.out.println("ClusterNode ArrayList<>");
         for(int i=0; i<note.size(); i++){
             clusterNodeArrayList.add(new ClusterNode(i,note_length.get(i),note.get(i)));
         }

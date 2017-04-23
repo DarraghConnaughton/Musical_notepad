@@ -29,16 +29,23 @@ import java.util.ArrayList;
 public class Fragment2 extends Fragment {
     public View RootView;
     private ListView listView;
+    private static String songId,users,Timestamp;
     public static FirebaseAuth firebaseAuth;
     public static DatabaseReference databaseReference;
     private final ArrayList<String> listEntriesName = new ArrayList<>();
     private final ArrayList<String> listEntriesID = new ArrayList<>();
 
+    private void instantiateVariables(){
+        songId=getResources().getString(R.string.songId);
+        users=getResources().getString(R.string.users);
+        Timestamp=getResources().getString(R.string.Timestamp);
+    }
+
     private void fillListEntries(DataSnapshot dataSnapshot){
-        Iterable<DataSnapshot> snap = dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("/songId/").getChildren();
+        Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(songId).getChildren();
         for(DataSnapshot data: snap){
-            listEntriesName.add(data.child("name").getValue().toString());
-            listEntriesID.add(data.child("timestamp").getValue().toString());
+            listEntriesName.add(data.child(getResources().getString(R.string.name)).getValue().toString());
+            listEntriesID.add(data.child(getResources().getString(R.string.timestamp)).getValue().toString());
         }
     }
 
@@ -46,11 +53,11 @@ public class Fragment2 extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                songFromJSON(dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("/songId/").child(listEntriesID.get(position)).getChildren());
+                songFromJSON(dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(songId).child(listEntriesID.get(position)).getChildren());
                 Intent intent = new Intent(getActivity().getApplicationContext(),songDisplay.class);
-                intent.putExtra("Timestamp",dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("/songId/").child(listEntriesID.get(position)).toString());
+                intent.putExtra(Timestamp,dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(songId).child(listEntriesID.get(position)).toString());
                 getActivity().finish();
                 startActivity(intent);
 
@@ -64,20 +71,20 @@ public class Fragment2 extends Fragment {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getTitle().equals("Delete Entry")){
+                if(item.getTitle().equals(getResources().getString(R.string.deleteEntry))){
                     Toast.makeText(getContext().getApplicationContext(), "DELETE!", Toast.LENGTH_SHORT).show();
-                    databaseReference.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .child("/songId/").child(listEntriesID.get(position)).setValue(null);
+                    databaseReference.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child(songId).child(listEntriesID.get(position)).setValue(null);
                     getActivity().finish();
                     startActivity(new Intent(getActivity().getApplicationContext(), PagerControl.class));
-                } else if(item.getTitle().equals("Display Entry")){
+                } else if(item.getTitle().equals(getResources().getString(R.string.displayEntry))){
                     Toast.makeText(getContext().getApplicationContext(), "Display!", Toast.LENGTH_SHORT).show();
-                    Iterable<DataSnapshot> snap = dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .child("/songId/").child(listEntriesID.get(position)).getChildren();
+                    Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child(songId).child(listEntriesID.get(position)).getChildren();
                     songFromJSON(snap);
                     Intent intent = new Intent(getActivity().getApplicationContext(),songDisplay.class);
-                    intent.putExtra("Timestamp",dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .child("/songId/").child(listEntriesID.get(position)).toString());
+                    intent.putExtra(Timestamp,dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child(songId).child(listEntriesID.get(position)).toString());
                     getActivity().finish();
                     startActivity(intent);
                 }
@@ -124,6 +131,7 @@ public class Fragment2 extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
         RootView = inflater.inflate(R.layout.databaseentries,container,false);
         instantiateView();
+        instantiateVariables();
         firebaseAuth = FirebaseAuth.getInstance();
         return RootView;
     }
@@ -131,7 +139,6 @@ public class Fragment2 extends Fragment {
     public Song songFromJSON(Iterable<DataSnapshot> dataSnapshot){
         Song song = new Song();
         for(DataSnapshot snap: dataSnapshot){
-            System.out.println(snap + " - " +snap.getValue());
             switch(snap.getKey()){
                 case "name" :
                     song.setName((String)snap.getValue());

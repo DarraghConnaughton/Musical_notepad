@@ -69,10 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void instantiateButtons() {
         stop = (Button) findViewById(R.id.stop);
-        play = (Button) findViewById(R.id.play);
         record = (Button) findViewById(R.id.record);
         pitchDetector = new PitchDetector();
-        outputDisplay = (TextView) findViewById(R.id.textArea);
+        outputDisplay = (TextView) findViewById(R.id.textView);
         outputDisplay.setVisibility(View.GONE);
         stop.setEnabled(false);
         play.setEnabled(false);

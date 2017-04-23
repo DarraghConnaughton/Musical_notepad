@@ -163,3 +163,13 @@ Goals from task #19 have been taken care of. I have decided to code kMeans Clust
 #21
 
 KMeans is complete and tested. I have completed the ABCFormatConverter. It handles any note length at the moment, maintaining the correct beat count for each bar. When the note carries over the bar, a tie has been introduced. This section has been tested as well. Minute problem however, Accidentals within the keySignature are not taken care of. This needs to be fixed. I was reading about Coefficient of Variation, which may come in handy as a second condition for determining the number of clusters. Short notes are not being represented as cleanly as I want. 
+
+#22
+
+Big update. I have taken care of natural notes. I have also implemented time signature, displayed via spinner on the frontend. This gives the user the option of a bundle of common time signatures. The beatcount remains consistent through each time signature. The name of the song is now entered from the frontend, not saving the song until a name has been entered. These new features have been tested as well. Lastly, I have refactored my code, placing hardcoded values in XML resources files. There is a few more I need to take care of, but I understand the concepts involved now anyways. 
+
+Moving forward, my primary focus is XML and display. These goals are provisional:
+
+* Drawer-Navigation bar: which gives the user the option to logout and View a profile information section. 
+* Profile information section: This will show the users email, name and potentially a picture. Considering placing a friendlist here too. 
+* XML Design throughout. 

@@ -14,7 +14,7 @@ public class Song {
         notes="";
         timeSignature="";
         keySignature="Emin";
-        L="";
+        L="1/8";
     }
     public Song(String sTimestamp, String sName){
         timestamp=sTimestamp;
@@ -22,7 +22,7 @@ public class Song {
         notes="";
         timeSignature="";
         keySignature="Emin";
-        L="";
+        L="1/8";
     }
     public Song(String sTimestamp, String sName, String sNotes){
         timestamp = sTimestamp;
@@ -30,7 +30,7 @@ public class Song {
         notes = sNotes;
         timeSignature="";
         keySignature="Emin";
-        L="";
+        L="1/8";
     }
     public Song(String sTimestamp, String sName, String sNotes, String sTimesignature){
         timestamp = sTimestamp;
@@ -38,7 +38,7 @@ public class Song {
         notes = sNotes;
         timeSignature = sTimesignature;
         keySignature="Emin";
-        L="";
+        L="1/8";
     }
     public Song(String sTimestamp, String sName, String sNotes, String sTimesignature, String sKeysignature){
         timestamp = sTimestamp;
@@ -46,7 +46,7 @@ public class Song {
         notes = sNotes;
         timeSignature = sTimesignature;
         keySignature=sKeysignature;
-        L="";
+        L="1/8";
     }
     public void setName(String sName){
         name = sName;

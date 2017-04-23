@@ -1,5 +1,6 @@
 package com.darragh.musicalnotepad;
 
+import com.darragh.musicalnotepad.Pagers.Fragment1;
 import com.darragh.musicalnotepad.Pitch_Detector.PitchDetector;
 
 import org.junit.Test;
@@ -40,14 +41,27 @@ public class PitchDetectorTest {
             "B","B",
             "C","C",
     };
-    @Test
-    public void recordAudio() throws Exception {
-
+//    @Test
+//    public void recordAudio() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void stopRecording() throws Exception {
+//
+//    }
+    public static int[] expectedOutput(){
+        int[] expected = {8,6,4,3,6,9};
+        return expected;
     }
 
     @Test
-    public void stopRecording() throws Exception {
-
+    public void getBeats(){
+        String[] testInput = {"4/4","3/4","2/4","3/8","6/8","9/8"};
+        int[] expected = expectedOutput();
+        for(int i=0; i<expected.length; i++){
+            assertEquals(expected[i], Fragment1.getBeats(testInput[i]));
+        }
     }
 
     public String[] assignOctave(String[] notes, int octave){

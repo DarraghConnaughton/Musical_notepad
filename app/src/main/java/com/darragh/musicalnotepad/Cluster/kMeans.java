@@ -192,7 +192,7 @@ public class kMeans {
         return aggregatedCluster;
     }
 
-    public static String main(ArrayList<ClusterNode> initClusterNodeSet, KeySignature keySignature){
+    public static String main(ArrayList<ClusterNode> initClusterNodeSet, KeySignature keySignature,int timesignature){
         initiateKMeans(initClusterNodeSet);
         iterateKMeans();
         int counter=0;
@@ -204,6 +204,6 @@ public class kMeans {
         for(ClusterNode node: clusterNodeSet){
             System.out.println(node.note + " length: " + node.length);
         }
-        return clusterToABCFormat.formatCluster(aggregateCluster(),keySignature);
+        return clusterToABCFormat.formatCluster(aggregateCluster(),keySignature,timesignature);
     }
 }
