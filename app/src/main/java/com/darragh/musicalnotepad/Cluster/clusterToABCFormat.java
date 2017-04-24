@@ -28,6 +28,16 @@ public class clusterToABCFormat {
                 return "3";
             case 4:
                 return "4";
+            case 5:
+                return "5";
+            case 6:
+                return "6";
+            case 7:
+                return "7";
+            case 8:
+                return "8";
+            case 9:
+                return "9";
         }
         return "";
     }
@@ -48,11 +58,13 @@ public class clusterToABCFormat {
     }
 
     private static String processNode(String noteProgression, ClusterNode node, KeySignature key,String leftBracket,String rightBracklet){
+        System.out.println("ProcessNode: " + node.note);
         if(node.note.equals("SPACE")){
             return noteProgression + leftBracket+ "z" + setNoteLength(node.cluster) + rightBracklet;
         }
         else{
             if(containsAccidental(node.note)){
+                System.out.println("Sort Accidental: " + sortAccidentals(key,node.note));
                 return noteProgression + leftBracket + sortOctave(sortAccidentals(key,node.note)) + setNoteLength(node.cluster) + rightBracklet;
             }
             else {
@@ -68,6 +80,16 @@ public class clusterToABCFormat {
 //    private static String modifyNote(String note, int length){
 //        return note.substring(0,note.length()-1)+length;
 //    }
+
+    public static String fillExcessSpace(int timesignature){
+        System.out.println(beatCounter + " -- TS: " + timesignature);
+        if(beatCounter<timesignature){
+            return "z" + setNoteLength(timesignature-beatCounter);
+        }
+        else {
+            return "";
+        }
+    }
 
     public static String formatCluster(ArrayList<ClusterNode> nodes, KeySignature key,int timesignature){
         String noteProgression = "";
@@ -101,7 +123,8 @@ public class clusterToABCFormat {
             }
         }
         System.out.println("noteProgression __> " + noteProgression);
-        return noteProgression + "|";
+        System.out.println("fillExcessSpace(timesignature) " + fillExcessSpace(timesignature));
+        return noteProgression + fillExcessSpace(timesignature) + "|";
     }
 
     public static String sortOctave(String note){
@@ -135,6 +158,6 @@ public class clusterToABCFormat {
     }
 
     private static boolean containsAccidental(String note){
-        return (note.substring(0,1).equals("^")||note.substring(0,1).equals("^"));
+        return (note.substring(0,1).equals("^")||note.substring(0,1).equals("_"));
     }
 }
