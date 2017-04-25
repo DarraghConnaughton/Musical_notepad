@@ -3,9 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
+    android:background="@color/databaseEntriesBackground"
     android:layout_height="match_parent">
     <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/linear">
 
@@ -17,11 +19,12 @@
 
     </LinearLayout>
 
-    <!--Navigation Bar Contents-->
+    <!--Navigation Bar Contents-->s
     <ListView
         android:id="@+id/navList"
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
-        android:background="#ffeeeeee"/>
+        android:textColor="@color/databaseEntriesBackground"
+        android:background="@color/navigationBarBackground"/>
 </android.support.v4.widget.DrawerLayout>

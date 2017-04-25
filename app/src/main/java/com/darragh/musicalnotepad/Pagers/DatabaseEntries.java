@@ -120,7 +120,9 @@ public class DatabaseEntries extends AppCompatActivity {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 fillListEntries(dataSnapshot);
-                listView.setAdapter(new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,listEntriesName));
+                ArrayAdapter adapter2 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listEntriesName);
+                listView.setAdapter(adapter2);
+
                 normalClick(dataSnapshot);
                 longClick(dataSnapshot);
             }
@@ -132,7 +134,6 @@ public class DatabaseEntries extends AppCompatActivity {
 
     private void instantiateView(){
         listView = (ListView) findViewById(R.id.list);
-        listView.setClickable(true);
         firebaseController();
     }
 

@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#b90808</color>
     <color name="colorAccent">#e51717</color>
     <color name="statusBarColor">#b20909</color>
+    <color name="navigationBarBackground">#ff8700</color>
+    <color name="databaseEntriesBackground">#cbced3</color>
 </resources>

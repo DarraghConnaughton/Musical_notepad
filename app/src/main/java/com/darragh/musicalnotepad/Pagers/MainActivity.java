@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case 2:
                 firebaseAuth.getInstance().signOut();
-                firebaseAuth.getCurrentUser().reload();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                firebaseAuth.getCurrentUser().reload();
                 break;
         }
     }
