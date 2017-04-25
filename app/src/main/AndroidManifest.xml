@@ -29,8 +29,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login_Register.SignIn"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Pagers.PagerControl"></activity>
+        <activity android:name=".Pagers.MainActivity"></activity>
+        <activity android:name=".Pagers.DatabaseEntries"></activity>
         <activity android:name=".Pagers.songDisplay"></activity>
     </application>
 

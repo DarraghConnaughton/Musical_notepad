@@ -8,10 +8,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 
+import com.darragh.musicalnotepad.*;
 import com.darragh.musicalnotepad.Modules.JavaScriptInterface;
 import com.darragh.musicalnotepad.Modules.WebViewController;
 import com.darragh.musicalnotepad.Pitch_Detector.Song;
-import com.darragh.musicalnotepad.R;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,13 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by darragh on 01/04/17.
- * */
-
 public class songDisplay extends AppCompatActivity {
     private WebView myWebView;
-    private View view;
     public static DatabaseReference databaseReference;
 
     @Override
@@ -36,25 +31,19 @@ public class songDisplay extends AppCompatActivity {
         final Intent intent = getIntent();
         setContentView(R.layout.songdisplay);
         myWebView = (WebView) findViewById(R.id.webView);
-
+        System.out.println("TIMESTAMP: " + intent.getStringExtra("Timestamp"));
         Button back = (Button) findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),PagerControl.class);
-                intent.putExtra("previousPage","SongDisplay");
                 finish();
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
             }
         });
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("--------------------------------");
-                System.out.println("--------------------------------");
-                System.out.println("--------------------------------");
-//                System.out.println(myWebView.getRootView());
                 WebViewController.enableWebView(songFromJSON(dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("/songId/").child(intent.getStringExtra("Timestamp")).getChildren()),
                          getApplicationContext(),myWebView);
             }
@@ -62,7 +51,6 @@ public class songDisplay extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError){}
         });
-//        enableWebView(intent.getStringExtra("Timestamp"));
     }
 
     public Song songFromJSON(Iterable<DataSnapshot> dataSnapshot){
@@ -90,7 +78,6 @@ public class songDisplay extends AppCompatActivity {
                     break;
             }
         }
-        System.out.println("SONG!");
         song.printDetails();
         return song;
     }

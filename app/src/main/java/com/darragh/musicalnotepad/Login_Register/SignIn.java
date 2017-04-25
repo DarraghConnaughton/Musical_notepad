@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.darragh.musicalnotepad.Pagers.PagerControl;
+import com.darragh.musicalnotepad.Pagers.MainActivity;
 import com.darragh.musicalnotepad.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -110,9 +110,9 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = firebaseAuth.getInstance();
 
-//        if(firebaseAuth.getCurrentUser() != null){
-//            startActivity(new Intent(this, MainActivity.class));
-//        }
+        if(firebaseAuth.getCurrentUser() != null){
+            startActivity(new Intent(this, MainActivity.class));
+        }
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -143,7 +143,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                             if(!dataSnapshot.child("users").child(googleUID).exists()){
                                 writeNewUser(googleUID,googleUsername,googleEmail);
                             }
-                                startActivity(new Intent(getApplicationContext(), PagerControl.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         }
 
@@ -190,7 +190,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                             finish();
                             Toast.makeText(SignIn.this, "Successful login.",
                                     Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), PagerControl.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
                             Toast.makeText(SignIn.this, "Error login in",
                                     Toast.LENGTH_SHORT).show();

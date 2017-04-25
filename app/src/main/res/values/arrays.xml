@@ -24,4 +24,10 @@
         <item>"6/8"</item>
         <item>"9/8"</item>
     </string-array>
+
+    <string-array name="navigationOptions">
+        <item>"Record Audio"</item>
+        <item>"Database Entries"</item>
+        <item>"Logout"</item>
+    </string-array>
 </resources>

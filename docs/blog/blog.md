@@ -173,3 +173,10 @@ Moving forward, my primary focus is XML and display. These goals are provisional
 * Drawer-Navigation bar: which gives the user the option to logout and View a profile information section. 
 * Profile information section: This will show the users email, name and potentially a picture. Considering placing a friendlist here too. 
 * XML Design throughout. 
+
+#23
+
+I decided to get rid of the pager-fragment implementation. It was extremely difficult to operate the drawer-navigation bar in tandem with the fragments. Both rely on touch input, and fragment had a high precedence. I have a nagivation bar that connects you to record audio, database entries and logout. These all work, except for logout currently. This shouldn't be a problem, just a bit of tweeking is needed. The design can be updated as well, but I am happy with it currently. I had to refactor my code aswell, as a standard activity differs from a fragment activity, nothing too difficult however.
+
+* Fix logout button.
+
