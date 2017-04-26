@@ -180,3 +180,13 @@ I decided to get rid of the pager-fragment implementation. It was extremely diff
 
 * Fix logout button.
 
+#24
+
+I have introduced a UserProfile page and a Friend finder that allows you to search database for other users. Code isn't working at the moment. I need to create /songId/ and /Friend Requests/ in same directory, then on request save the users UID in this folder. 
+
+* Add two directories.
+* Put a user request in incoming requests on the recipents side. 
+* Create a popup, if you accept: Added to database, given a flag indicating which user it is from.
+
+
+

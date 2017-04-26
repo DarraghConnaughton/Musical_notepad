@@ -19,7 +19,7 @@
 
     </LinearLayout>
 
-    <!--Navigation Bar Contents-->s
+    <!--Navigation Bar Contents-->
     <ListView
         android:id="@+id/navList"
         android:layout_width="200dp"

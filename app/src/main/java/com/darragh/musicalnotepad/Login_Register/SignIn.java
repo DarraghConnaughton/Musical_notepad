@@ -93,6 +93,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
+
                 googleUsername = account.getDisplayName();
                 googleEmail = account.getEmail();
                 firebaseAuthWithGoogle(account);

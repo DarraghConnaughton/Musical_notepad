@@ -22,4 +22,14 @@
     <string name="recordAudio">"Record Audio"</string>
     <string name="DatabaseEntries">"Database Entries"</string>
     <string name="Logout">"Logout"</string>
+
+    <string name="userName">"User Name"</string>
+
+
+    <string name="emailAddress">"Email Address: "</string>
+    <string name="countDatabase">"Number of Database Entries: "</string>
+
+
+    <string name="FindFriends">"Find Friends"</string>
+    <string name="enterEmail">"Search by Email Address:  "</string>
 </resources>

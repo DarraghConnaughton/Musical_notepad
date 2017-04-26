@@ -1,16 +1,15 @@
 package com.darragh.musicalnotepad.Pagers;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -37,6 +36,8 @@ public class DatabaseEntries extends AppCompatActivity {
     public static DatabaseReference databaseReference;
     private final ArrayList<String> listEntriesName = new ArrayList<>();
     private final ArrayList<String> listEntriesID = new ArrayList<>();
+    private final ArrayList<String> listEntriesTimesignature = new ArrayList<>();
+    private final ArrayList<String> listEntriesKeysignature = new ArrayList<>();
     private ActionBarDrawerToggle drawerToggle;
     private String activityTitle;
     private String[] navigationOptions;
@@ -56,6 +57,8 @@ public class DatabaseEntries extends AppCompatActivity {
         for(DataSnapshot data: snap){
             listEntriesName.add(data.child(getResources().getString(R.string.name)).getValue().toString());
             listEntriesID.add(data.child(getResources().getString(R.string.timestamp)).getValue().toString());
+            listEntriesKeysignature.add(data.child("/keySignature/").getValue().toString());
+            listEntriesTimesignature.add(data.child("/timeSignature/").getValue().toString());
         }
     }
 
@@ -120,7 +123,7 @@ public class DatabaseEntries extends AppCompatActivity {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 fillListEntries(dataSnapshot);
-                ArrayAdapter adapter2 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listEntriesName);
+                SongListAdapter adapter2 = new SongListAdapter(getApplicationContext(), listEntriesName, listEntriesTimesignature, listEntriesKeysignature);
                 listView.setAdapter(adapter2);
 
                 normalClick(dataSnapshot);
@@ -171,7 +174,14 @@ public class DatabaseEntries extends AppCompatActivity {
             }
         });
         addDrawerItems();
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+        }
     }
+
+//    @Override
+//    public boolean onOptionsItemSelected
 
     @Nullable
     @Override

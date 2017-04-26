@@ -28,6 +28,8 @@
     <string-array name="navigationOptions">
         <item>"Record Audio"</item>
         <item>"Database Entries"</item>
+        <item>"User Profile"</item>
+        <item>"Find Friend"</item>
         <item>"Logout"</item>
     </string-array>
 </resources>

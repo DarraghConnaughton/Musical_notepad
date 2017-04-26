@@ -86,10 +86,18 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
                 break;
             case 2:
+                finish();
+                startActivity(new Intent(getApplicationContext(), UserProfile.class));
+                break;
+            case 3:
+                finish();
+                startActivity(new Intent(getApplicationContext(), FindFriend.class));
+                break;
+            case 4:
                 firebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                firebaseAuth.getCurrentUser().reload();
                 break;
+
         }
     }
 
@@ -268,6 +276,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
             if(namedSong()){
+                System.out.println("INSIDE NAMED SONG");
                 saveSong();
                 finish();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
