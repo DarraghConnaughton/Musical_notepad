@@ -65,21 +65,10 @@ public class UserProfile extends AppCompatActivity {
         emailAddress.setText(getResources().getString(R.string.emailAddress).toString() + firebaseUser.getEmail());
         changeUserName.setText(firebaseUser.getDisplayName());
         for(UserInfo profile : firebaseUser.getProviderData()){
-//            profileImage.setImageURI(profile.getPhotoUrl());
-//            emailAddress.setText(profile.getEmail());
-            System.out.println("Image -> " + profile.getPhotoUrl());
-//            setProfileImage(profile.getPhotoUrl());
             Picasso.with(this).load(profile.getPhotoUrl()+"?sz=500").into(profileImage);
-//            profileImage.setImageURI(profile.getPhotoUrl());
-            System.out.println(profile.getEmail());
             changeUserName.setText(profile.getDisplayName());
         }
         userName.setText(getResources().getString(R.string.userName));
         setDatabaseCount();
     }
-
-//    private void setProfileImage(String photoURL) throws IOException{
-//        Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(photoURL).getContent());
-//        profileImage/
-//    }
 }

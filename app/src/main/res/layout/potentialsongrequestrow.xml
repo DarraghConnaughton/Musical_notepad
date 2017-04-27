@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ImageButton
+        android:layout_width="84dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/sym_def_app_icon"
+        android:id="@+id/imageButton" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:gravity="center_vertical"
+            android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+            android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:textColor="@color/navigationBarBackground"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/key"
+                android:text="@string/app_name"
+                android:paddingLeft="15dp"
+                android:layout_width="160dp"
+                android:layout_height="43dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/time"
+                android:text="@string/app_name"
+                android:layout_width="161dp"
+                android:layout_height="43dp"
+                android:layout_weight="1">
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

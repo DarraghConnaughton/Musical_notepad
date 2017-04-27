@@ -188,5 +188,16 @@ I have introduced a UserProfile page and a Friend finder that allows you to sear
 * Put a user request in incoming requests on the recipents side. 
 * Create a popup, if you accept: Added to database, given a flag indicating which user it is from.
 
+#25 
+
+Problem fixed. I have added those two directories plus 2 more. You can add friends now. This is a two part process; firstly you send a request to the user which is stored in the FriendRequest folder within their userprofile. In tandem, another folder called PendingFriendRequest stores an identical copy of the request. Permission on the Firebase database needed to be modified to allow a user to write to a directory on another users account. I created an personalised Array adapter that displays PendingFriendRequests. I implemented a friendsList, allowing you to see all your currently held friends. 
+
+You can now successfull send songs to a friend. Data transfer is similar to approach above. Custom ArrayAdapter have been generated to care for the ListView. Selection of the data you wish to share is done through a popup Dialog. Here are a handful of my goals moving forward:
+
+* Accept song, story in database. Two separate lists?
+* Set user profile picture on the new songs. 
+* Modify Adapters to make them response to button.onClick(). 
+* Discover bug with Dads phone. 
+
 
 

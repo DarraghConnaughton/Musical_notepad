@@ -94,6 +94,18 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(), FindFriend.class));
                 break;
             case 4:
+                finish();
+                startActivity(new Intent(getApplicationContext(), FriendRequest.class));
+                break;
+            case 5:
+                finish();
+                startActivity(new Intent(getApplicationContext(), FriendList.class));
+                break;
+            case 6:
+                finish();
+                startActivity(new Intent(getApplicationContext(), songRequestList.class));
+                break;
+            case 7:
                 firebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;

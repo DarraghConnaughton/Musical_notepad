@@ -6,6 +6,7 @@ package com.darragh.musicalnotepad.Pitch_Detector;
 
 public class Song {
     private static String name, notes, timestamp, timeSignature, keySignature, L;
+    public static  String profilePhoto,sender;
 
     public Song(){}
     public Song(String sTimestamp){
@@ -66,9 +67,11 @@ public class Song {
     public void setL(String sL){
         L = sL;
     }
+
     public void printDetails(){
         System.out.println(name + "\n" + notes + "\n" + timestamp + "\n" + timeSignature + "\n" + keySignature + "\n" + L);
     }
+    public String getProfilePhoto(){return profilePhoto;}
     public String getTimestamp(){
         return timestamp;
     }
@@ -86,5 +89,8 @@ public class Song {
     }
     public String getL(){
         return L;
+    }
+    public String getSender(){
+        return sender;
     }
 }

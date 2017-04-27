@@ -30,6 +30,9 @@
         <item>"Database Entries"</item>
         <item>"User Profile"</item>
         <item>"Find Friend"</item>
+        <item>"Friend Requests"</item>
+        <item>"Friend List"</item>
+        <item>"Pending Songs"</item>
         <item>"Logout"</item>
     </string-array>
 </resources>

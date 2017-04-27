@@ -1,13 +1,10 @@
 package com.darragh.musicalnotepad.Login_Register;
 
-/**
- * Created by darragh on 03/03/17.
- */
+import android.net.Uri;
 
 public class User {
 
-    public String username;
-    public String email;
+    public String username,email,profilePhoto;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)

@@ -12,11 +12,13 @@ import android.widget.TextView;
 import com.darragh.musicalnotepad.Login_Register.User;
 import com.darragh.musicalnotepad.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +28,7 @@ import java.util.Map;
  * Created by darragh on 26/04/17.
  */
 
-public class FriendListAdapter extends  ArrayAdapter{
+public class FriendListAdapter extends ArrayAdapter{
      private final Context context;
         private final ArrayList<UserProfileDetails> users;
 
@@ -43,32 +45,24 @@ public class FriendListAdapter extends  ArrayAdapter{
             this.context = _context;
         }
 
-        private boolean containsDirectory(DataSnapshot dataSnapshot){
-            if(dataSnapshot.child(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance().getCurrentUser()
-                    .getUid()).child("/FriendRequests/").exists()){
-                return true;
-            }
-            else {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-//                Map<String,Object> friendRequest = new HashMap<>();
-//                databaseReference.child(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance().getCurrentUser()
-//                        .getUid()).setValue("/FriendRequests/");
-                return true;
-
-            }
-        }
-
-        private void sendFriendRequest(final String UID){
+        private void sendFriendRequest(final String UID, final String userName){
             final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(final DataSnapshot dataSnapshot) {
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
                     Map<String,Object> map = new HashMap<>();
-                    if(containsDirectory(dataSnapshot)){
-                        map.put(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance().getCurrentUser()
-                                .getUid()+"/FriendRequest/",UID);
-                        databaseReference.updateChildren(map);
-                    }
+                    map.put(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance().getCurrentUser()
+                            .getUid()+"/pendingFriendRequest/"+UID +"/",userName);
+//                    databaseReference.updateChildren(map);
+                    System.out.println(getContext().getResources().getString(R.string.users)+UID+"/FriendRequest/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()
+                            +"/");
+                    System.out.println(firebaseUser.getDisplayName());
+                    map.put(getContext().getResources().getString(R.string.users)+UID+"/FriendRequest/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()
+                            +"/","1");
+                    databaseReference.updateChildren(map);
+
 
                 }
 
@@ -81,7 +75,7 @@ public class FriendListAdapter extends  ArrayAdapter{
             addFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sendFriendRequest(users.get(position).UID);
+                    sendFriendRequest(users.get(position).UID,users.get(position).userName);
                     System.out.println(users.get(position).userName);
                 }
             });
@@ -94,6 +88,7 @@ public class FriendListAdapter extends  ArrayAdapter{
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.friendrow, parent, false);
             profilePicture = (ImageView) rowView.findViewById(R.id.imageView);
+            Picasso.with(getContext()).load(users.get(position).profileImageUri+"?sz=65").into(profilePicture);
             searchName = (TextView) rowView.findViewById(R.id.searchName);
             searchEmail = (TextView) rowView.findViewById(R.id.searchEmail);
             addFriend = (Button) rowView.findViewById(R.id.AddFriend);

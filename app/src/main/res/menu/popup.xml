@@ -4,6 +4,9 @@
         android:id="@+id/displayEntry"
         android:title="Display Entry"/>
     <item
+        android:id="@+id/shareEntry"
+        android:title="Share with a friend"/>
+    <item
         android:id="@+id/deleteEntry"
         android:title="Delete Entry"/>
 </menu>

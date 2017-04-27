@@ -2,6 +2,7 @@ package com.darragh.musicalnotepad.Login_Register;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,11 +28,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by darragh on 03/03/17.
@@ -50,17 +55,29 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
     private static final int RC_SIGN_IN = 9001;
     private static DatabaseReference databaseReference;
     private static String googleUID, googleUsername, googleEmail;
+    private Uri profilePhoto;
+
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+
+
     public void writeNewUser(String uid, String username, String email){
         User user = new User(username,email);
-        databaseReference.child("users").setValue(uid);
-        databaseReference.child("users").child(uid).setValue(user);
-
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        for(UserInfo profile: firebaseUser.getProviderData()){
+            profilePhoto = profile.getPhotoUrl();
+        }
+        user.profilePhoto=profilePhoto.toString();
+        Map<String, Object> map = new HashMap<>();
+        map.put(getResources().getString(R.string.users)+uid,user);
+        databaseReference.updateChildren(map);
+//        databaseReference.child("users").setValue(uid);
+//        databaseReference.child("users").child(uid).setValue(user);
     }
 
 
@@ -75,6 +92,10 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             googleUID = task.getResult().getUser().getUid();
+                            System.out.println("***********************");
+                            System.out.println("*************************");
+                            System.out.println(task.getResult().getUser().getPhotoUrl());
+                            System.out.println(task.getResult().getUser().getPhotoUrl());
                             Toast.makeText(SignIn.this, "Successful login",
                                     Toast.LENGTH_SHORT).show();
                         }

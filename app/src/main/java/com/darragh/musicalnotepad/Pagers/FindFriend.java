@@ -71,19 +71,33 @@ public class FindFriend extends AppCompatActivity{
         });
     }
 
+    private boolean notMe(String uid){
+        return !uid.equals(FirebaseAuth.getInstance().getCurrentUser()
+                .getUid());
+    }
+
     private ArrayList<UserProfileDetails> gatherUsers(DataSnapshot dataSnapshot, String searchQuery){
         ArrayList<UserProfileDetails> usersFound = new ArrayList<>();
         Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).getChildren();
         for(DataSnapshot data: snap){
-//            System.out.println(data.getKey());
-            if(containsSubstring(searchQuery,data.child("username").getValue().toString())
-                    || containsSubstring(searchQuery,data.child("email").getValue().toString())){
-                System.out.println(data.child("username").getValue());
-                System.out.println(data.child("email").getValue());
-                usersFound.add(new UserProfileDetails(data.child("username").getValue().toString(),
-                        data.child("email").getValue().toString(),
-                        data.getKey().toString()));
+            if(notMe(data.getKey())){
+                if(containsSubstring(searchQuery,data.child("username").getValue().toString()) || containsSubstring(searchQuery,data.child("email").getValue().toString())){
+                    if(data.child("/profilePhoto/").exists()){
+                        usersFound.add(new UserProfileDetails(
+                                data.child("username").getValue().toString(),
+                                data.child("email").getValue().toString(),
+                                data.getKey().toString(),
+                                data.child("/profilePhoto/").getValue().toString()));
+                    }
+                    else {
+                        usersFound.add(new UserProfileDetails(
+                                data.child("username").getValue().toString(),
+                                data.child("email").getValue().toString(),
+                                data.getKey().toString()));
+                    }
+                }
             }
+
         }
         return usersFound;
     }

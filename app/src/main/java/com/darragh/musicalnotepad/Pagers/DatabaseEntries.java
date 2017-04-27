@@ -1,5 +1,7 @@
 package com.darragh.musicalnotepad.Pagers;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +34,7 @@ import java.util.ArrayList;
 
 public class DatabaseEntries extends AppCompatActivity {
     private ListView listView;
-    private static String songId,users,Timestamp;
+    private static String songId,users,Timestamp,profilePhoto;
     public static FirebaseAuth firebaseAuth;
     public static DatabaseReference databaseReference;
     private final ArrayList<String> listEntriesName = new ArrayList<>();
@@ -40,10 +43,12 @@ public class DatabaseEntries extends AppCompatActivity {
     private final ArrayList<String> listEntriesKeysignature = new ArrayList<>();
     private ActionBarDrawerToggle drawerToggle;
     private String activityTitle;
-    private String[] navigationOptions;
+    private String[] navigationOptions, emailArray;
     private static ArrayAdapter<String> adapter;
     private static ListView drawerList;
+
     private DrawerLayout drawerLayout;
+    private ArrayList<UserProfileDetails> listDetails;
 
 
     private void instantiateVariables(){
@@ -78,6 +83,137 @@ public class DatabaseEntries extends AppCompatActivity {
         });
     }
 
+//    private void createFriendSelectionDialog(){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle(R.string.dialog_title);
+//
+//        builder.setPositiveButton(R.string.share, new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                // User clicked OK button
+//                System.out.println(listEntriesID.get(id));
+//            }
+//        });
+//        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                // User cancelled the dialog
+//            }
+//        });
+//        AlertDialog dialog = builder.create();
+//    }
+
+    private String[] getEmailAddresses(ArrayList<UserProfileDetails> listDetails){
+        System.out.println(listDetails.size());
+        String[] emails = new String[listDetails.size()];
+        for(int i=0; i<listDetails.size(); i++){
+            emails[i] = listDetails.get(i).emailAddress;
+        }
+        return emails;
+    }
+
+    private void setProfilePhoto(DataSnapshot data){
+        System.out.println();
+        if(data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
+            profilePhoto = data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").getValue().toString();
+        }
+    }
+
+    public ArrayList<UserProfileDetails> gatherUsers(DataSnapshot dataSnapshot){
+        setProfilePhoto(dataSnapshot);
+        ArrayList<UserProfileDetails> usersFound = new ArrayList<>();
+        Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("/FriendList/").getChildren();
+        for(DataSnapshot data: snap){
+            if(dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("/profilePhoto/").exists()){
+                usersFound.add(new UserProfileDetails(
+                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
+                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
+                        data.getKey(),
+                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("/profilePhoto/").getValue().toString()));
+            }
+            else {
+                usersFound.add(new UserProfileDetails(
+                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
+                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
+                        data.getKey()));
+            }
+        }
+        return usersFound;
+    }
+
+    private ArrayList<String> selectedFriends(ArrayList<Integer> mSelectedItems,ArrayList<UserProfileDetails> listDetails){
+        ArrayList<String> selectedFriends = new ArrayList<>();
+
+        for(int x: mSelectedItems){
+            selectedFriends.add(listDetails.get(x).UID);
+        }
+        return selectedFriends;
+
+    }
+
+    private void getFriendsList(final Iterable<DataSnapshot> snap){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                onCreateDialog(gatherUsers(dataSnapshot),snap);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){}
+        });
+    }
+
+    public void onCreateDialog(final ArrayList<UserProfileDetails> listDetails, final Iterable<DataSnapshot> snap) {
+        // Where we track the selected items
+        final ArrayList<Integer> mSelectedItems = new ArrayList<>();
+        AlertDialog.Builder builder = new AlertDialog.Builder(DatabaseEntries.this);
+        String[] entries = getEmailAddresses(listDetails);
+        for(String e: entries){
+            System.out.println(e);
+        }
+        // Set the dialog title
+        builder.setTitle(R.string.dialog_title)
+                // Specify the list array, the items to be selected by default (null for none),
+                // and the listener through which to receive callbacks when items are selected
+                .setMultiChoiceItems(entries, null,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which,
+                                                boolean isChecked) {
+                                if (isChecked) {
+                                    // If the user checked the item, add it to the selected items
+                                    mSelectedItems.add(which);
+                                } else if (mSelectedItems.contains(which)) {
+                                    // Else, if the item is already in the array, remove it
+                                    mSelectedItems.remove(Integer.valueOf(which));
+                                }
+                            }
+                        })
+                // Set the action buttons
+                .setPositiveButton(R.string.share, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK, so save the mSelectedItems results somewhere
+                        // or return them to the component that opened the dialog
+                        System.out.println("----Before SongSharer------------------");
+                        for(String x: selectedFriends(mSelectedItems,listDetails)){
+                            System.out.println("****** Value: " + x);
+                        }
+                        System.out.println("----------------------");
+
+                        SongSharer.shareSong(songFromJSON(snap),selectedFriends(mSelectedItems,listDetails));
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+
+        builder.create();
+        builder.show();
+    }
+
     private void generatePopupMenu(View view, final int position, final DataSnapshot dataSnapshot){
         PopupMenu popupMenu = new PopupMenu(getApplicationContext(),view);
         popupMenu.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
@@ -90,7 +226,8 @@ public class DatabaseEntries extends AppCompatActivity {
                             .child(songId).child(listEntriesID.get(position)).setValue(null);
                     finish();
                     startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
-                } else if(item.getTitle().equals(getResources().getString(R.string.displayEntry))){
+                }
+                else if(item.getTitle().equals(getResources().getString(R.string.displayEntry))){
                     Toast.makeText(getApplicationContext(), "Display!", Toast.LENGTH_SHORT).show();
                     Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child(songId).child(listEntriesID.get(position)).getChildren();
@@ -101,6 +238,14 @@ public class DatabaseEntries extends AppCompatActivity {
                     finish();
                     startActivity(intent);
                 }
+                else if(item.getTitle().equals(getResources().getString(R.string.shareEntry))) {
+                    Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child(songId).child(listEntriesID.get(position)).getChildren();
+                    System.out.println("OnCreate Dialog:");
+                    getFriendsList(snap);
+                }
+                System.out.println("SELECTED FRIENDS");
+
                 return true;
             }
         });
@@ -219,7 +364,6 @@ public class DatabaseEntries extends AppCompatActivity {
                     break;
             }
         }
-        song.printDetails();
         return song;
     }
 }

@@ -11,6 +11,8 @@
     <!--Popup Menu-->
     <string name="deleteEntry">Delete Entry</string>
     <string name="displayEntry">Display Entry</string>
+    <string name="shareEntry">Share with a friend</string>
+
     <string name="Timestamp">Timestamp</string>
     <string name="timestamp">timestamp</string>
     <string name="name">name</string>
@@ -32,4 +34,13 @@
 
     <string name="FindFriends">"Find Friends"</string>
     <string name="enterEmail">"Search by Email Address:  "</string>
+
+    <string name="Accept">"Accept"</string>
+    <string name="Decline">"Decline"</string>
+
+    <!--<string name="dialog_message">"Choose a friend:"</string>-->
+    <string name="dialog_title">"Choose a friend:"</string>
+
+    <string name="share">Share</string>
+    <string name="cancel">Cancel</string>
 </resources>
