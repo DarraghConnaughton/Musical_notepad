@@ -52,6 +52,10 @@ public class FriendRequest extends AppCompatActivity{
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 listDetails = gatherUsers(dataSnapshot);
                 FriendRequestListAdapter potentialFriendList = new FriendRequestListAdapter(getApplicationContext(),listDetails);
+                for(UserProfileDetails x: listDetails){
+                    System.out.println(x.userName + " - " + x.UID);
+                }
+
                 listView.setAdapter(potentialFriendList);
             }
 

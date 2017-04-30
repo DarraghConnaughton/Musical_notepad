@@ -41,7 +41,8 @@ public class DatabaseEntries extends AppCompatActivity {
     private final ArrayList<String> listEntriesID = new ArrayList<>();
     private final ArrayList<String> listEntriesTimesignature = new ArrayList<>();
     private final ArrayList<String> listEntriesKeysignature = new ArrayList<>();
-    private ActionBarDrawerToggle drawerToggle;
+    private final ArrayList<String> listEntriesTimestamp = new ArrayList<>();
+    private final ArrayList<String> listEntriesProfilePhoto = new ArrayList<>();
     private String activityTitle;
     private String[] navigationOptions, emailArray;
     private static ArrayAdapter<String> adapter;
@@ -60,10 +61,21 @@ public class DatabaseEntries extends AppCompatActivity {
     private void fillListEntries(DataSnapshot dataSnapshot){
         Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(songId).getChildren();
         for(DataSnapshot data: snap){
+            System.out.println("Snap: " + snap);
+            System.out.println(data.child(getResources().getString(R.string.name)).getValue().toString());
+            System.out.println(data.child(getResources().getString(R.string.name)).getValue().toString());
+            System.out.println(data.child(data.child(getResources().getString(R.string.timestamp)).getValue().toString()));
             listEntriesName.add(data.child(getResources().getString(R.string.name)).getValue().toString());
             listEntriesID.add(data.child(getResources().getString(R.string.timestamp)).getValue().toString());
             listEntriesKeysignature.add(data.child("/keySignature/").getValue().toString());
             listEntriesTimesignature.add(data.child("/timeSignature/").getValue().toString());
+            listEntriesTimestamp.add(data.getKey());
+            if(data.child("/profilePhoto/").exists()){
+                listEntriesProfilePhoto.add(data.child("/profilePhoto/").getValue().toString());
+            }
+            else {
+                listEntriesProfilePhoto.add("1");
+            }
         }
     }
 
@@ -74,8 +86,8 @@ public class DatabaseEntries extends AppCompatActivity {
                 songFromJSON(dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .child(songId).child(listEntriesID.get(position)).getChildren());
                 Intent intent = new Intent(getApplicationContext(),songDisplay.class);
-                intent.putExtra(Timestamp,dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child(songId).child(listEntriesID.get(position)).toString());
+                intent.putExtra(Timestamp,listEntriesID.get(position));
+                intent.putExtra("Directory",users);
                 finish();
                 startActivity(intent);
 
@@ -111,31 +123,28 @@ public class DatabaseEntries extends AppCompatActivity {
     }
 
     private void setProfilePhoto(DataSnapshot data){
-        System.out.println();
+        System.out.println("SetProfilePhoto");
+
+        System.out.println(data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists());
         if(data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
             profilePhoto = data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").getValue().toString();
         }
+        System.out.println("Profile Photo: " + profilePhoto);
     }
 
     public ArrayList<UserProfileDetails> gatherUsers(DataSnapshot dataSnapshot){
         setProfilePhoto(dataSnapshot);
+        System.out.println(dataSnapshot);
         ArrayList<UserProfileDetails> usersFound = new ArrayList<>();
         Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("/FriendList/").getChildren();
         for(DataSnapshot data: snap){
-            if(dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("/profilePhoto/").exists()){
-                usersFound.add(new UserProfileDetails(
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
-                        data.getKey(),
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("/profilePhoto/").getValue().toString()));
-            }
-            else {
-                usersFound.add(new UserProfileDetails(
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
-                        data.getKey()));
-            }
+            System.out.println(dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()));
+            System.out.println("Key: "+ data.getKey());
+            usersFound.add(new UserProfileDetails(
+                    dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
+                    dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
+                    data.getKey()));
         }
         return usersFound;
     }
@@ -195,13 +204,7 @@ public class DatabaseEntries extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK, so save the mSelectedItems results somewhere
                         // or return them to the component that opened the dialog
-                        System.out.println("----Before SongSharer------------------");
-                        for(String x: selectedFriends(mSelectedItems,listDetails)){
-                            System.out.println("****** Value: " + x);
-                        }
-                        System.out.println("----------------------");
-
-                        SongSharer.shareSong(songFromJSON(snap),selectedFriends(mSelectedItems,listDetails));
+                        SongSharer.shareSong(songFromJSON(snap),selectedFriends(mSelectedItems,listDetails),profilePhoto);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -233,8 +236,8 @@ public class DatabaseEntries extends AppCompatActivity {
                             .child(songId).child(listEntriesID.get(position)).getChildren();
                     songFromJSON(snap);
                     Intent intent = new Intent(getApplicationContext(),songDisplay.class);
-                    intent.putExtra(Timestamp,dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .child(songId).child(listEntriesID.get(position)).toString());
+                    intent.putExtra(Timestamp,listEntriesID.get(position));
+                    intent.putExtra("Directory",users);
                     finish();
                     startActivity(intent);
                 }
@@ -268,7 +271,10 @@ public class DatabaseEntries extends AppCompatActivity {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 fillListEntries(dataSnapshot);
-                SongListAdapter adapter2 = new SongListAdapter(getApplicationContext(), listEntriesName, listEntriesTimesignature, listEntriesKeysignature);
+                SongArrayObject songArray = new SongArrayObject(listEntriesName, listEntriesID,listEntriesTimesignature,
+                        listEntriesKeysignature,listEntriesTimestamp);
+                songArray.setProfilePhoto(listEntriesProfilePhoto);
+                SongListAdapter adapter2 = new SongListAdapter(getApplicationContext(),songArray);
                 listView.setAdapter(adapter2);
 
                 normalClick(dataSnapshot);
@@ -303,7 +309,7 @@ public class DatabaseEntries extends AppCompatActivity {
 
     private void addDrawerItems() {
         navigationOptions = getResources().getStringArray(R.array.navigationOptions);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navigationOptions);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationOptions);
         drawerList.setAdapter(adapter);
     }
 
@@ -324,9 +330,6 @@ public class DatabaseEntries extends AppCompatActivity {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         }
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected
 
     @Nullable
     @Override

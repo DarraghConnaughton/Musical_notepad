@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#000000</color>
     <color name="statusBarColor">#000000</color>
-    <color name="navigationBarBackground">#ff8700</color>
+    <color name="navigationBarBackground">#0099ff</color>
     <color name="databaseEntriesBackground">#cbced3</color>
     <color name="Accept">#71f442</color>
     <color name="Decline">#e00202</color>

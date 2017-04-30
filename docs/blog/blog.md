@@ -199,5 +199,8 @@ You can now successfull send songs to a friend. Data transfer is similar to appr
 * Modify Adapters to make them response to button.onClick(). 
 * Discover bug with Dads phone. 
 
+#26 
+
+I can now send songs between users. Each some has a uid identifying the creator and a profile picture, only if it was recieved. The format for these songs is very nice. I have implemented a record button that flashes red when pressed. I got rid of the only two button system, record and stop, in place of a single button system that uses modulus to tell whether the audio is recording or not. Right now I have all the functionality I aimed achieved. I will undoubtedly discover a few errors within the next few days. Until then, I am focussed on design, design, design.
 
 

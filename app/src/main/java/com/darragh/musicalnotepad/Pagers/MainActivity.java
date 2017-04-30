@@ -1,6 +1,7 @@
 package com.darragh.musicalnotepad.Pagers;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -21,7 +22,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.darragh.musicalnotepad.Modules.WebViewController;
 import com.darragh.musicalnotepad.Pitch_Detector.KeySignature;
@@ -34,17 +34,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
-    private Button stop, record, save, discard;
+    private Button record, save, discard;
     private TextView outputDisplay;
     private static PitchDetector pitchDetector;
-    public boolean isRecording;
+    public int isRecording=0;
     public WebView myWebView;
     public static String tuneName="";
     public static FirebaseAuth firebaseAuth;
@@ -133,13 +132,9 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
-
         setUpNavBar();
-
         Firebase.setAndroidContext(getApplicationContext());
         instantiateView();
-        System.out.println("onCreate: END");
-
     }
 
     public void saveSong(){
@@ -216,8 +211,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void instantiateButtons(){
-        System.out.println("instantiateButtons: START");
-        stop = (Button) findViewById(R.id.stop);
+        record = (Button) findViewById(R.id.record);
         record = (Button) findViewById(R.id.record);
         discard = (Button) findViewById(R.id.discard);
         save = (Button) findViewById(R.id.save);
@@ -226,7 +220,6 @@ public class MainActivity extends AppCompatActivity{
         outputDisplay = (TextView) findViewById(R.id.textView);
 
         setEditTextListener();
-        stop.setEnabled(false);
         record.setEnabled(true);
         save.setEnabled(false);
         discard.setEnabled(false);
@@ -238,35 +231,63 @@ public class MainActivity extends AppCompatActivity{
         System.out.println("instantiateButtons: END");
     }
 
+    private void flashingIcon(final int counter){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(counter%2==1){
+                    record.setBackgroundResource(R.drawable.record_icon_clicked);
+                    if(isRecording%2==0){
+                        return;
+                    }
+                    else {
+                        flashingIcon(counter+1);
+                    }
+                }
+                else {
+                    record.setBackgroundResource(R.drawable.record_icon_not_clicked);
+                    if(isRecording%2==0){
+                        return;
+                    }
+                    else {
+                        flashingIcon(counter+1);
+                    }
+                }
+            }
+        }, 400);
+    }
+
+    private void stopRecording(){
+        record.setEnabled(true);
+        record.setBackgroundResource(R.drawable.record_icon_not_clicked);
+        currentSong=WebViewController.enableWebView(formatSong(pitchDetector.stopRecording(outputDisplay,keySignature,getBeats(timeSignature)),keySignature),getApplicationContext(),myWebView);
+        record.setEnabled(false);
+        save.setEnabled(true);
+        discard.setEnabled(true);
+        myWebView.setVisibility(View.VISIBLE);
+        enterSongName.setVisibility(View.VISIBLE);
+        record.setVisibility(View.INVISIBLE);
+        save.setVisibility(View.VISIBLE);
+        discard.setVisibility(View.VISIBLE);
+    }
+
     private void setClickListeners(){
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                record.setEnabled(false);
-                stop.setEnabled(true);
-                pitchDetector.recordAudio();
+                isRecording++;
+                if(isRecording%2==1){
+                    //                record.setEnabled(false);
+                    record.setBackgroundResource(R.drawable.record_icon_clicked);
+                    pitchDetector.recordAudio();
+                    flashingIcon(0);
+                } else
+                {
+                    stopRecording();
+                }
             }
-        });
 
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isRecording = false;
-                stop.setEnabled(false);
-                record.setEnabled(true);
-                currentSong=WebViewController.enableWebView(formatSong(pitchDetector.stopRecording(outputDisplay,keySignature,getBeats(timeSignature)),keySignature),getApplicationContext(),myWebView);
-                stop.setEnabled(false);
-                record.setEnabled(false);
-                save.setEnabled(true);
-                discard.setEnabled(true);
-                myWebView.setVisibility(View.VISIBLE);
-                enterSongName.setVisibility(View.VISIBLE);
-                record.setVisibility(View.INVISIBLE);
-                stop.setVisibility(View.INVISIBLE);
-                save.setVisibility(View.VISIBLE);
-                discard.setVisibility(View.VISIBLE);
-
-            }
         });
 
         discard.setOnClickListener(new View.OnClickListener() {
@@ -280,7 +301,6 @@ public class MainActivity extends AppCompatActivity{
                 save.setVisibility(View.INVISIBLE);
                 discard.setVisibility(View.INVISIBLE);
                 record.setVisibility(View.VISIBLE);
-                stop.setVisibility(View.VISIBLE);
             }
         });
 

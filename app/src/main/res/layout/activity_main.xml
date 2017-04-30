@@ -55,7 +55,7 @@
                 <Spinner
                 android:id="@+id/spinner2"
                 android:layout_width="167dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="56dp" />
 
                 <Spinner
                     android:id="@+id/spinner1"
@@ -89,15 +89,32 @@
 
             </LinearLayout>
 
-            <WebView
-                android:id="@+id/webview"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="376dp"
-                android:layout_marginRight="19dp"
-                android:layout_marginEnd="19dp"
-                android:gravity="center">
+                android:layout_height="364dp">
 
-            </WebView>
+                <Button
+                    android:layout_height="234dp"
+                    android:layout_width="340dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20sp"
+                    android:id="@+id/record"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/record_icon_not_clicked"
+                    android:elevation="0dp" />
+
+                <WebView
+                    android:id="@+id/webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="262dp"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginEnd="19dp"
+                    android:gravity="center">
+
+                </WebView>
+
+            </FrameLayout>
+
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -106,7 +123,7 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="68dp"
                     android:weightSum="1">
 
                     <Button
@@ -132,30 +149,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="1">
-
-                    <Button
-                        android:layout_height="match_parent"
-                        android:layout_width="155dp"
-                        android:text="Record"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="20sp"
-                        android:id="@+id/record"
-                        android:layout_weight="0.21" />
-
-                    <Button
-                        android:layout_height="match_parent"
-                        android:layout_width="155dp"
-                        android:text="Stop"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="20sp"
-                        android:id="@+id/stop"
-                        android:layout_weight="0.21" />
-                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </RelativeLayout>

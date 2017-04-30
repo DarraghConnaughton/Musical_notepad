@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <ImageButton
-        android:layout_width="84dp"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="71dp"
         app:srcCompat="@android:drawable/sym_def_app_icon"
-        android:id="@+id/imageButton" />
+        android:id="@+id/userProfilePicture"
+        android:layout_height="91dp" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="87dp">
 
         <TextView
-            android:id="@+id/label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/songName"
+            android:layout_width="301dp"
+            android:layout_height="18dp"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:gravity="center_vertical"
             android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
@@ -26,30 +26,81 @@
             android:paddingRight="?android:attr/listPreferredItemPaddingRight"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
-            android:textColor="@color/navigationBarBackground"/>
+            android:textColor="@color/navigationBarBackground"
+            android:textSize="16sp"
+            android:textStyle="normal|bold"
+            android:fontFamily="serif-monospace" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/key"
                 android:text="@string/app_name"
                 android:paddingLeft="15dp"
                 android:layout_width="160dp"
-                android:layout_height="43dp">
+                android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace">
             </TextView>
 
             <TextView
                 android:id="@+id/time"
                 android:text="@string/app_name"
-                android:layout_width="161dp"
-                android:layout_height="43dp"
-                android:layout_weight="1">
+                android:layout_width="143dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/Accept"
+                android:textSize="14sp"
+                android:textStyle="normal|bold"
+                android:fontFamily="serif-monospace">
             </TextView>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="306dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/userEmail"
+            android:textSize="14sp"
+            android:textStyle="normal|bold"
+            android:fontFamily="serif-monospace" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:text="Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/preview"
+                android:layout_weight="0.12" />
+
+            <Button
+                android:layout_width="61dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/accept"
+                android:background="@drawable/greentick"/>
+
+            <Button
+                android:text="Button"
+                android:layout_width="63dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/decline"
+                android:background="@drawable/redcross"/>
+
+
         </LinearLayout>
 
     </LinearLayout>
 
+    <!--<WebView-->
+        <!--android:id="@+id/webView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
 </LinearLayout>
+

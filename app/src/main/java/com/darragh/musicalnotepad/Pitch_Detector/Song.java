@@ -1,12 +1,8 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
-/**
- * Created by darragh on 24/03/17.
- */
-
 public class Song {
-    private static String name, notes, timestamp, timeSignature, keySignature, L;
-    public static  String profilePhoto,sender;
+    private static String name, notes, timestamp, timeSignature, keySignature, L, UID, profilePhoto;
+    public static  String sender;
 
     public Song(){}
     public Song(String sTimestamp){
@@ -49,6 +45,15 @@ public class Song {
         keySignature=sKeysignature;
         L="1/8";
     }
+    public Song(String sTimestamp, String sName, String sNotes, String sTimesignature, String sKeysignature, String profile){
+        timestamp = sTimestamp;
+        name = sName;
+        notes = sNotes;
+        timeSignature = sTimesignature;
+        keySignature=sKeysignature;
+        L="1/8";
+        profilePhoto=profile;
+    }
     public void setName(String sName){
         name = sName;
     }
@@ -66,6 +71,12 @@ public class Song {
     }
     public void setL(String sL){
         L = sL;
+    }
+    public void setUID(String uid){
+        UID = uid;
+    }
+    public void setProfilePhoto(String profile){
+        profilePhoto = profile;
     }
 
     public void printDetails(){
@@ -92,5 +103,8 @@ public class Song {
     }
     public String getSender(){
         return sender;
+    }
+    public String getUID(){
+        return UID;
     }
 }

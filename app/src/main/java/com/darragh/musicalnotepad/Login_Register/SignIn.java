@@ -162,11 +162,12 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(!dataSnapshot.child("users").child(googleUID).exists()){
-                                writeNewUser(googleUID,googleUsername,googleEmail);
+                            if(googleUID!=null){
+                                if(!dataSnapshot.child("users").child(googleUID).exists()){
+                                    writeNewUser(googleUID,googleUsername,googleEmail);
+                                }
                             }
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
 
                         @Override

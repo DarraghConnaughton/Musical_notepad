@@ -21,7 +21,8 @@ import java.util.ArrayList;
  */
 
 public class songRequestList extends AppCompatActivity {
-    private String users;
+    private String users, profilePicture;
+    private Song newSong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -34,6 +35,18 @@ public class songRequestList extends AppCompatActivity {
 
     private void setStrings(){
         users=getResources().getString(R.string.users);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(users+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
+                    profilePicture = dataSnapshot.child(users+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){}
+        });
     }
 
     private void instantiateView(){
@@ -43,7 +56,7 @@ public class songRequestList extends AppCompatActivity {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 ArrayList<Song> songDetails = gatherSongDetails(dataSnapshot);
-                SongRequestListAdapter potentialSongList = new SongRequestListAdapter(getApplicationContext(),songDetails);
+                SongRequestListAdapter potentialSongList = new SongRequestListAdapter(getApplicationContext(),songDetails,findViewById(android.R.id.content));
                 listView.setAdapter(potentialSongList);
             }
 
@@ -57,15 +70,24 @@ public class songRequestList extends AppCompatActivity {
         Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("/SongRequest/").getChildren();
         for(DataSnapshot data: snap){
-            Song newSong = new Song(
-                    Long.toString(System.currentTimeMillis()),
+            Song.sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            if(dataSnapshot.child(users+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
+                newSong = new Song(
+                        data.child("timestamp").getValue().toString(),
+                        data.child("name").getValue().toString(),
+                        data.child("notes").getValue().toString(),
+                        data.child("timeSignature").getValue().toString(),
+                        data.child("keySignature").getValue().toString(),
+                        profilePicture);
+            }
+            else
+            {
+                newSong = new Song(
+                    data.child("timestamp").getValue().toString(),
                     data.child("name").getValue().toString(),
                     data.child("notes").getValue().toString(),
                     data.child("timeSignature").getValue().toString(),
                     data.child("keySignature").getValue().toString());
-            Song.sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            if(dataSnapshot.child(users+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
-                Song.profilePhoto = dataSnapshot.child(users+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").getValue().toString();
             }
             gatheredSongs.add(newSong);
         }

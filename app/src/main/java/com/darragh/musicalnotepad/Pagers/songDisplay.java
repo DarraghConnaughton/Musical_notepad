@@ -44,7 +44,8 @@ public class songDisplay extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                WebViewController.enableWebView(songFromJSON(dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("/songId/").child(intent.getStringExtra("Timestamp")).getChildren()),
+                System.out.println(intent.getStringExtra("Timestamp"));
+                WebViewController.enableWebView(songFromJSON(dataSnapshot.child(intent.getStringExtra("Directory")).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("/songId/").child(intent.getStringExtra("Timestamp")).getChildren()),
                          getApplicationContext(),myWebView);
             }
 
@@ -76,31 +77,17 @@ public class songDisplay extends AppCompatActivity {
                 case "timestamp" :
                     song.setTimestamp((String)snap.getValue());
                     break;
+                case "profilePhoto":
+                    song.setProfilePhoto((String)snap.getValue());
+                    break;
+                case "uid":
+                    song.setUID((String)snap.getValue());
+                    break;
+
             }
         }
         song.printDetails();
         return song;
     }
 
-    public void disableWebView(){
-        myWebView.loadUrl("about:blank");
-    }
-    public void enableWebView(final String timestamp){
-        myWebView = (WebView) findViewById(R.id.webview);
-        final JavaScriptInterface jsInterface = new JavaScriptInterface(getApplicationContext());
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println(myWebView);
-                jsInterface.setSong(songFromJSON(dataSnapshot.child("/users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("/songId/").child(timestamp).getChildren()));
-                myWebView.addJavascriptInterface(jsInterface, "Android");
-                myWebView.loadUrl("file:///android_asset/webDisplay.html");
-                WebSettings webSettings = myWebView.getSettings();
-                webSettings.setJavaScriptEnabled(true);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError){}
-        });
-    }
 }

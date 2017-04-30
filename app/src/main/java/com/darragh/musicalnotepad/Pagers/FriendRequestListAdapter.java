@@ -38,6 +38,9 @@ class FriendRequestListAdapter extends ArrayAdapter{
         super(_context, R.layout.friendrequestrow ,_users);
         this.users = _users;
         this.context = _context;
+        for(UserProfileDetails d: _users){
+            System.out.println(d.userName + " - " + d.UID);
+        }
     }
 
 
@@ -75,14 +78,16 @@ class FriendRequestListAdapter extends ArrayAdapter{
     }
 
     private void setButton(final int position){
-        acceptRequest.setText(getContext().getResources().getString(R.string.Accept));
         acceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 acceptFriendRequest(users.get(position).UID,users.get(position).userName);
+                acceptRequest.setVisibility(View.INVISIBLE);
+                declineRequest.setVisibility(View.INVISIBLE);
+                ImageView imageView = (ImageView) rowView.findViewById(R.id.acceptedIcon);
+
             }
         });
-        declineRequest.setText(getContext().getResources().getString(R.string.Decline));
         declineRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,13 +108,11 @@ class FriendRequestListAdapter extends ArrayAdapter{
         }
         userName = (TextView) rowView.findViewById(R.id.userName);
         emailAddress = (TextView) rowView.findViewById(R.id.emailAddress);
-        acceptRequest = (Button) rowView.findViewById(R.id.acceptFriend);
+        acceptRequest = (Button) rowView.findViewById(R.id.acceptRequest);
         declineRequest = (Button) rowView.findViewById(R.id.declineRequest);
-        System.out.println(acceptRequest);
-        System.out.println(declineRequest);
         setButton(position);
-        emailAddress.setText(users.get(position).emailAddress);
-        userName.setText(users.get(position).userName);
+        emailAddress.setText("Email Address:  " + users.get(position).emailAddress);
+        userName.setText("User name:  " + users.get(position).userName);
         return rowView;
     }
 }

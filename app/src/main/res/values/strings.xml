@@ -43,4 +43,7 @@
 
     <string name="share">Share</string>
     <string name="cancel">Cancel</string>
+
+
+    <string name="previewSong">"Preview Song"</string>
 </resources>
