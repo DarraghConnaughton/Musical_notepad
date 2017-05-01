@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -46,10 +48,7 @@ public class DatabaseEntries extends AppCompatActivity {
     private String activityTitle;
     private String[] navigationOptions, emailArray;
     private static ArrayAdapter<String> adapter;
-    private static ListView drawerList;
-
-    private DrawerLayout drawerLayout;
-    private ArrayList<UserProfileDetails> listDetails;
+    private ListView drawerList;
 
 
     private void instantiateVariables(){
@@ -61,10 +60,6 @@ public class DatabaseEntries extends AppCompatActivity {
     private void fillListEntries(DataSnapshot dataSnapshot){
         Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(songId).getChildren();
         for(DataSnapshot data: snap){
-            System.out.println("Snap: " + snap);
-            System.out.println(data.child(getResources().getString(R.string.name)).getValue().toString());
-            System.out.println(data.child(getResources().getString(R.string.name)).getValue().toString());
-            System.out.println(data.child(data.child(getResources().getString(R.string.timestamp)).getValue().toString()));
             listEntriesName.add(data.child(getResources().getString(R.string.name)).getValue().toString());
             listEntriesID.add(data.child(getResources().getString(R.string.timestamp)).getValue().toString());
             listEntriesKeysignature.add(data.child("/keySignature/").getValue().toString());
@@ -83,7 +78,7 @@ public class DatabaseEntries extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                songFromJSON(dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                JSONToSongConverter.songFromJSON(dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .child(songId).child(listEntriesID.get(position)).getChildren());
                 Intent intent = new Intent(getApplicationContext(),songDisplay.class);
                 intent.putExtra(Timestamp,listEntriesID.get(position));
@@ -94,24 +89,6 @@ public class DatabaseEntries extends AppCompatActivity {
             }
         });
     }
-
-//    private void createFriendSelectionDialog(){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle(R.string.dialog_title);
-//
-//        builder.setPositiveButton(R.string.share, new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int id) {
-//                // User clicked OK button
-//                System.out.println(listEntriesID.get(id));
-//            }
-//        });
-//        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int id) {
-//                // User cancelled the dialog
-//            }
-//        });
-//        AlertDialog dialog = builder.create();
-//    }
 
     private String[] getEmailAddresses(ArrayList<UserProfileDetails> listDetails){
         System.out.println(listDetails.size());
@@ -173,38 +150,29 @@ public class DatabaseEntries extends AppCompatActivity {
     }
 
     public void onCreateDialog(final ArrayList<UserProfileDetails> listDetails, final Iterable<DataSnapshot> snap) {
-        // Where we track the selected items
         final ArrayList<Integer> mSelectedItems = new ArrayList<>();
         AlertDialog.Builder builder = new AlertDialog.Builder(DatabaseEntries.this);
         String[] entries = getEmailAddresses(listDetails);
         for(String e: entries){
             System.out.println(e);
         }
-        // Set the dialog title
         builder.setTitle(R.string.dialog_title)
-                // Specify the list array, the items to be selected by default (null for none),
-                // and the listener through which to receive callbacks when items are selected
                 .setMultiChoiceItems(entries, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which,
                                                 boolean isChecked) {
                                 if (isChecked) {
-                                    // If the user checked the item, add it to the selected items
                                     mSelectedItems.add(which);
                                 } else if (mSelectedItems.contains(which)) {
-                                    // Else, if the item is already in the array, remove it
                                     mSelectedItems.remove(Integer.valueOf(which));
                                 }
                             }
                         })
-                // Set the action buttons
                 .setPositiveButton(R.string.share, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // User clicked OK, so save the mSelectedItems results somewhere
-                        // or return them to the component that opened the dialog
-                        SongSharer.shareSong(songFromJSON(snap),selectedFriends(mSelectedItems,listDetails),profilePhoto);
+                        SongSharer.shareSong(JSONToSongConverter.songFromJSON(snap),selectedFriends(mSelectedItems,listDetails),profilePhoto);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -212,7 +180,6 @@ public class DatabaseEntries extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
-
         builder.create();
         builder.show();
     }
@@ -234,7 +201,7 @@ public class DatabaseEntries extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Display!", Toast.LENGTH_SHORT).show();
                     Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child(songId).child(listEntriesID.get(position)).getChildren();
-                    songFromJSON(snap);
+                    JSONToSongConverter.songFromJSON(snap);
                     Intent intent = new Intent(getApplicationContext(),songDisplay.class);
                     intent.putExtra(Timestamp,listEntriesID.get(position));
                     intent.putExtra("Directory",users);
@@ -244,11 +211,8 @@ public class DatabaseEntries extends AppCompatActivity {
                 else if(item.getTitle().equals(getResources().getString(R.string.shareEntry))) {
                     Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child(songId).child(listEntriesID.get(position)).getChildren();
-                    System.out.println("OnCreate Dialog:");
                     getFriendsList(snap);
                 }
-                System.out.println("SELECTED FRIENDS");
-
                 return true;
             }
         });
@@ -313,62 +277,72 @@ public class DatabaseEntries extends AppCompatActivity {
         drawerList.setAdapter(adapter);
     }
 
-    private void setUpNavBar(){
-        activityTitle = getTitle().toString();
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.navList);
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(position + " - " + view + " - " + parent);
-                loadActivity(position);
-            }
-        });
-        addDrawerItems();
-        if(getSupportActionBar()!=null){
-            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-        }
-    }
-
     @Nullable
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.databaseentries);
-        setUpNavBar();
         instantiateView();
         instantiateVariables();
+        setUpNavigationBar();
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public Song songFromJSON(Iterable<DataSnapshot> dataSnapshot){
-        Song song = new Song();
-        for(DataSnapshot snap: dataSnapshot){
-            switch(snap.getKey()){
-                case "name" :
-                    song.setName((String)snap.getValue());
-                    break;
-                case "keySignature" :
-                    song.setKeySignature((String)snap.getValue());
-                    break;
-                case "l" :
-                    song.setL((String)snap.getValue());
-                    break;
-                case "notes" :
-                    song.setNotes((String)snap.getValue());
-                    break;
-                case "timeSignature" :
-                    song.setTimeSignature((String)snap.getValue());
-                    break;
-                case "timestamp" :
-                    song.setTimestamp((String)snap.getValue());
-                    break;
+    private void setUpNavigationBar(){
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navigationBar = (NavigationView) findViewById(R.id.navigationBar);
+        navigationBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                System.out.println(item.getTitle());
+                if(item.getTitle().equals("Record Audio")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+                else if(item.getTitle().equals("Database Entries")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
+                }
+//                else if(item.getTitle().equals("User Profile")){
+//                    finish();
+//                    startActivity(new Intent(getApplicationContext(), UserProfile.class));
+//                }
+                else if(item.getTitle().equals("Find Friends")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), FindFriend.class));
+                }
+                else if(item.getTitle().equals("Friend Requests")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), FriendRequest.class));
+                }
+                else if(item.getTitle().equals("Friend List")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), FriendList.class));
+                }
+                else if(item.getTitle().equals("Pending Songs")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), songRequestList.class));
+                }
+                else if(item.getTitle().equals("Logout")){
+                    System.out.println("LOGOUT!!!!!!");
+                    firebaseAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+
+                return true;
             }
+        });
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+        //----NOT WORKING AT THE MOMENT----
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         }
-        return song;
     }
+
 }
 
 

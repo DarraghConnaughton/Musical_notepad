@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/background5">
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.80" />
+        android:layout_weight="0.61" />
 
     <EditText
         android:layout_margin="15dp"
@@ -15,7 +16,10 @@
         android:hint="Enter your email"
         android:id="@+id/signInEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_color"
+        android:backgroundTint="@color/text_color"/>
 
     <EditText
         android:layout_margin="15dp"
@@ -23,7 +27,10 @@
         android:hint="Enter your password"
         android:id="@+id/signInPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_color"
+        android:backgroundTint="@color/text_color"/>
 
     <Button
         android:layout_margin="15dp"
@@ -32,16 +39,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.24" />
+
     <TextView
         android:textAlignment="center"
         android:text="Not have an account? Signup Here"
         android:id="@+id/signUp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/signInButton"
-        android:layout_width="match_parent"
+        android:layout_width="305dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.13" />
+        android:layout_gravity="center"/>
+
+
 </LinearLayout>

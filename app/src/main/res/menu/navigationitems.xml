@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/record_audio"
+            android:title="Record Audio"
+            android:icon="@drawable/recordaudio"/>
+        <item
+            android:id="@+id/database_entries"
+            android:title="Database Entries"
+            android:icon="@drawable/databaseentries"/>
+        <item
+            android:id="@+id/user_profile"
+            android:title="User Profile"
+            android:icon="@drawable/userprofile"/>
+        <item
+            android:id="@+id/find_friends"
+            android:title="Find Friends"
+            android:icon="@drawable/findfriends"
+            />
+        <item
+            android:id="@+id/friend_requests"
+            android:title="Friend Requests"
+            android:icon="@drawable/pendingfriends"/>
+        <item
+            android:id="@+id/friend_list"
+            android:title="Friend List"
+            android:icon="@drawable/contacts"/>
+        <item
+            android:id="@+id/pending_songs"
+            android:title="Pending Songs"
+            android:icon="@drawable/pendingsong"/>
+        <item
+            android:id="@+id/logout"
+            android:title="Logout"
+            android:icon="@drawable/logout"/>
+</menu>

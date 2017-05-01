@@ -9,4 +9,5 @@
     <color name="Accept">#71f442</color>
     <color name="Decline">#e00202</color>
     <color name="Background">#306fd3</color>
+    <color name="text_color">#ffffff</color>
 </resources>

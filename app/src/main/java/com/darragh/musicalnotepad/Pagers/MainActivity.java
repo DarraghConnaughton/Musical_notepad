@@ -1,5 +1,7 @@
 package com.darragh.musicalnotepad.Pagers;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -74,65 +76,63 @@ public class MainActivity extends AppCompatActivity{
         drawerLayout.addDrawerListener(drawerToggle);
     }
 
-    private void loadActivity(int position){
-        switch(position){
-            case 0:
-                finish();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                break;
-            case 1:
-                finish();
-                startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
-                break;
-            case 2:
-                finish();
-                startActivity(new Intent(getApplicationContext(), UserProfile.class));
-                break;
-            case 3:
-                finish();
-                startActivity(new Intent(getApplicationContext(), FindFriend.class));
-                break;
-            case 4:
-                finish();
-                startActivity(new Intent(getApplicationContext(), FriendRequest.class));
-                break;
-            case 5:
-                finish();
-                startActivity(new Intent(getApplicationContext(), FriendList.class));
-                break;
-            case 6:
-                finish();
-                startActivity(new Intent(getApplicationContext(), songRequestList.class));
-                break;
-            case 7:
-                firebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                break;
+//    private void loadActivity(int position){
+//        switch(position){
+//            case 0:
+//                finish();
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                break;
+//            case 1:
+//                finish();
+//                startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
+//                break;
+//            case 2:
+//                finish();
+//                startActivity(new Intent(getApplicationContext(), UserProfile.class));
+//                break;
+//            case 3:
+//                finish();
+//                startActivity(new Intent(getApplicationContext(), FindFriend.class));
+//                break;
+//            case 4:
+//                finish();
+//                startActivity(new Intent(getApplicationContext(), FriendRequest.class));
+//                break;
+//            case 5:
+//                finish();
+//                startActivity(new Intent(getApplicationContext(), FriendList.class));
+//                break;
+//            case 6:
+//                finish();
+//                startActivity(new Intent(getApplicationContext(), songRequestList.class));
+//                break;
+//            case 7:
+//                firebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                break;
+//
+//        }
+//    }
 
-        }
-    }
-
-    private void setUpNavBar(){
-        activityTitle = getTitle().toString();
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.navList);
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(position + " - " + view + " - " + parent);
-                loadActivity(position);
-            }
-        });
-        addDrawerItems();
-    }
+//    private void setUpNavBar(){
+//        activityTitle = getTitle().toString();
+//        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawerList = (ListView) findViewById(R.id.navList);
+//        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                loadActivity(position);
+//            }
+//        });
+//        addDrawerItems();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
-        System.out.println("onCreate: START");
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
-        setUpNavBar();
+//        setUpNavBar();
         Firebase.setAndroidContext(getApplicationContext());
         instantiateView();
     }
@@ -228,7 +228,6 @@ public class MainActivity extends AppCompatActivity{
         enterSongName.setVisibility(View.INVISIBLE);
         save.setVisibility(View.INVISIBLE);
         discard.setVisibility(View.INVISIBLE);
-        System.out.println("instantiateButtons: END");
     }
 
     private void flashingIcon(final int counter){
@@ -298,6 +297,7 @@ public class MainActivity extends AppCompatActivity{
                 save.setEnabled(false);
                 discard.setEnabled(false);
                 myWebView.setVisibility(View.INVISIBLE);
+
                 save.setVisibility(View.INVISIBLE);
                 discard.setVisibility(View.INVISIBLE);
                 record.setVisibility(View.VISIBLE);
@@ -308,7 +308,6 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
             if(namedSong()){
-                System.out.println("INSIDE NAMED SONG");
                 saveSong();
                 finish();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -318,7 +317,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private static boolean namedSong(){
-        System.out.println(tuneName.length());
         return tuneName.length()>0;
     }
 
@@ -345,7 +343,62 @@ public class MainActivity extends AppCompatActivity{
         instantiateFirebase();
         instantiateButtons();
         addItemsSpinner();
+        setUpNavigationBar();
         pitchDetector = new PitchDetector();
         setClickListeners();
+    }
+
+    private void setUpNavigationBar(){
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navigationBar = (NavigationView) findViewById(R.id.navigationBar);
+        navigationBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                System.out.println(item.getTitle());
+                if(item.getTitle().equals("Record Audio")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+                else if(item.getTitle().equals("Database Entries")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
+                }
+//                else if(item.getTitle().equals("User Profile")){
+//                    finish();
+//                    startActivity(new Intent(getApplicationContext(), UserProfile.class));
+//                }
+                else if(item.getTitle().equals("Find Friends")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), FindFriend.class));
+                }
+                else if(item.getTitle().equals("Friend Requests")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), FriendRequest.class));
+                }
+                else if(item.getTitle().equals("Friend List")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), FriendList.class));
+                }
+                else if(item.getTitle().equals("Pending Songs")){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), songRequestList.class));
+                }
+                else if(item.getTitle().equals("Logout")){
+                    System.out.println("LOGOUT!!!!!!");
+                    firebaseAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+
+                return true;
+            }
+        });
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+        //----NOT WORKING AT THE MOMENT----
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+        }
     }
 }

@@ -203,4 +203,8 @@ You can now successfull send songs to a friend. Data transfer is similar to appr
 
 I can now send songs between users. Each some has a uid identifying the creator and a profile picture, only if it was recieved. The format for these songs is very nice. I have implemented a record button that flashes red when pressed. I got rid of the only two button system, record and stop, in place of a single button system that uses modulus to tell whether the audio is recording or not. Right now I have all the functionality I aimed achieved. I will undoubtedly discover a few errors within the next few days. Until then, I am focussed on design, design, design.
 
+#27 
+
+I have added icons to the navigation bar and removed user profile. Instead I will generate the users information at the top of the navigation bar, this way it is neater overall. The background material I was attempting to use is causing my code to crash, I need to go searching again. I added code to friend finder so existing friends will not be added to the recommended list. All is going well. I need to add some testing on my delete functions to make sure they are acting according to plan. ListViews need a beauty treatment. 
+
 

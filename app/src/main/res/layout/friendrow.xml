@@ -37,12 +37,12 @@
 
     </LinearLayout>
 
-    <Button
-        android:text="Button"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/AddFriend"
-        android:layout_weight="1"
-        android:background="@color/Background"/>
+    <!--<Button-->
+        <!--android:text="Button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/AddFriend"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@color/Background"/>-->
 
 </LinearLayout>

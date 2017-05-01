@@ -10,5 +10,9 @@
     <style name="myDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
     </style>
+    <style name="NavDrawer">
+        <item name="android:layout_width">320dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+    </style>
 
 </resources>

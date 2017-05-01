@@ -42,41 +42,6 @@ public class SongRequestListAdapter extends ArrayAdapter{
         this.mainView = _mainView;
     }
 
-    public Song songFromJSON(Iterable<DataSnapshot> dataSnapshot){
-        Song song = new Song();
-        for(DataSnapshot snap: dataSnapshot){
-            switch(snap.getKey()){
-                case "name" :
-                    song.setName((String)snap.getValue());
-                    break;
-                case "keySignature" :
-                    song.setKeySignature((String)snap.getValue());
-                    break;
-                case "l" :
-                    song.setL((String)snap.getValue());
-                    break;
-                case "notes" :
-                    song.setNotes((String)snap.getValue());
-                    break;
-                case "timeSignature" :
-                    song.setTimeSignature((String)snap.getValue());
-                    break;
-                case "timestamp" :
-                    song.setTimestamp((String)snap.getValue());
-                    break;
-//                case "profilePhoto":
-//                    song.profilePhoto = ((String)snap.getValue());
-//                    break;
-                case "uid":
-                    song.setUID((String)snap.getValue());
-                    break;
-                case "sender":
-                    song.sender = ((String)snap.getValue());
-            }
-        }
-        return song;
-    }
-
     private void addSongToSongList(final String timeStamp){
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -84,13 +49,12 @@ public class SongRequestListAdapter extends ArrayAdapter{
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Map<String,Object> map = new HashMap<>();
                 //Move song from Song Request to SongList
-                Song sentSong = songFromJSON(dataSnapshot.child(getContext().getResources().getString(R.string.users)
+                Song sentSong = JSONToSongConverter.songFromJSON(dataSnapshot.child(getContext().getResources().getString(R.string.users)
                         +FirebaseAuth.getInstance().getCurrentUser().getUid()+"/SongRequest/"+timeStamp+"/").getChildren());
 
                 map.put(getContext().getResources().getString(R.string.users)+ FirebaseAuth.getInstance().getCurrentUser()
                         .getUid()+"/songId/"+timeStamp+"/",sentSong);
                 databaseReference.updateChildren(map);
-                System.out.println(timeStamp);
                 RemoveSongRequest(timeStamp, databaseReference, sentSong.getUID());
 //                getContext().startActivity(new Intent(getContext().getApplicationContext(), FriendRequest.class));
             }
@@ -101,10 +65,6 @@ public class SongRequestListAdapter extends ArrayAdapter{
     }
 
     private void RemoveSongRequest(String timeStamp,DatabaseReference databaseReference, String UID){
-        System.out.println("=====================================================");
-        System.out.println(getContext().getResources().getString(R.string.users)+UID+"/PendingSong/"+timeStamp);
-        System.out.println(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance()
-                .getCurrentUser().getUid()+"/SongRequest/"+timeStamp);
         databaseReference.child(getContext().getResources().getString(R.string.users)+UID+"/PendingSong/"+timeStamp)
                 .setValue(null);
         databaseReference.child(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance()
@@ -137,7 +97,6 @@ public class SongRequestListAdapter extends ArrayAdapter{
         declineSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(songList.get(position).getUID());
                 RemoveSongRequest(songList.get(position).getTimestamp()
                         ,FirebaseDatabase.getInstance().getReference()
                         ,songList.get(position).getUID());
@@ -155,13 +114,8 @@ public class SongRequestListAdapter extends ArrayAdapter{
         time = (TextView) rowView.findViewById(R.id.time);
         profilePicture = (ImageView) rowView.findViewById(R.id.userProfilePicture);
 
-        for(Song s: songList){
-            System.out.println(s.getTimestamp() + "---" + s.getName());
-        }
-
         setButtons(rowView,position);
         setValues(position);
-        System.out.println(songList.get(position).getName());
 
         return rowView;
     }
