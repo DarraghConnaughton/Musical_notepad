@@ -1,7 +1,6 @@
 package com.darragh.musicalnotepad.Pagers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +26,8 @@ import java.util.Map;
 class FriendRequestListAdapter extends ArrayAdapter{
     private final Context context;
     private final ArrayList<UserProfileDetails> users;
-    private DatabaseReference databaseReference;
     private LayoutInflater inflater;
     private View rowView;
-    private ImageView profilePicture;
     private TextView emailAddress,userName;
     private Button acceptRequest,declineRequest;
 
@@ -45,10 +42,8 @@ class FriendRequestListAdapter extends ArrayAdapter{
 
 
     private void RemoveFriendRequest(String UID, DatabaseReference databaseReference){
-        //Remove the FriendRequest.
         databaseReference.child(getContext().getResources().getString(R.string.users)+"/"+UID+"/pendingFriendRequest/"
                 +FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(null);
-        //Remove the pending FriendRequest.
         databaseReference.child(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance().getCurrentUser()
                 .getUid()+"/FriendRequest/"+UID).setValue(null);
     }
@@ -59,17 +54,14 @@ class FriendRequestListAdapter extends ArrayAdapter{
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Map<String,Object> map = new HashMap<>();
-                //Add Friend to FriendList
                 map.put(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance().getCurrentUser()
                         .getUid()+"/FriendList/"+UID +"/",userName);
-                //Add Friend to FriendList
-                System.out.print(getContext().getResources().getString(R.string.users)+UID+"/FriendList/"+FirebaseAuth.getInstance().getCurrentUser()
-                        .getUid()+"/");
                 map.put(getContext().getResources().getString(R.string.users)+UID+"/FriendList/"+FirebaseAuth.getInstance().getCurrentUser()
                         .getUid()+"/",1);
                 databaseReference.updateChildren(map);
                 RemoveFriendRequest(UID, databaseReference);
-//                getContext().startActivity(new Intent(getContext().getApplicationContext(), FriendRequest.class));
+
+                ///DO SOMETHING
             }
 
             @Override
@@ -84,8 +76,6 @@ class FriendRequestListAdapter extends ArrayAdapter{
                 acceptFriendRequest(users.get(position).UID,users.get(position).userName);
                 acceptRequest.setVisibility(View.INVISIBLE);
                 declineRequest.setVisibility(View.INVISIBLE);
-                ImageView imageView = (ImageView) rowView.findViewById(R.id.acceptedIcon);
-
             }
         });
         declineRequest.setOnClickListener(new View.OnClickListener() {

@@ -79,9 +79,6 @@ public class Song {
         profilePhoto = profile;
     }
 
-    public void printDetails(){
-        System.out.println(name + "\n" + notes + "\n" + timestamp + "\n" + timeSignature + "\n" + keySignature + "\n" + L);
-    }
     public String getProfilePhoto(){return profilePhoto;}
     public String getTimestamp(){
         return timestamp;

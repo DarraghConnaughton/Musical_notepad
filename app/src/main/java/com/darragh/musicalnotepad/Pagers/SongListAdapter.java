@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.darragh.musicalnotepad.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

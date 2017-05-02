@@ -2,17 +2,14 @@ package com.darragh.musicalnotepad.Pagers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.darragh.musicalnotepad.Modules.WebViewController;
 import com.darragh.musicalnotepad.Pitch_Detector.Song;
 import com.darragh.musicalnotepad.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +45,6 @@ public class SongRequestListAdapter extends ArrayAdapter{
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Map<String,Object> map = new HashMap<>();
-                //Move song from Song Request to SongList
                 Song sentSong = JSONToSongConverter.songFromJSON(dataSnapshot.child(getContext().getResources().getString(R.string.users)
                         +FirebaseAuth.getInstance().getCurrentUser().getUid()+"/SongRequest/"+timeStamp+"/").getChildren());
 
@@ -56,7 +52,8 @@ public class SongRequestListAdapter extends ArrayAdapter{
                         .getUid()+"/songId/"+timeStamp+"/",sentSong);
                 databaseReference.updateChildren(map);
                 RemoveSongRequest(timeStamp, databaseReference, sentSong.getUID());
-//                getContext().startActivity(new Intent(getContext().getApplicationContext(), FriendRequest.class));
+
+                //Do something!
             }
 
             @Override
@@ -125,8 +122,6 @@ public class SongRequestListAdapter extends ArrayAdapter{
         key.setText("Key: " + songList.get(position).getKeySignature());
         time.setText("Time: " + songList.get(position).getTimeSignature());
         previewSong.setText(getContext().getResources().getString(R.string.previewSong));
-//        acceptSong.setText(getContext().getResources().getString(R.string.Accept));
-//        declineSong.setText(getContext().getResources().getString(R.string.Decline));
         if(!songList.get(position).getProfilePhoto().equals(null)){
             Picasso.with(getContext()).load(songList.get(position).getProfilePhoto()+"?sz=350").into(profilePicture);
         }

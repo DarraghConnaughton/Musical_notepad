@@ -207,4 +207,6 @@ I can now send songs between users. Each some has a uid identifying the creator 
 
 I have added icons to the navigation bar and removed user profile. Instead I will generate the users information at the top of the navigation bar, this way it is neater overall. The background material I was attempting to use is causing my code to crash, I need to go searching again. I added code to friend finder so existing friends will not be added to the recommended list. All is going well. I need to add some testing on my delete functions to make sure they are acting according to plan. ListViews need a beauty treatment. 
 
+#28
 
+User profile has been removed and replaced with a navigation_header located at the top of the drawer_layout. The overall design looks much neater with this. The top bar includes the users profile picture with their name and email address. I decluttered the record_audio page as well. It was getting far to messy. I decided to go for a leaner look. My plan now is to reload listview after button is clicked. This piece of functionality will be used multiple times on different lists. After this I am onto my final stretch of testing.  

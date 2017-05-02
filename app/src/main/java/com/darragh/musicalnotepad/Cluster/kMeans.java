@@ -10,8 +10,9 @@ public class kMeans {
     private static double lowest, highest;
     private static ArrayList<Cluster> clusterList;
     private static double[] previousCentroids;
-    private static ArrayList<ClusterNode> aggregatedCluster;
+
     //For testing purposes
+    private static ArrayList<ClusterNode> aggregatedCluster;
     public static int getNumberOfClusters(){
         return numberOfClusters;
     }
@@ -200,9 +201,6 @@ public class kMeans {
             saveCentroids();
             iterateKMeans();
             counter++;
-        }
-        for(ClusterNode node: clusterNodeSet){
-            System.out.println(node.note + " length: " + node.length);
         }
         return clusterToABCFormat.formatCluster(aggregateCluster(),keySignature,timesignature);
     }

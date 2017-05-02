@@ -9,10 +9,6 @@
             android:title="Database Entries"
             android:icon="@drawable/databaseentries"/>
         <item
-            android:id="@+id/user_profile"
-            android:title="User Profile"
-            android:icon="@drawable/userprofile"/>
-        <item
             android:id="@+id/find_friends"
             android:title="Find Friends"
             android:icon="@drawable/findfriends"

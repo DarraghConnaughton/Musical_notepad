@@ -1,27 +1,18 @@
 package com.darragh.musicalnotepad.Pagers;
+
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -54,85 +45,15 @@ public class MainActivity extends AppCompatActivity{
     public Thread t;
     private static KeySignature keySignature;
     private static EditText enterSongName;
-    private static ListView drawerList;
-    private static ArrayAdapter<String> adapter;
     private static String timeSignature;
-    private DrawerLayout drawerLayout;
     public Spinner spinner1,spinner2;
-    private ActionBarDrawerToggle drawerToggle;
-    private String activityTitle;
-    private String[] navigationOptions;
-
-
-
-    private void addDrawerItems() {
-        navigationOptions = getResources().getStringArray(R.array.navigationOptions);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navigationOptions);
-        drawerList.setAdapter(adapter);
-    }
-
-    private void setupDrawer(){
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerLayout.addDrawerListener(drawerToggle);
-    }
-
-//    private void loadActivity(int position){
-//        switch(position){
-//            case 0:
-//                finish();
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                break;
-//            case 1:
-//                finish();
-//                startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
-//                break;
-//            case 2:
-//                finish();
-//                startActivity(new Intent(getApplicationContext(), UserProfile.class));
-//                break;
-//            case 3:
-//                finish();
-//                startActivity(new Intent(getApplicationContext(), FindFriend.class));
-//                break;
-//            case 4:
-//                finish();
-//                startActivity(new Intent(getApplicationContext(), FriendRequest.class));
-//                break;
-//            case 5:
-//                finish();
-//                startActivity(new Intent(getApplicationContext(), FriendList.class));
-//                break;
-//            case 6:
-//                finish();
-//                startActivity(new Intent(getApplicationContext(), songRequestList.class));
-//                break;
-//            case 7:
-//                firebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                break;
-//
-//        }
-//    }
-
-//    private void setUpNavBar(){
-//        activityTitle = getTitle().toString();
-//        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawerList = (ListView) findViewById(R.id.navList);
-//        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                loadActivity(position);
-//            }
-//        });
-//        addDrawerItems();
-//    }
+    private NavigationView navigationBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
-//        setUpNavBar();
         Firebase.setAndroidContext(getApplicationContext());
         instantiateView();
     }
@@ -196,18 +117,6 @@ public class MainActivity extends AppCompatActivity{
                 return false;
             }
         });
-    }
-
-    private void setupDrawerContent(NavigationView navigationView){
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                item.setChecked(true);
-                drawerLayout.closeDrawers();
-                return true;
-            }
-        }
-        );
     }
 
     public void instantiateButtons(){
@@ -293,6 +202,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 record.setEnabled(true);
+                record.setBackgroundResource(R.drawable.record_icon_not_clicked);
                 WebViewController.disableWebView(myWebView);
                 save.setEnabled(false);
                 discard.setEnabled(false);
@@ -308,6 +218,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
             if(namedSong()){
+                record.setBackgroundResource(R.drawable.record_icon_not_clicked);
                 saveSong();
                 finish();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -350,55 +261,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void setUpNavigationBar(){
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationBar = (NavigationView) findViewById(R.id.navigationBar);
-        navigationBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                System.out.println(item.getTitle());
-                if(item.getTitle().equals("Record Audio")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-                else if(item.getTitle().equals("Database Entries")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
-                }
-//                else if(item.getTitle().equals("User Profile")){
-//                    finish();
-//                    startActivity(new Intent(getApplicationContext(), UserProfile.class));
-//                }
-                else if(item.getTitle().equals("Find Friends")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), FindFriend.class));
-                }
-                else if(item.getTitle().equals("Friend Requests")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), FriendRequest.class));
-                }
-                else if(item.getTitle().equals("Friend List")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), FriendList.class));
-                }
-                else if(item.getTitle().equals("Pending Songs")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), songRequestList.class));
-                }
-                else if(item.getTitle().equals("Logout")){
-                    System.out.println("LOGOUT!!!!!!");
-                    firebaseAuth.signOut();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-
-                return true;
-            }
-        });
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
-        //----NOT WORKING AT THE MOMENT----
-        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-        }
+        navigationBar = (NavigationView) findViewById(R.id.navigationBar);
+        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,mDrawerLayout);
     }
 }

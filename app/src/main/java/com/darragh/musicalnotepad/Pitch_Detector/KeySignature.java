@@ -1,7 +1,5 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
-import com.darragh.musicalnotepad.Cluster.ClusterNode;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,8 +89,4 @@ public class KeySignature {
         return type;
     }
 
-    public void printKeyDetails(){
-        System.out.println("*******************");
-        System.out.println(keySign + "\n" + notes + "\n" + abcFormat);
-    }
 }

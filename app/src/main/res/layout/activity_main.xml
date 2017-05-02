@@ -4,26 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background2">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"/>
-
-        <android.widget.TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tableLayout"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
 
         <!--<android.support.v4.widget.DrawerLayout-->
             <!--android:id="@+id/drawer_layout"-->
@@ -44,71 +30,111 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="26dp"
-            android:layout_marginStart="26dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="167dp"
-                android:layout_height="56dp" />
-
-                <Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            android:layout_alignParentStart="true">
 
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/enterName">
+                android:layout_height="89dp">
 
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="91dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView"
-                    android:ems="10"
-                    tools:text="Song Name" />
-
-                <EditText
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:ems="10"
-                    android:id="@+id/enterSongName"
-                    android:layout_weight="1" />
+                    android:layout_height="52dp">
+
+                    <TextView
+                        android:text="@string/key"
+                        android:layout_width="169dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/enterKey"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:textAlignment="center"
+                        android:textStyle="normal|bold" />
+
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="@string/time"
+                        android:layout_width="165dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/enterTime"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:textAlignment="center"
+                        android:textStyle="normal|bold" />
+
+                    <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                </LinearLayout>
 
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="364dp">
+                android:layout_height="332dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/enterName">
+
+                    <TextView
+                        android:text="TextView"
+                        android:layout_width="91dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView"
+                        android:ems="10"
+                        tools:text="Song Name" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text=""
+                        android:ems="10"
+                        android:id="@+id/enterSongName"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+
 
                 <Button
                     android:layout_height="234dp"
                     android:layout_width="340dp"
-                    android:layout_centerHorizontal="true"
                     android:textSize="20sp"
                     android:id="@+id/record"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/record_icon_not_clicked"/>
+                    android:layout_gravity="center"
+                    android:background="@drawable/record_icon_not_clicked" />
 
                 <WebView
                     android:id="@+id/webview"
                     android:layout_width="match_parent"
-                    android:layout_height="342dp"
-                    android:layout_marginRight="19dp"
-                    android:layout_marginEnd="19dp"
+                    android:layout_height="283dp"
                     android:gravity="center">
 
                 </WebView>
@@ -118,45 +144,48 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="68dp"
+                    android:layout_height="wrap_content"
                     android:weightSum="1">
 
                     <Button
                         android:layout_height="wrap_content"
-                        android:layout_width="111dp"
+                        android:layout_width="190dp"
                         android:text="Save"
                         android:layout_centerHorizontal="true"
                         android:textSize="20sp"
                         android:id="@+id/save"
-                        android:layout_weight="0.31"
                         android:gravity="center"/>
 
                     <Button
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:textSize="20sp"
                         android:text="Discard"
                         android:id="@+id/discard"
-                        android:layout_weight="0.39"
                         android:layout_marginLeft="13dp"
                         android:layout_marginStart="13dp"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:layout_weight="1.08" />
 
                 </LinearLayout>
 
             </FrameLayout>
         </LinearLayout>
+
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationBar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        app:headerLayout="@layout/userprofile"
         app:menu="@menu/navigationitems"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start"
+        style="@style/NavDrawer"/>
 </android.support.v4.widget.DrawerLayout>

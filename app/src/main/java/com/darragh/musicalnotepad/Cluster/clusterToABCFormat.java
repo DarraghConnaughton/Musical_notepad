@@ -18,6 +18,7 @@ public class clusterToABCFormat {
         return "";
     }
 
+    ///FIX THIS
     private static String setNoteLength(int node){
         switch (node){
             case 1:
@@ -42,13 +43,6 @@ public class clusterToABCFormat {
         return "";
     }
 
-    public static String barLines(String noteProgression,int timesignature){
-        if(beatCounter>timesignature){
-            return noteProgression+"|";
-        }
-        return "";
-    }
-
     private static String newLineCounter(){
         if(barCounter>1){
             barCounter=0;
@@ -58,13 +52,11 @@ public class clusterToABCFormat {
     }
 
     private static String processNode(String noteProgression, ClusterNode node, KeySignature key,String leftBracket,String rightBracklet){
-        System.out.println("ProcessNode: " + node.note);
         if(node.note.equals("SPACE")){
             return noteProgression + leftBracket+ "z" + setNoteLength(node.cluster) + rightBracklet;
         }
         else{
             if(containsAccidental(node.note)){
-                System.out.println("Sort Accidental: " + sortAccidentals(key,node.note));
                 return noteProgression + leftBracket + sortOctave(sortAccidentals(key,node.note)) + setNoteLength(node.cluster) + rightBracklet;
             }
             else {
@@ -77,12 +69,7 @@ public class clusterToABCFormat {
         beatCounter+=length;
     }
 
-//    private static String modifyNote(String note, int length){
-//        return note.substring(0,note.length()-1)+length;
-//    }
-
     public static String fillExcessSpace(int timesignature){
-        System.out.println(beatCounter + " -- TS: " + timesignature);
         if(beatCounter<timesignature){
             return "z" + setNoteLength(timesignature-beatCounter);
         }
@@ -94,13 +81,10 @@ public class clusterToABCFormat {
     public static String formatCluster(ArrayList<ClusterNode> nodes, KeySignature key,int timesignature){
         String noteProgression = "";
         beatCounter=0;
-        System.out.println("TIMESIGNATURE: "+timesignature);
 
         for(ClusterNode node: nodes){
             incrementBeatCounter(node.cluster);
-            System.out.println(node.note + " length -> " + node.cluster + "  beatCounter: " + beatCounter);
             if(beatCounter>=timesignature){
-                System.out.println("Inside...");
                 barCounter++;
                 int excess_beats = beatCounter-timesignature;
                 beatCounter = excess_beats;
@@ -122,8 +106,6 @@ public class clusterToABCFormat {
                 noteProgression = processNode(noteProgression,node,key,"","");
             }
         }
-        System.out.println("noteProgression __> " + noteProgression);
-        System.out.println("fillExcessSpace(timesignature) " + fillExcessSpace(timesignature));
         return noteProgression + fillExcessSpace(timesignature) + "|";
     }
 

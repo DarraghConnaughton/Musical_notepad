@@ -38,10 +38,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by darragh on 03/03/17.
- */
-
 public class SignIn extends AppCompatActivity implements View.OnClickListener{
     private Button signIn, googleSignIn;
     private EditText emailText;
@@ -63,8 +59,6 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-
-
     public void writeNewUser(String uid, String username, String email){
         User user = new User(username,email);
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -76,10 +70,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
         Map<String, Object> map = new HashMap<>();
         map.put(getResources().getString(R.string.users)+uid,user);
         databaseReference.updateChildren(map);
-//        databaseReference.child("users").setValue(uid);
-//        databaseReference.child("users").child(uid).setValue(user);
     }
-
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -92,10 +83,6 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             googleUID = task.getResult().getUser().getUid();
-                            System.out.println("***********************");
-                            System.out.println("*************************");
-                            System.out.println(task.getResult().getUser().getPhotoUrl());
-                            System.out.println(task.getResult().getUser().getPhotoUrl());
                             Toast.makeText(SignIn.this, "Successful login",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -107,35 +94,18 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-
                 googleUsername = account.getDisplayName();
                 googleEmail = account.getEmail();
                 firebaseAuthWithGoogle(account);
-            } else {
-                // Google Sign In failed, update UI appropriately
-                // ...
             }
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        firebaseAuth = firebaseAuth.getInstance();
-
-        if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(this, MainActivity.class));
-        }
-
+    private void setGoogleComponents(){
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -150,13 +120,12 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+    }
 
-        findViewById(R.id.signInButton).setOnClickListener(this);
-
+    private void setStateListener(){
         stateListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
-
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -178,19 +147,32 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                 }
             }
         };
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = firebaseAuth.getInstance();
 
+        if(firebaseAuth.getCurrentUser() != null){
+            startActivity(new Intent(this, MainActivity.class));
+        }
+        instantiateView();
+        setGoogleComponents();
+        setStateListener();
+    }
+
+    private void instantiateView(){
         emailText = (EditText) findViewById(R.id.signInEmail);
         passwordText = (EditText) findViewById(R.id.signInPassword);
+        findViewById(R.id.signInButton).setOnClickListener(this);
         signIn = (Button) findViewById(R.id.buttonSignIn);
         signUp = (TextView) findViewById(R.id.signUp);
-
         signIn.setOnClickListener(this);
         signUp.setOnClickListener(this);
     }
-
     private void userLogin(String email, String password){
-
-
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT).show();
             return;
@@ -199,11 +181,9 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
             Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
             return;
         }
-        System.out.println("*************");
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Processing...");
         progressDialog.show();
-        System.out.println(email + "  " + password);
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -239,9 +219,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View view){
-        System.out.println(view);
         if(view == signIn){
-            System.out.println("*************");
             userLogin(emailText.getText().toString().trim(), passwordText.getText().toString().trim());
         } else if(view == signUp){
             finish();

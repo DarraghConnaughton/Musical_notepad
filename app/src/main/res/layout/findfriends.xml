@@ -38,8 +38,7 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="text|textEmailAddress"
-                android:ems="10"
+                android:inputType="text"
                 android:id="@+id/searchBar"
                 android:layout_weight="1" />
         </LinearLayout>
@@ -58,8 +57,8 @@
     android:id="@+id/navigationBar"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    app:headerLayout="@layout/userprofile"
     app:menu="@menu/navigationitems"
-        app:headerLayout="@layout/userprofile"
     android:layout_gravity="start"
-        style="@style/NavDrawer"/>
+    style="@style/NavDrawer"/>
 </android.support.v4.widget.DrawerLayout>

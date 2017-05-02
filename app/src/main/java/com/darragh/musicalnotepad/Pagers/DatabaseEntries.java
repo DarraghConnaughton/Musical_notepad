@@ -1,30 +1,24 @@
 package com.darragh.musicalnotepad.Pagers;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.darragh.musicalnotepad.*;
-import com.darragh.musicalnotepad.Pitch_Detector.Song;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,11 +39,7 @@ public class DatabaseEntries extends AppCompatActivity {
     private final ArrayList<String> listEntriesKeysignature = new ArrayList<>();
     private final ArrayList<String> listEntriesTimestamp = new ArrayList<>();
     private final ArrayList<String> listEntriesProfilePhoto = new ArrayList<>();
-    private String activityTitle;
-    private String[] navigationOptions, emailArray;
-    private static ArrayAdapter<String> adapter;
-    private ListView drawerList;
-
+    private NavigationView navigationBar;
 
     private void instantiateVariables(){
         songId=getResources().getString(R.string.songId);
@@ -91,7 +81,6 @@ public class DatabaseEntries extends AppCompatActivity {
     }
 
     private String[] getEmailAddresses(ArrayList<UserProfileDetails> listDetails){
-        System.out.println(listDetails.size());
         String[] emails = new String[listDetails.size()];
         for(int i=0; i<listDetails.size(); i++){
             emails[i] = listDetails.get(i).emailAddress;
@@ -100,24 +89,17 @@ public class DatabaseEntries extends AppCompatActivity {
     }
 
     private void setProfilePhoto(DataSnapshot data){
-        System.out.println("SetProfilePhoto");
-
-        System.out.println(data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists());
         if(data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
             profilePhoto = data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").getValue().toString();
         }
-        System.out.println("Profile Photo: " + profilePhoto);
     }
 
     public ArrayList<UserProfileDetails> gatherUsers(DataSnapshot dataSnapshot){
         setProfilePhoto(dataSnapshot);
-        System.out.println(dataSnapshot);
         ArrayList<UserProfileDetails> usersFound = new ArrayList<>();
         Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("/FriendList/").getChildren();
         for(DataSnapshot data: snap){
-            System.out.println(dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()));
-            System.out.println("Key: "+ data.getKey());
             usersFound.add(new UserProfileDetails(
                     dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
                     dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
@@ -153,9 +135,6 @@ public class DatabaseEntries extends AppCompatActivity {
         final ArrayList<Integer> mSelectedItems = new ArrayList<>();
         AlertDialog.Builder builder = new AlertDialog.Builder(DatabaseEntries.this);
         String[] entries = getEmailAddresses(listDetails);
-        for(String e: entries){
-            System.out.println(e);
-        }
         builder.setTitle(R.string.dialog_title)
                 .setMultiChoiceItems(entries, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
@@ -255,28 +234,6 @@ public class DatabaseEntries extends AppCompatActivity {
         firebaseController();
     }
 
-    private void loadActivity(int position){
-        switch(position){
-            case 0:
-                finish();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                break;
-            case 1:
-                finish();
-                startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
-                break;
-            case 3:
-                firebaseAuth.getInstance().signOut();
-                break;
-        }
-    }
-
-    private void addDrawerItems() {
-        navigationOptions = getResources().getStringArray(R.array.navigationOptions);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, navigationOptions);
-        drawerList.setAdapter(adapter);
-    }
-
     @Nullable
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -291,58 +248,9 @@ public class DatabaseEntries extends AppCompatActivity {
 
     private void setUpNavigationBar(){
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationBar = (NavigationView) findViewById(R.id.navigationBar);
-        navigationBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                System.out.println(item.getTitle());
-                if(item.getTitle().equals("Record Audio")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-                else if(item.getTitle().equals("Database Entries")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), DatabaseEntries.class));
-                }
-//                else if(item.getTitle().equals("User Profile")){
-//                    finish();
-//                    startActivity(new Intent(getApplicationContext(), UserProfile.class));
-//                }
-                else if(item.getTitle().equals("Find Friends")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), FindFriend.class));
-                }
-                else if(item.getTitle().equals("Friend Requests")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), FriendRequest.class));
-                }
-                else if(item.getTitle().equals("Friend List")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), FriendList.class));
-                }
-                else if(item.getTitle().equals("Pending Songs")){
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), songRequestList.class));
-                }
-                else if(item.getTitle().equals("Logout")){
-                    System.out.println("LOGOUT!!!!!!");
-                    firebaseAuth.signOut();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-
-                return true;
-            }
-        });
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
-        //----NOT WORKING AT THE MOMENT----
-        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-        }
+        navigationBar = (NavigationView) findViewById(R.id.navigationBar);
+        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,mDrawerLayout);
     }
-
 }
 
 

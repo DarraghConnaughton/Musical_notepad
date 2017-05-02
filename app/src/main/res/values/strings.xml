@@ -46,6 +46,12 @@
 
 
     <string name="previewSong">"Preview Song"</string>
+    <string name="recordSong">"Record Song"</string>
+
+
+    <string name="key">"Key Signature"</string>
+    <string name="time">"Time Signature"</string>
+
 
 
 </resources>

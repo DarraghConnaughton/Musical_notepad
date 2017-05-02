@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import com.darragh.musicalnotepad.Cluster.ClusterNode;
 import com.darragh.musicalnotepad.Cluster.kMeans;
-import com.darragh.musicalnotepad.R;
 
 import java.util.ArrayList;
 

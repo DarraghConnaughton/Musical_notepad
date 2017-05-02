@@ -60,8 +60,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             Toast.makeText(this,"Password must be at least 6 characters long.",Toast.LENGTH_SHORT).show();
             return;
         }
-
-
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
         firebaseAuth.createUserWithEmailAndPassword(email,password)
@@ -83,27 +81,31 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         }
                     }
                 });
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        setFirebase();
+        instantiateView();
+    }
+
+    private void setFirebase(){
         Firebase.setAndroidContext(getApplicationContext());
         firebaseAuth = firebaseAuth.getInstance();
-
         stateListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
-
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
             }
         };
+    }
 
+    private void instantiateView(){
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         editTextEmail = (EditText) findViewById(R.id.editEmail);
         editTextUsername = (EditText) findViewById(R.id.userName);
@@ -113,7 +115,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         buttonRegister.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
     }
-
     @Override
     public void onStart() {
         super.onStart();
