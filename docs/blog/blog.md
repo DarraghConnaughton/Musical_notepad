@@ -210,3 +210,13 @@ I have added icons to the navigation bar and removed user profile. Instead I wil
 #28
 
 User profile has been removed and replaced with a navigation_header located at the top of the drawer_layout. The overall design looks much neater with this. The top bar includes the users profile picture with their name and email address. I decluttered the record_audio page as well. It was getting far to messy. I decided to go for a leaner look. My plan now is to reload listview after button is clicked. This piece of functionality will be used multiple times on different lists. After this I am onto my final stretch of testing.  
+
+#29
+
+I have discovered two bugs that need attending too:
+
+* displaying from databaseEntries.
+* Hamburger is not responsive. 
+
+I need to modify these and enhance the XML present in my listView pages. This is the current task, I don't expect it to take too long. Once this is complete I must most onto writing tests for friend request and song request to ensure firebase is acting the way I wish to act. 
+
