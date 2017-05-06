@@ -90,6 +90,7 @@ public class SongRequestListAdapter extends ArrayAdapter{
                 addSongToSongList(songList.get(position).getTimestamp());
                 //Set button to accepted
                 songList.remove(position);
+                notifyDataSetChanged();
             }
         });
         declineSong = (Button) rowView.findViewById(R.id.decline);
@@ -101,6 +102,7 @@ public class SongRequestListAdapter extends ArrayAdapter{
                         ,songList.get(position).getUID());
                 //Delete entry from the list
                 songList.remove(position);
+                notifyDataSetChanged();
             }
         });
 

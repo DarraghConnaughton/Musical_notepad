@@ -13,8 +13,7 @@
         app:riv_border_color="#333333"
         app:riv_mutate_background="true"
         android:id="@+id/userProfilePicture"
-        app:riv_oval="true"
-        android:layout_gravity="center"/>
+        app:riv_oval="true"/>
 
     <LinearLayout
         android:orientation="vertical"

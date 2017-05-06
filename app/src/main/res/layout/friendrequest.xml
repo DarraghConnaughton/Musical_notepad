@@ -9,6 +9,10 @@
         android:layout_height="match_parent"
         android:weightSum="1">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -33,6 +37,10 @@
                 app:srcCompat="@drawable/pendingfriends"
                 android:id="@+id/imageView9" />
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="29dp" />
 
         <ListView
             android:layout_width="match_parent"

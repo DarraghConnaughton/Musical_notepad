@@ -22,10 +22,14 @@
         android:layout_height="match_parent"
         android:weightSum="1">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="17dp" />
+
         <TextView
             android:id="@+id/userName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="21dp"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:gravity="center_vertical"
             android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"

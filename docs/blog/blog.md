@@ -227,3 +227,13 @@ Both bugs from above have been eliminated. I have chosen a standard colour schem
 * Buttons with ListView: responsive to click (check your notes). 
 * Test pending song + pending friend. 
 
+#31 
+
+Very productive day was had. I have 90% of the design completed now. All ListViews are responsive, removing entries on click. I had a spot of bother with git. I somehow managed to delete my sendFriendRequest function. I restored a commit with the code and became stranded. Panic set in very rapidly. The problem lasted no longer than 15 minutes thank goodness. I am unsure what to move onto next. I two minor features I would like to implement:
+
+* End the recording thread on activity change.
+* Return to the correct place after using preview. 
+
+I think I will hold off on advancing any future until I meet with Donal, it is time to focus on my exams. 
+
+

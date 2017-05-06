@@ -60,8 +60,6 @@ class FriendRequestListAdapter extends ArrayAdapter{
                         .getUid()+"/",1);
                 databaseReference.updateChildren(map);
                 RemoveFriendRequest(UID, databaseReference);
-                users.remove(position);
-                ///DO SOMETHING
             }
 
             @Override
@@ -76,6 +74,8 @@ class FriendRequestListAdapter extends ArrayAdapter{
                 acceptFriendRequest(users.get(position).UID,users.get(position).userName,position);
                 acceptRequest.setVisibility(View.INVISIBLE);
                 declineRequest.setVisibility(View.INVISIBLE);
+                users.remove(position);
+                notifyDataSetChanged();
             }
         });
         declineRequest.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +83,7 @@ class FriendRequestListAdapter extends ArrayAdapter{
             public void onClick(View v) {
                 RemoveFriendRequest(users.get(position).UID,FirebaseDatabase.getInstance().getReference());
                 users.remove(position);
+                notifyDataSetChanged();
             }
         });
     }

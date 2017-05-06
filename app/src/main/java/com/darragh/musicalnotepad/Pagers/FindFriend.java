@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -67,7 +69,7 @@ public class FindFriend extends AppCompatActivity{
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 listDetails = gatherUsers(dataSnapshot, searchQuery);
-                FriendListAdapter potentialFriendList = new FriendListAdapter(getApplicationContext(),listDetails);
+                FindFriendListAdapter potentialFriendList = new FindFriendListAdapter(getApplicationContext(),listDetails);
                 listView.setAdapter(potentialFriendList);
             }
 
