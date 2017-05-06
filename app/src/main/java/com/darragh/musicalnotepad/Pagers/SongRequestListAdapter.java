@@ -88,6 +88,8 @@ public class SongRequestListAdapter extends ArrayAdapter{
             @Override
             public void onClick(View v) {
                 addSongToSongList(songList.get(position).getTimestamp());
+                //Set button to accepted
+                songList.remove(position);
             }
         });
         declineSong = (Button) rowView.findViewById(R.id.decline);
@@ -97,6 +99,8 @@ public class SongRequestListAdapter extends ArrayAdapter{
                 RemoveSongRequest(songList.get(position).getTimestamp()
                         ,FirebaseDatabase.getInstance().getReference()
                         ,songList.get(position).getUID());
+                //Delete entry from the list
+                songList.remove(position);
             }
         });
 

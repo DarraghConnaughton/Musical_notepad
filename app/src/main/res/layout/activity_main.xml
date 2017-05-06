@@ -34,14 +34,47 @@
 
 
             <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <ImageView
+                    android:layout_width="79dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/recordaudio"
+                    android:id="@+id/imageView6"
+                    android:layout_weight="0.88" />
+
+                <TextView
+                    android:text="@string/recordAudio"
+                    android:layout_width="188dp"
+                    android:layout_height="63dp"
+                    android:id="@+id/textView3"
+                    android:fontFamily="serif-monospace"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:paddingTop="14dp"
+                    android:layout_weight="0.34"
+                    android:textColor="@color/navigationBarBackground"
+                    android:textStyle="normal|bold" />
+
+                <ImageView
+                    android:layout_width="79dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/recordaudio"
+                    android:id="@+id/imageView5"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="89dp">
+                android:layout_height="73dp">
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp">
+                    android:layout_height="36dp">
 
                     <TextView
                         android:text="@string/key"
@@ -51,7 +84,9 @@
                         android:layout_gravity="center"
                         android:textSize="18sp"
                         android:textAlignment="center"
-                        android:textStyle="normal|bold" />
+                        android:textStyle="normal|bold"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:textColor="@color/navigationBarBackground" />
 
                     <Spinner
                         android:id="@+id/spinner1"
@@ -72,7 +107,9 @@
                         android:layout_gravity="center"
                         android:textSize="18sp"
                         android:textAlignment="center"
-                        android:textStyle="normal|bold" />
+                        android:textStyle="normal|bold"
+                        android:textColor="@color/navigationBarBackground"
+                        android:fontFamily="sans-serif-smallcaps" />
 
                     <Spinner
                     android:id="@+id/spinner2"
@@ -82,38 +119,39 @@
 
             </LinearLayout>
 
-            <Space
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="34dp" />
+                android:layout_height="wrap_content"
+                android:id="@+id/enterName">
+
+                <TextView
+                    android:text="Song Name"
+                    android:layout_width="91dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    android:ems="10"
+                    android:paddingLeft="10dp"
+                    tools:text="Song Name"
+                    android:textStyle="normal|bold"
+                    android:textColor="@color/navigationBarBackground" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text=""
+                    android:ems="10"
+                    android:id="@+id/enterSongName"
+                    android:layout_weight="1"
+                    android:textStyle="normal|bold"
+                    android:textColor="@color/navigationBarBackground" />
+
+            </LinearLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="332dp">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/enterName">
-
-                    <TextView
-                        android:text="TextView"
-                        android:layout_width="91dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView"
-                        android:ems="10"
-                        tools:text="Song Name" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:text=""
-                        android:ems="10"
-                        android:id="@+id/enterSongName"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
+                android:layout_height="287dp">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -155,23 +193,30 @@
 
                     <Button
                         android:layout_height="wrap_content"
-                        android:layout_width="190dp"
                         android:text="Save"
-                        android:layout_centerHorizontal="true"
                         android:textSize="20sp"
                         android:id="@+id/save"
-                        android:gravity="center"/>
+                        android:paddingLeft="5dp"
+                        android:gravity="center"
+                        android:background="@color/navigationBarBackground"
+                        android:textColor="@android:color/white"
+                        android:layout_width="180dp" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <Button
                         android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
                         android:textSize="20sp"
                         android:text="Discard"
+                        android:paddingRight="5dp"
                         android:id="@+id/discard"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginStart="13dp"
                         android:gravity="center"
-                        android:layout_weight="1.08" />
+                        android:background="@color/navigationBarBackground"
+                        android:textColor="@android:color/white"
+                        android:layout_width="180dp" />
 
                 </LinearLayout>
 
@@ -187,5 +232,6 @@
         app:headerLayout="@layout/userprofile"
         app:menu="@menu/navigationitems"
         android:layout_gravity="start"
-        style="@style/NavDrawer"/>
+        style="@style/NavDrawer"
+        android:dividerHeight="7.0sp"/>
 </android.support.v4.widget.DrawerLayout>

@@ -9,10 +9,48 @@
         android:layout_height="match_parent"
         android:weightSum="1">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/contacts"
+                android:id="@+id/imageView7"
+                android:layout_width="79dp" />
+
+            <TextView
+                android:layout_width="144dp"
+                android:layout_height="68dp"
+                android:id="@+id/textView4"
+                android:textStyle="normal|bold"
+                android:textAlignment="center"
+                android:textSize="28sp"
+                android:paddingTop="16dp"
+                android:text="@string/friendList"
+                android:fontFamily="serif-monospace"
+                android:textColor="@color/navigationBarBackground"
+                android:layout_weight="0.06" />
+
+            <ImageView
+                android:layout_width="79dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/contacts"
+                android:id="@+id/imageView8"
+                android:layout_weight="0.01" />
+        </LinearLayout>
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/listView" />
+            android:id="@+id/listView"
+            android:divider="@drawable/divider"
+            android:dividerHeight="10.0sp"/>
 
     </LinearLayout>
 
@@ -23,5 +61,6 @@
         app:headerLayout="@layout/userprofile"
         app:menu="@menu/navigationitems"
         android:layout_gravity="start"
-        style="@style/NavDrawer"/>
+        style="@style/NavDrawer"
+        android:dividerHeight="7.0sp"/>
 </android.support.v4.widget.DrawerLayout>

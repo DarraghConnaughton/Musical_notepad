@@ -7,7 +7,7 @@
     <string name="AudioDispatcher">Audio Dispatcher</string>
     <!--Note values-->
     <string name="C">C</string>
-
+    <string name="database">"Database Entries"</string>
     <!--Popup Menu-->
     <string name="deleteEntry">Delete Entry</string>
     <string name="displayEntry">Display Entry</string>
@@ -22,7 +22,7 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <string name="recordAudio">"Record Audio"</string>
-    <string name="DatabaseEntries">"Database Entries"</string>
+    <!--<string name="DatabaseEntries">"Database Entries"</string>-->
     <string name="Logout">"Logout"</string>
 
     <string name="userName">"User Name"</string>
@@ -30,7 +30,6 @@
 
     <string name="emailAddress">"Email Address: "</string>
     <string name="countDatabase">"Number of Database Entries: "</string>
-
 
     <string name="FindFriends">"Find Friends"</string>
     <string name="enterEmail">"Search by Email Address:  "</string>
@@ -51,7 +50,9 @@
 
     <string name="key">"Key Signature"</string>
     <string name="time">"Time Signature"</string>
-
-
+    <string name="databaseEntry">Database Entries</string>
+    <string name="friendList">"Friend List"</string>
+    <string name="friendRequests">Friend Requests</string>
+    <string name="pendingSongs">Pending Songs</string>
 
 </resources>

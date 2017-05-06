@@ -20,11 +20,10 @@ import com.darragh.musicalnotepad.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 public class NavigationView_Details extends AppCompatActivity{
-    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private static ActionBarDrawerToggle actionBarDrawerToggle;
 
     public static void setProfilePicture(NavigationView navigationView, Context context){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -40,14 +39,6 @@ public class NavigationView_Details extends AppCompatActivity{
         }
     }
 
-    private static void setActionBarDetails(DrawerLayout mDrawerLayout, Activity activity){
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(activity, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
-        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
-        ((AppCompatActivity)activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)activity).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-        actionBarDrawerToggle.syncState();
-    }
-
     private static void setFirebaseListener(Activity activity,Context context){
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null){
@@ -59,7 +50,6 @@ public class NavigationView_Details extends AppCompatActivity{
     public static void setNavigationView(NavigationView navigationBar, final Context context, final Activity activity, DrawerLayout mDrawerLayout){
         setFirebaseListener(activity,context);
         setProfilePicture(navigationBar,context);
-        setActionBarDetails(mDrawerLayout,activity);
         navigationBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -97,14 +87,6 @@ public class NavigationView_Details extends AppCompatActivity{
                 return true;
             }
         });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return actionBarDrawerToggle.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item)||actionBarDrawerToggle.onOptionsItemSelected(item);
     }
 
 }

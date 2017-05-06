@@ -4,11 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
-        android:layout_width="71dp"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="94dp"
+        android:layout_height="77dp"
+        app:riv_corner_radius="30dip"
+        app:riv_border_width="2dip"
+        android:scaleType="fitStart"
+        app:riv_border_color="#333333"
+        app:riv_mutate_background="true"
         android:id="@+id/userProfilePicture"
-        android:layout_height="91dp" />
+        app:riv_oval="true"
+        android:layout_gravity="center"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -43,7 +49,9 @@
                 android:paddingLeft="15dp"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="serif-monospace">
+                android:fontFamily="serif-monospace"
+                android:textColor="@color/navigationBarBackground"
+                android:textStyle="normal|bold">
             </TextView>
 
             <TextView
@@ -51,7 +59,7 @@
                 android:text="@string/app_name"
                 android:layout_width="143dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/Accept"
+                android:textColor="@color/navigationBarBackground"
                 android:textSize="14sp"
                 android:textStyle="normal|bold"
                 android:fontFamily="serif-monospace">
@@ -65,8 +73,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/userEmail"
             android:textSize="14sp"
-            android:textStyle="normal|bold"
-            android:fontFamily="serif-monospace" />
+            android:paddingLeft="14dp"
+            android:fontFamily="serif-monospace"
+            android:textColor="@color/navigationBarBackground" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -84,14 +93,13 @@
                 android:layout_width="61dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/accept"
-                android:background="@drawable/greentick"/>
+                android:background="@drawable/checkmark"/>
 
             <Button
-                android:text="Button"
                 android:layout_width="63dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/decline"
-                android:background="@drawable/redcross"/>
+                android:background="@drawable/cancel"/>
 
 
         </LinearLayout>

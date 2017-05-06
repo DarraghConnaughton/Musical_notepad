@@ -14,7 +14,7 @@
         <TextView
             android:id="@+id/label"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:gravity="center_vertical"
             android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
@@ -24,7 +24,8 @@
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
             android:textColor="@color/navigationBarBackground"
             android:textStyle="normal|bold"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textAlignment="viewStart"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -36,37 +37,48 @@
                 android:id="@+id/key"
                 android:text="@string/app_name"
                 android:paddingLeft="15dp"
-                android:layout_width="144dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="normal|italic"
-                android:textSize="14sp">
+                android:textSize="14sp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/navigationBarBackground"
+                android:layout_weight="1">
             </TextView>
 
             <TextView
                 android:id="@+id/time"
+                android:paddingLeft="15dp"
                 android:text="@string/app_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="normal|italic">
+                android:textColor="@color/navigationBarBackground"
+                android:layout_weight="1"
+                android:textAlignment="viewStart">
             </TextView>
 
         </LinearLayout>
 
         <TextView
             android:text="TextView"
-            android:layout_width="213dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/creationDate"
-            android:textStyle="normal|italic"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/navigationBarBackground" />
 
     </LinearLayout>
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:layout_width="94dp"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_disabled"
+        app:riv_corner_radius="30dip"
+        app:riv_border_width="2dip"
+        android:scaleType="fitStart"
+        app:riv_border_color="#333333"
+        app:riv_mutate_background="true"
         android:id="@+id/profilePhoto"
+        app:riv_oval="true"
         android:layout_gravity="center"/>
 
 </LinearLayout>

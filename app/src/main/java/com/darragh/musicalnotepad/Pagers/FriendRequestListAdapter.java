@@ -48,7 +48,7 @@ class FriendRequestListAdapter extends ArrayAdapter{
                 .getUid()+"/FriendRequest/"+UID).setValue(null);
     }
 
-    private void acceptFriendRequest(final String UID,final String userName){
+    private void acceptFriendRequest(final String UID,final String userName, final int position){
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -60,7 +60,7 @@ class FriendRequestListAdapter extends ArrayAdapter{
                         .getUid()+"/",1);
                 databaseReference.updateChildren(map);
                 RemoveFriendRequest(UID, databaseReference);
-
+                users.remove(position);
                 ///DO SOMETHING
             }
 
@@ -73,7 +73,7 @@ class FriendRequestListAdapter extends ArrayAdapter{
         acceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                acceptFriendRequest(users.get(position).UID,users.get(position).userName);
+                acceptFriendRequest(users.get(position).UID,users.get(position).userName,position);
                 acceptRequest.setVisibility(View.INVISIBLE);
                 declineRequest.setVisibility(View.INVISIBLE);
             }
@@ -82,6 +82,7 @@ class FriendRequestListAdapter extends ArrayAdapter{
             @Override
             public void onClick(View v) {
                 RemoveFriendRequest(users.get(position).UID,FirebaseDatabase.getInstance().getReference());
+                users.remove(position);
             }
         });
     }

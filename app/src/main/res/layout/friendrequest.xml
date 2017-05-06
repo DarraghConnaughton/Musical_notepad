@@ -9,10 +9,37 @@
         android:layout_height="match_parent"
         android:weightSum="1">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="61dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:id="@+id/textView5"
+                android:paddingTop="18dp"
+                android:text="@string/friendRequests"
+                android:textStyle="normal|bold"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:fontFamily="serif-monospace"
+                android:layout_weight="1"
+                android:textColor="@color/navigationBarBackground" />
+
+            <ImageView
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/pendingfriends"
+                android:id="@+id/imageView9" />
+        </LinearLayout>
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/listView" />
+            android:id="@+id/listView"
+            android:divider="@drawable/divider"
+            android:dividerHeight="10.0sp"/>
 
     </LinearLayout>
     <android.support.design.widget.NavigationView
@@ -22,5 +49,6 @@
         app:headerLayout="@layout/userprofile"
         app:menu="@menu/navigationitems"
         android:layout_gravity="start"
-        style="@style/NavDrawer"/>
+        style="@style/NavDrawer"
+        android:dividerHeight="7.0sp"/>
 </android.support.v4.widget.DrawerLayout>

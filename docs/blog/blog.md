@@ -220,3 +220,10 @@ I have discovered two bugs that need attending too:
 
 I need to modify these and enhance the XML present in my listView pages. This is the current task, I don't expect it to take too long. Once this is complete I must most onto writing tests for friend request and song request to ensure firebase is acting the way I wish to act. 
 
+#30 
+
+Both bugs from above have been eliminated. I have chosen a standard colour scheme for the application and applied it throughout. I am impressed with how it all looks. I added titles to each page and a picture to compliment it. Also I added spaces to listView so they aren't so squashed. I have no pending friend/song data at the moment to test the layout of my new ListViews, I'll try this again tomorrow. 
+
+* Buttons with ListView: responsive to click (check your notes). 
+* Test pending song + pending friend. 
+

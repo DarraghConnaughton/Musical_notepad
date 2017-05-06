@@ -18,11 +18,13 @@
         <TextView
             android:text="@string/FindFriends"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="53dp"
             android:id="@+id/findFriends"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:fontFamily="serif-monospace"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/navigationBarBackground"
+            android:textStyle="normal|bold" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -30,17 +32,24 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="44dp"
-                app:srcCompat="@drawable/searchicon"
-                android:id="@+id/imageView2" />
+                app:srcCompat="@drawable/findfriends"
+                android:id="@+id/imageView2"
+                android:layout_weight="0.06" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:id="@+id/searchBar"
-                android:layout_weight="1" />
+                android:layout_weight="0.93"
+                android:textColor="@color/navigationBarBackground" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.15" />
         </LinearLayout>
 
         <Space
@@ -60,5 +69,6 @@
     app:headerLayout="@layout/userprofile"
     app:menu="@menu/navigationitems"
     android:layout_gravity="start"
-    style="@style/NavDrawer"/>
+    style="@style/NavDrawer"
+        android:dividerHeight="7.0sp"/>
 </android.support.v4.widget.DrawerLayout>

@@ -44,8 +44,8 @@ public class SongListAdapter extends ArrayAdapter<String> {
         TextView timeSign = (TextView) rowView.findViewById(R.id.time);
         TextView createdDate = (TextView) rowView.findViewById(R.id.creationDate);
 
-        createdDate.setText("Creation Date: " + creationDate(Long.parseLong(timestamp.get(position))));
-        textView.setText("Song name: " + entries.get(position));
+        createdDate.setText("Date: " + creationDate(Long.parseLong(timestamp.get(position))));
+        textView.setText("Name: " + entries.get(position));
         keySign.setText("Key: " + keySignature.get(position));
         timeSign.setText("Time: " + timeSignature.get(position));
 

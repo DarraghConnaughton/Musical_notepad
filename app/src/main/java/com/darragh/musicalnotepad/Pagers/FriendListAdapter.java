@@ -32,7 +32,7 @@ public class FriendListAdapter extends ArrayAdapter{
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.friendrow, parent, false);
+            rowView = inflater.inflate(R.layout.friendlistrow, parent, false);
             profilePicture = (ImageView) rowView.findViewById(R.id.imageView);
             Picasso.with(getContext()).load(users.get(position).profileImageUri+"?sz=65").into(profilePicture);
             searchName = (TextView) rowView.findViewById(R.id.searchName);
