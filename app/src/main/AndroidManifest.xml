@@ -22,22 +22,22 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Login_Register.Register">
+        <activity android:name=".Pitch_Detector.Tuner">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login_Register.SignIn"></activity>
-        <activity android:name=".Pagers.MainActivity"></activity>
-        <activity android:name=".Pagers.FriendList"></activity>
-        <activity android:name=".Pagers.FriendRequest"></activity>
-        <activity android:name=".Pagers.songRequestList"></activity>
-        <activity android:name=".Pagers.DatabaseEntries"></activity>
-        <activity android:name=".Pagers.FindFriend"></activity>
-        <activity android:name=".Pagers.songDisplay"></activity>
-        <activity android:name=".Pagers.UserProfile" />
+        <activity android:name=".Login_Register.SignIn"/>
+        <activity android:name=".Pagers.MainActivity"/>
+        <activity android:name=".Pagers.FriendList"/>
+        <activity android:name=".Pagers.FriendRequest"/>
+        <activity android:name=".Pagers.songRequestList"/>
+        <activity android:name=".Pagers.DatabaseEntries"/>
+        <activity android:name=".Pagers.FindFriend"/>
+        <activity android:name=".Pagers.songDisplay"/>
+
     </application>
 
-
+    <!--<activity android:name=".Pitch_Detector.Tuner"/>-->
 </manifest>

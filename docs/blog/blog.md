@@ -236,4 +236,6 @@ Very productive day was had. I have 90% of the design completed now. All ListVie
 
 I think I will hold off on advancing any future until I meet with Donal, it is time to focus on my exams. 
 
+#32
 
+I have implemented a midi file and implemented a tuner. Delighted with the new features. Now it is time to test and document my work and pray to god all goes well on the day. Happy days, happy days. 

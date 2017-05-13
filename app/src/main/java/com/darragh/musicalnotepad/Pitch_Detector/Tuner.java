@@ -1,12 +1,12 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
-import android.view.View;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.darragh.musicalnotepad.Cluster.ClusterNode;
-import com.darragh.musicalnotepad.Cluster.kMeans;
-
-import java.util.ArrayList;
+import com.darragh.musicalnotepad.R;
+import com.firebase.client.Firebase;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -16,21 +16,63 @@ import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
-public class Tuner {
-    public Thread t;
+public class Tuner extends AppCompatActivity{
+    private Thread t;
+    private Handler handler = new Handler();
     private AudioDispatcher dispatcher;
-    private static ArrayList<String> list,note;
-    private static ArrayList<Integer> note_length;
+    private float note,pitch_freq;
+    private boolean inTune;
+    private TextView currentNote,flat,sharp;
 
-    public void recordAudio(){
-        list = new ArrayList<>();
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
+        setContentView(R.layout.tuner);
+        instantiateView();
+        startTuner();
+    }
+
+    private void setNullView(){
+        flat.setText("");
+        sharp.setText("");
+    }
+
+    private void instantiateView(){
+        currentNote = (TextView) findViewById(R.id.currentNote);
+        flat = (TextView) findViewById(R.id.flat);
+        sharp = (TextView) findViewById(R.id.sharp);
+    }
+
+    private void setFlatOrSharp(){
+        if(Math.round(pitch_freq)<=Math.round(note) && !currentNote.getText().equals("")){
+            sharp.setText(Math.round(note-pitch_freq) + "Hz - \u266D");
+            flat.setText(null);
+        }
+        else if(Math.round(pitch_freq)>=Math.round(note) && !currentNote.getText().equals("")){
+           flat.setText(Math.round(pitch_freq-pitch_freq)+ "Hz - \u266F");
+            sharp.setText(null);
+        }
+    }
+
+    private void updateDisplay(final float pitch){
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                currentNote.setText(hz_to_note(pitch));
+                if(!inTune){
+                    setFlatOrSharp();
+                }
+            }
+        });
+    }
+
+    public void startTuner(){
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0);
         PitchDetectionHandler pdh = new PitchDetectionHandler() {
             @Override
             public void handlePitch(PitchDetectionResult result, AudioEvent audioEvent) {
-                final float pitchInHz = result.getPitch();
-                System.out.println(hz_to_note(pitchInHz,1));
-                list.add(hz_to_note(pitchInHz,1));
+                updateDisplay(result.getPitch());
             }
         };
 
@@ -40,78 +82,16 @@ public class Tuner {
         t.start();
     }
 
-    private static void concatenate(){
-        ArrayList<String> updatedNotes = new ArrayList<>();
-        ArrayList<Integer> updatedLengths = new ArrayList<>();
-        int temp_length;
-        for(int i=0; i<note.size()-1; i++){
-            if(note.get(i).equals(note.get(i+1))) {
-                updatedNotes.add(note.get(i));
-                updatedLengths.add(note_length.get(i) + note_length.get(i + 1));
-                i++;
-            } else {
-                updatedNotes.add(note.get(i));
-                updatedLengths.add(note_length.get(i));
-            }
-        }
-        note=new ArrayList<>(updatedNotes);
-        note_length=new ArrayList<>(updatedLengths);
-    }
-
-    private void processAudioInput(){
-        note = new ArrayList<>();
-        note_length = new ArrayList<>();
-        String currentNote="";
-        int currentLength=0;
-        int array_Size= list.size();
-        for(int i=0; i<array_Size; i++){
-            currentLength++;
-            if(i==0){
-                currentNote=list.get(i);
-            } else if(!currentNote.equals(list.get(i))) {
-                if(currentLength>2){
-                    note.add(currentNote);
-                    note_length.add(currentLength);
-                }
-                currentLength=0;
-                currentNote = list.get(i);
-            }
-            else if(i==(array_Size-1)){
-                note.add(currentNote);
-                note_length.add(currentLength);
-            }
-        }
-    }
-
-    public String stopRecording(TextView outputDisplay, KeySignature keySignature, int timeSignature){
+    public void stopRecording(){
         dispatcher.stop();
-        outputDisplay.setVisibility(View.VISIBLE);
-        processAudioInput();
-        concatenate();
-        if(note.size()>1){
-            return kMeans.main(fillCluster(note,note_length),keySignature,timeSignature);
-        }
-        return "";
     }
 
-    public static ArrayList<ClusterNode> fillCluster(ArrayList<String> note, ArrayList<Integer> note_length){
-        ArrayList<ClusterNode> clusterNodeArrayList = new ArrayList<ClusterNode>();
-        for(int i=0; i<note.size(); i++){
-            clusterNodeArrayList.add(new ClusterNode(i,note_length.get(i),note.get(i)));
-        }
-        return clusterNodeArrayList;
-    }
-
-
-
-    //YOU MIGHT NEED TO DO SOMETHING ABOUT THESE HARDCODED VALUES.
-    public String hz_to_note(float frequency,int octave){
+    public String hz_to_note(float frequency){
         if(frequency>538.808f && frequency<=1077.616f){
             float temp_frequency;
             for(float i=2.0f; i<10.0f; i++){
                 temp_frequency = frequency/i;
                 if(temp_frequency>=261.626f && temp_frequency<=538.808f){
-                    octave = (int)i;
                     frequency = frequency/i;
                     break;
                 }
@@ -122,39 +102,132 @@ public class Tuner {
             for(float i=4.0f; i<10.0f; i++){
                 temp_frequency = frequency/i;
                 if(temp_frequency>=254.284f && temp_frequency<=538.808f){
-                    octave = (int)(i-1.0f);
                     frequency = frequency/i;
                     break;
                 }
             }
         }
+        pitch_freq=frequency;
         if(frequency>=254.284f && frequency<=269.4045f){
-            return ("C" + octave);
+            if(Math.round(frequency)==261){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            note=261.63f;
+            return "C";
         } else if(frequency>269.4045f && frequency<=285.424f){
-            return ("_D" + octave);
+            note=277.18f;
+            if(Math.round(frequency)==277){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "D\u266D";
         } else if(frequency>285.424f && frequency<=302.396f){
-            return ("D" + octave);
+            if(Math.round(frequency)==293){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            note=293.66f;
+            return "D";
         } else if(frequency>302.396f && frequency<=320.3775f){
-            return ("_E" + octave);
+            note=311.13f;
+            if(Math.round(frequency)==311){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "E\u266D";
         } else if(frequency>320.3775f && frequency<=339.428f){
-            return ("E" + octave);
+            if(Math.round(frequency)==330){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            note=329.63f;
+            return "E";
         } else if(frequency>339.428f && frequency<=359.611f){
-            return ("F" + octave);
+            note=349.23f;
+            if(Math.round(frequency)==349){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "F";
         } else if(frequency>359.611f && frequency<=380.9945f){
-            return ("_G" + octave);
+            note=369.99f;
+            if(Math.round(frequency)==370){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "G\u266D";
         } else if(frequency>380.9945f && frequency<=403.65f){
-            return ("G" + octave);
+            note=392.00f;
+            if(Math.round(frequency)==392){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "G";
         } else if(frequency>403.65f && frequency<=427.6525f){
-            return ("_A" + octave);
+            note=415.30f;
+            if(Math.round(frequency)==415){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "A\u266D";
         } else if(frequency>427.6525f && frequency<=453.082f){
-            return ("A" + octave);
+            note=440.00f;
+            if(Math.round(frequency)==440){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "A";
         } else if(frequency>453.082f && frequency<=480.0236f){
-            return ("_B" + octave);
+            note=466.16f;
+            if(Math.round(frequency)==466){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "B\u266D";
         } else if(frequency>480.0236f && frequency<=508.567f){
-            return ("B" + octave);
+            note=493.88f;
+            if(Math.round(frequency)==494){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "B";
         } else if(frequency>508.567f && frequency<=538.808f){
-            return ("C" + (octave+1));
+            note=523.25f;
+            if(Math.round(frequency)==523){
+                inTune=true;
+            }
+            else{
+                inTune=false;
+            }
+            return "C";
         } else
-            return "SPACE";
+            note=0f;
+            setNullView();
+            return "";
     }
 }

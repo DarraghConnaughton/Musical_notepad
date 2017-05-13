@@ -54,5 +54,6 @@
     <string name="friendList">"Friend List"</string>
     <string name="friendRequests">Friend Requests</string>
     <string name="pendingSongs">Pending Songs</string>
+    <string name="tuner" >Tuner</string>
 
 </resources>
