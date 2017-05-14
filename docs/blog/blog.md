@@ -239,3 +239,7 @@ I think I will hold off on advancing any future until I meet with Donal, it is t
 #32
 
 I have implemented a midi file and implemented a tuner. Delighted with the new features. Now it is time to test and document my work and pray to god all goes well on the day. Happy days, happy days. 
+
+#33
+
+I have added an option that allows you to write a file internally or to print via WIFI. I modified the tuner a little today, allowing a larger window of error, increasing it from needing to be equal, to allowing on or two hz slack. Today I have refactored my friend request adapters. Taking them out of the customer array adapters that I created for both and places the code into a class separate class that will handle them. This will make testing them much easier, I hope. 

@@ -1,87 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
-
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.08" />
-
-    <TextView
-        android:text="@string/tuner"
-        android:paddingTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView6"
-        android:layout_weight="0.13"
-        android:textSize="24sp"
-        android:textAlignment="center"
-        android:fontFamily="serif-monospace"
-        android:textStyle="normal|bold"
-        android:textColor="@color/navigationBarBackground" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.24" />
-
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="138dp"
-        android:layout_weight="0.13">
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="108dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="5.14" />
-
-            <TextView
-                android:text="TextView"
-                android:layout_width="match_parent"
-                android:layout_height="59dp"
-                android:id="@+id/flat"
-                android:layout_weight="1"
-                android:textAlignment="textEnd" />
-        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.08" />
 
         <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/currentNote"
-            android:layout_weight="1"
-            android:paddingTop="80dp"
+            android:text="@string/tuner"
+            android:paddingTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            android:layout_weight="0.13"
+            android:textSize="24sp"
             android:textAlignment="center"
-            android:textSize="42sp" />
+            android:fontFamily="serif-monospace"
+            android:textStyle="normal|bold"
+            android:textColor="@color/navigationBarBackground" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.24" />
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="124dp"
-            android:layout_height="match_parent">
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="138dp"
+            android:layout_weight="0.13">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.67" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="117dp"
+                android:layout_height="match_parent">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5.14" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="59dp"
+                    android:id="@+id/flat"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
 
             <TextView
                 android:text="TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/sharp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/currentNote"
                 android:layout_weight="1"
-                android:textAlignment="textStart" />
-        </LinearLayout>
+                android:paddingTop="80dp"
+                android:fontFamily="serif-monospace"
+                android:textSize="80sp"
+                android:textStyle="normal|bold"
+                android:textAlignment="center" />
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="124dp"
+                android:layout_height="match_parent">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.67" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sharp"
+                    android:layout_weight="1"
+                    android:textAlignment="textStart" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    <android.support.design.widget.NavigationView
+    android:id="@+id/navigationBar"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    app:headerLayout="@layout/userprofile"
+    app:menu="@menu/navigationitems"
+    android:layout_gravity="start"
+    style="@style/NavDrawer"
+    android:dividerHeight="7.0sp"/>
+</android.support.v4.widget.DrawerLayout>

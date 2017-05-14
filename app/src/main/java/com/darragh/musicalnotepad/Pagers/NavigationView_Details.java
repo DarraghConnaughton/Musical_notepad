@@ -16,11 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.darragh.musicalnotepad.Login_Register.SignIn;
+import com.darragh.musicalnotepad.Pitch_Detector.Tuner;
 import com.darragh.musicalnotepad.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
+
+import be.tarsos.dsp.AudioDispatcher;
 
 public class NavigationView_Details extends AppCompatActivity{
     private static ActionBarDrawerToggle actionBarDrawerToggle;
@@ -47,38 +50,55 @@ public class NavigationView_Details extends AppCompatActivity{
         }
     }
 
-    public static void setNavigationView(NavigationView navigationBar, final Context context, final Activity activity, DrawerLayout mDrawerLayout){
+    private static void checkDispatcher(AudioDispatcher dispatcher){
+        if(dispatcher!=null){
+            dispatcher.stop();
+        }
+    }
+
+    public static void setNavigationView(NavigationView navigationBar, final Context context, final Activity activity, DrawerLayout mDrawerLayout, final AudioDispatcher dispatcher){
         setFirebaseListener(activity,context);
         setProfilePicture(navigationBar,context);
         navigationBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getTitle().equals("Record Audio")){
+                    checkDispatcher(dispatcher);
                     activity.finish();
                     activity.startActivity(new Intent(context, MainActivity.class));
                 }
                 else if(item.getTitle().equals("Database Entries")){
+                    checkDispatcher(dispatcher);
                     activity.finish();
                     activity.startActivity(new Intent(context, DatabaseEntries.class));
                 }
                 else if(item.getTitle().equals("Find Friends")){
+                    checkDispatcher(dispatcher);
                     activity.finish();
                     activity.startActivity(new Intent(context, FindFriend.class));
                 }
+                else if(item.getTitle().equals("Tuner")){
+                    checkDispatcher(dispatcher);
+                    activity.finish();
+                    activity.startActivity(new Intent(context, Tuner.class));
+                }
                 else if(item.getTitle().equals("Friend Requests")){
+                    checkDispatcher(dispatcher);
                     activity.finish();
                     activity.startActivity(new Intent(context, FriendRequest.class));
                 }
                 else if(item.getTitle().equals("Friend List")){
+                    checkDispatcher(dispatcher);
                     activity.finish();
                     activity.startActivity(new Intent(context, FriendList.class));
                 }
                 else if(item.getTitle().equals("Pending Songs")){
+                    checkDispatcher(dispatcher);
                     activity.finish();
                     activity.startActivity(new Intent(context, songRequestList.class));
                 }
                 else if(item.getTitle().equals("Logout")){
-                    System.out.println("LOGOUT!!!!!!");
+                    checkDispatcher(dispatcher);
                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                     activity.finish();
                     firebaseAuth.getInstance().signOut();

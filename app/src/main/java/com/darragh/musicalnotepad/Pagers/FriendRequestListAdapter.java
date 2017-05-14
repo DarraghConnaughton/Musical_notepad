@@ -27,6 +27,7 @@ class FriendRequestListAdapter extends ArrayAdapter{
     private final Context context;
     private final ArrayList<UserProfileDetails> users;
     private LayoutInflater inflater;
+    private String user;
     private View rowView;
     private TextView emailAddress,userName;
     private Button acceptRequest,declineRequest;
@@ -41,37 +42,11 @@ class FriendRequestListAdapter extends ArrayAdapter{
     }
 
 
-    private void RemoveFriendRequest(String UID, DatabaseReference databaseReference){
-        databaseReference.child(getContext().getResources().getString(R.string.users)+"/"+UID+"/pendingFriendRequest/"
-                +FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(null);
-        databaseReference.child(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance().getCurrentUser()
-                .getUid()+"/FriendRequest/"+UID).setValue(null);
-    }
-
-    private void acceptFriendRequest(final String UID,final String userName, final int position){
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                Map<String,Object> map = new HashMap<>();
-                map.put(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance().getCurrentUser()
-                        .getUid()+"/FriendList/"+UID +"/",userName);
-                map.put(getContext().getResources().getString(R.string.users)+UID+"/FriendList/"+FirebaseAuth.getInstance().getCurrentUser()
-                        .getUid()+"/",1);
-                databaseReference.updateChildren(map);
-                RemoveFriendRequest(UID, databaseReference);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError){}
-        });
-    }
-
     private void setButton(final int position){
         acceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                acceptFriendRequest(users.get(position).UID,users.get(position).userName,position);
+                FriendRequestController.acceptFriendRequest(users.get(position).UID,users.get(position).userName,position,user);
                 acceptRequest.setVisibility(View.INVISIBLE);
                 declineRequest.setVisibility(View.INVISIBLE);
                 users.remove(position);
@@ -81,20 +56,23 @@ class FriendRequestListAdapter extends ArrayAdapter{
         declineRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RemoveFriendRequest(users.get(position).UID,FirebaseDatabase.getInstance().getReference());
+                FriendRequestController.RemoveFriendRequest(users.get(position).UID,FirebaseDatabase.getInstance().getReference(),user);
                 users.remove(position);
                 notifyDataSetChanged();
             }
         });
     }
 
-
+    private void setString(){
+        user=getContext().getResources().getString(R.string.users);
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         rowView = inflater.inflate(R.layout.friendrequestrow, parent, false);
         ImageView profilePicture = (ImageView) rowView.findViewById(R.id.profilePicture);
+        setString();
         if(users.get(position).profileImageUri!=null){
             Picasso.with(getContext()).load(users.get(position).profileImageUri+"?sz=65").into(profilePicture);
         }

@@ -5,6 +5,10 @@
             android:title="Record Audio"
             android:icon="@drawable/recordaudio"/>
         <item
+            android:id="@+id/tuner"
+            android:title="Tuner"
+            android:icon="@drawable/databaseentries"/>
+        <item
             android:id="@+id/database_entries"
             android:title="Database Entries"
             android:icon="@drawable/databaseentries"/>

@@ -18,9 +18,13 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class PitchDetector {
     public Thread t;
-    private AudioDispatcher dispatcher;
+    private static AudioDispatcher dispatcher;
     private static ArrayList<String> list,note;
     private static ArrayList<Integer> note_length;
+
+    public static AudioDispatcher getDispatcher(){
+        return dispatcher;
+    }
 
     public void recordAudio(){
         list = new ArrayList<>();

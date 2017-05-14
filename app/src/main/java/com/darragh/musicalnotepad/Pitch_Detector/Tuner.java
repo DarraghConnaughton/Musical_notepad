@@ -1,10 +1,17 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.darragh.musicalnotepad.Pagers.NavigationView_Details;
 import com.darragh.musicalnotepad.R;
 import com.firebase.client.Firebase;
 
@@ -22,6 +29,7 @@ public class Tuner extends AppCompatActivity{
     private AudioDispatcher dispatcher;
     private float note,pitch_freq;
     private boolean inTune;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
     private TextView currentNote,flat,sharp;
 
     @Override
@@ -29,8 +37,10 @@ public class Tuner extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.tuner);
-        instantiateView();
         startTuner();
+        setUpNavigationBar();
+        instantiateView();
+
     }
 
     private void setNullView(){
@@ -50,7 +60,7 @@ public class Tuner extends AppCompatActivity{
             flat.setText(null);
         }
         else if(Math.round(pitch_freq)>=Math.round(note) && !currentNote.getText().equals("")){
-           flat.setText(Math.round(pitch_freq-pitch_freq)+ "Hz - \u266F");
+           flat.setText(Math.round(pitch_freq-note)+ "Hz - \u266F");
             sharp.setText(null);
         }
     }
@@ -62,10 +72,17 @@ public class Tuner extends AppCompatActivity{
                 currentNote.setText(hz_to_note(pitch));
                 if(!inTune){
                     setFlatOrSharp();
+                    currentNote.setTextColor(Color.RED);
+                } else
+                {
+                    setNullView();
+                    currentNote.setTextColor(Color.GREEN);
                 }
             }
         });
     }
+
+    /// PRINT FROM WEBVIEW
 
     public void startTuner(){
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0);
@@ -80,10 +97,6 @@ public class Tuner extends AppCompatActivity{
         dispatcher.addAudioProcessor(p);
         t = new Thread(dispatcher, "Audio Dispatcher");
         t.start();
-    }
-
-    public void stopRecording(){
-        dispatcher.stop();
     }
 
     public String hz_to_note(float frequency){
@@ -109,7 +122,7 @@ public class Tuner extends AppCompatActivity{
         }
         pitch_freq=frequency;
         if(frequency>=254.284f && frequency<=269.4045f){
-            if(Math.round(frequency)==261){
+            if(Math.round(frequency)>=260 && Math.round(frequency)<=262){
                 inTune=true;
             }
             else{
@@ -119,7 +132,7 @@ public class Tuner extends AppCompatActivity{
             return "C";
         } else if(frequency>269.4045f && frequency<=285.424f){
             note=277.18f;
-            if(Math.round(frequency)==277){
+            if(Math.round(frequency)>=276 && Math.round(frequency)<=278){
                 inTune=true;
             }
             else{
@@ -127,7 +140,7 @@ public class Tuner extends AppCompatActivity{
             }
             return "D\u266D";
         } else if(frequency>285.424f && frequency<=302.396f){
-            if(Math.round(frequency)==293){
+            if(Math.round(frequency)>=292 && Math.round(frequency)<=294){
                 inTune=true;
             }
             else{
@@ -137,7 +150,7 @@ public class Tuner extends AppCompatActivity{
             return "D";
         } else if(frequency>302.396f && frequency<=320.3775f){
             note=311.13f;
-            if(Math.round(frequency)==311){
+            if(Math.round(frequency)>=310 && Math.round(frequency)<=312){
                 inTune=true;
             }
             else{
@@ -145,7 +158,7 @@ public class Tuner extends AppCompatActivity{
             }
             return "E\u266D";
         } else if(frequency>320.3775f && frequency<=339.428f){
-            if(Math.round(frequency)==330){
+            if(Math.round(frequency)>=329 && Math.round(frequency)<=331){
                 inTune=true;
             }
             else{
@@ -155,7 +168,7 @@ public class Tuner extends AppCompatActivity{
             return "E";
         } else if(frequency>339.428f && frequency<=359.611f){
             note=349.23f;
-            if(Math.round(frequency)==349){
+            if(Math.round(frequency)>=348 && Math.round(frequency)<=350){
                 inTune=true;
             }
             else{
@@ -164,7 +177,7 @@ public class Tuner extends AppCompatActivity{
             return "F";
         } else if(frequency>359.611f && frequency<=380.9945f){
             note=369.99f;
-            if(Math.round(frequency)==370){
+            if(Math.round(frequency)>=369 && Math.round(frequency)<=371){
                 inTune=true;
             }
             else{
@@ -173,7 +186,7 @@ public class Tuner extends AppCompatActivity{
             return "G\u266D";
         } else if(frequency>380.9945f && frequency<=403.65f){
             note=392.00f;
-            if(Math.round(frequency)==392){
+            if(Math.round(frequency)>=391 && Math.round(frequency)<=393){
                 inTune=true;
             }
             else{
@@ -182,7 +195,7 @@ public class Tuner extends AppCompatActivity{
             return "G";
         } else if(frequency>403.65f && frequency<=427.6525f){
             note=415.30f;
-            if(Math.round(frequency)==415){
+            if(Math.round(frequency)>=414 && Math.round(frequency)<=416){
                 inTune=true;
             }
             else{
@@ -191,7 +204,7 @@ public class Tuner extends AppCompatActivity{
             return "A\u266D";
         } else if(frequency>427.6525f && frequency<=453.082f){
             note=440.00f;
-            if(Math.round(frequency)==440){
+            if(Math.round(frequency)>=439 && Math.round(frequency)<=441){
                 inTune=true;
             }
             else{
@@ -200,7 +213,7 @@ public class Tuner extends AppCompatActivity{
             return "A";
         } else if(frequency>453.082f && frequency<=480.0236f){
             note=466.16f;
-            if(Math.round(frequency)==466){
+            if(Math.round(frequency)>=465 && Math.round(frequency)<=467){
                 inTune=true;
             }
             else{
@@ -209,7 +222,7 @@ public class Tuner extends AppCompatActivity{
             return "B\u266D";
         } else if(frequency>480.0236f && frequency<=508.567f){
             note=493.88f;
-            if(Math.round(frequency)==494){
+            if(Math.round(frequency)>=493 && Math.round(frequency)<=495){
                 inTune=true;
             }
             else{
@@ -218,7 +231,7 @@ public class Tuner extends AppCompatActivity{
             return "B";
         } else if(frequency>508.567f && frequency<=538.808f){
             note=523.25f;
-            if(Math.round(frequency)==523){
+            if(Math.round(frequency)>=522 && Math.round(frequency)<=524){
                 inTune=true;
             }
             else{
@@ -227,7 +240,29 @@ public class Tuner extends AppCompatActivity{
             return "C";
         } else
             note=0f;
-            setNullView();
             return "";
+    }
+
+    private void setUpNavigationBar(){
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navigationBar = (NavigationView) findViewById(R.id.navigationBar);
+        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,mDrawerLayout,dispatcher);
+        setActionBarDetails(mDrawerLayout);
+    }
+
+    private void setActionBarDetails(DrawerLayout mDrawerLayout){
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF18003E")));
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return actionBarDrawerToggle.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item)||actionBarDrawerToggle.onOptionsItemSelected(item);
     }
 }

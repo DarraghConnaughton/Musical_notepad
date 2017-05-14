@@ -9,7 +9,4 @@ public class ClusterNode {
         length = cnLength;
         note = cnNote;
     }
-    public void printNode(){
-        System.out.println(position + " - " + note + " - " + length + " - " + cluster);
-    }
 }
