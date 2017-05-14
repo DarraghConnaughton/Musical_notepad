@@ -3,11 +3,8 @@ package com.darragh.musicalnotepad.Pagers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -27,6 +24,7 @@ import be.tarsos.dsp.AudioDispatcher;
 
 public class NavigationView_Details extends AppCompatActivity{
     private static ActionBarDrawerToggle actionBarDrawerToggle;
+    private static int isRecording;
 
     public static void setProfilePicture(NavigationView navigationView, Context context){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -50,13 +48,21 @@ public class NavigationView_Details extends AppCompatActivity{
         }
     }
 
+    public static void incrementRecordCounter(){
+        isRecording++;
+    }
+
     private static void checkDispatcher(AudioDispatcher dispatcher){
-        if(dispatcher!=null){
+        System.out.println("*****************************************");
+        System.out.println(isRecording + " - " + dispatcher);
+        if(isRecording%2==1){
+            System.out.println("DISPATCHER STOPPED");
             dispatcher.stop();
         }
     }
 
-    public static void setNavigationView(NavigationView navigationBar, final Context context, final Activity activity, DrawerLayout mDrawerLayout, final AudioDispatcher dispatcher){
+    public static void setNavigationView(NavigationView navigationBar, final Context context, final Activity activity, final AudioDispatcher dispatcher, int recording){
+        isRecording=recording;
         setFirebaseListener(activity,context);
         setProfilePicture(navigationBar,context);
         navigationBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

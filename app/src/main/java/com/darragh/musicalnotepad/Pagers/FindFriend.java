@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,6 +38,7 @@ public class FindFriend extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.findfriends);
         setUpNavigationBar();
@@ -128,7 +130,7 @@ public class FindFriend extends AppCompatActivity{
     private void setUpNavigationBar(){
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationBar = (NavigationView) findViewById(R.id.navigationBar);
-        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,mDrawerLayout,null);
+        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,null,0);
         setActionBarDetails(mDrawerLayout);
     }
 

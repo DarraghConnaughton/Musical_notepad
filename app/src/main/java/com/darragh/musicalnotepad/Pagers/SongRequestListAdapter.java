@@ -12,21 +12,15 @@ import android.widget.TextView;
 
 import com.darragh.musicalnotepad.Pitch_Detector.Song;
 import com.darragh.musicalnotepad.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SongRequestListAdapter extends ArrayAdapter{
     private final Context context;
     private final ArrayList<Song> songList;
+    private String user;
     private TextView songName,key,time;
     private ImageView profilePicture;
     private Button previewSong,acceptSong,declineSong;
@@ -39,34 +33,31 @@ public class SongRequestListAdapter extends ArrayAdapter{
         this.mainView = _mainView;
     }
 
-    private void addSongToSongList(final String timeStamp){
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                Map<String,Object> map = new HashMap<>();
-                Song sentSong = JSONToSongConverter.songFromJSON(dataSnapshot.child(getContext().getResources().getString(R.string.users)
-                        +FirebaseAuth.getInstance().getCurrentUser().getUid()+"/SongRequest/"+timeStamp+"/").getChildren());
+//    private void addSongToSongList(final String timeStamp){
+//        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(final DataSnapshot dataSnapshot) {
+//                Map<String,Object> map = new HashMap<>();
+//                Song sentSong = JSONToSongConverter.songFromJSON(dataSnapshot.child(user+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/SongRequest/"+timeStamp+"/").getChildren());
+//
+//                map.put(user+ FirebaseAuth.getInstance().getCurrentUser()
+//                        .getUid()+"/songId/"+timeStamp+"/",sentSong);
+//                databaseReference.updateChildren(map);
+//                SongRequestListController.RemoveSongRequest(timeStamp, databaseReference, sentSong.getUID(),user);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError){}
+//        });
+//    }
 
-                map.put(getContext().getResources().getString(R.string.users)+ FirebaseAuth.getInstance().getCurrentUser()
-                        .getUid()+"/songId/"+timeStamp+"/",sentSong);
-                databaseReference.updateChildren(map);
-                RemoveSongRequest(timeStamp, databaseReference, sentSong.getUID());
-
-                //Do something!
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError){}
-        });
-    }
-
-    private void RemoveSongRequest(String timeStamp,DatabaseReference databaseReference, String UID){
-        databaseReference.child(getContext().getResources().getString(R.string.users)+UID+"/PendingSong/"+timeStamp)
-                .setValue(null);
-        databaseReference.child(getContext().getResources().getString(R.string.users)+FirebaseAuth.getInstance()
-                .getCurrentUser().getUid()+"/SongRequest/"+timeStamp).setValue(null);
-    }
+//    private void RemoveSongRequest(String timeStamp,DatabaseReference databaseReference, String UID){
+//        databaseReference.child(user+UID+"/PendingSong/"+timeStamp)
+//                .setValue(null);
+//        databaseReference.child(user+FirebaseAuth.getInstance()
+//                .getCurrentUser().getUid()+"/SongRequest/"+timeStamp).setValue(null);
+//    }
 
     private void previewSong(View rowView, final String timeStamp){
         Intent intent = new Intent(getContext(),songDisplay.class);
@@ -87,8 +78,7 @@ public class SongRequestListAdapter extends ArrayAdapter{
         acceptSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSongToSongList(songList.get(position).getTimestamp());
-                //Set button to accepted
+                SongRequestListController.addSongToSongList(songList.get(position).getTimestamp(),user);
                 songList.remove(position);
                 notifyDataSetChanged();
             }
@@ -97,10 +87,9 @@ public class SongRequestListAdapter extends ArrayAdapter{
         declineSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RemoveSongRequest(songList.get(position).getTimestamp()
+                SongRequestListController.RemoveSongRequest(songList.get(position).getTimestamp()
                         ,FirebaseDatabase.getInstance().getReference()
-                        ,songList.get(position).getUID());
-                //Delete entry from the list
+                        ,songList.get(position).getUID(),user);
                 songList.remove(position);
                 notifyDataSetChanged();
             }
@@ -124,9 +113,10 @@ public class SongRequestListAdapter extends ArrayAdapter{
     }
 
     private void setValues(int position){
-        songName.setText("Song name: " + songList.get(position).getName());
-        key.setText("Key: " + songList.get(position).getKeySignature());
-        time.setText("Time: " + songList.get(position).getTimeSignature());
+        user=getContext().getResources().getString(R.string.users);
+        songName.setText(songList.get(position).getName());
+        key.setText(songList.get(position).getKeySignature());
+        time.setText(songList.get(position).getTimeSignature());
         previewSong.setText(getContext().getResources().getString(R.string.previewSong));
         if(!songList.get(position).getProfilePhoto().equals(null)){
             Picasso.with(getContext()).load(songList.get(position).getProfilePhoto()+"?sz=350").into(profilePicture);

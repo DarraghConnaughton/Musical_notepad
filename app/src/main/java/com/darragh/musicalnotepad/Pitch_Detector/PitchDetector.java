@@ -17,18 +17,24 @@ import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class PitchDetector {
-    public Thread t;
-    private static AudioDispatcher dispatcher;
+    public static Thread t;
+    private AudioDispatcher dispatcher;
     private static ArrayList<String> list,note;
     private static ArrayList<Integer> note_length;
 
-    public static AudioDispatcher getDispatcher(){
+    public AudioDispatcher getDispatcher(){
         return dispatcher;
+    }
+
+    public PitchDetector(){
+        dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0);
+    }
+    public Thread getThread(){
+        return t;
     }
 
     public void recordAudio(){
         list = new ArrayList<>();
-        dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0);
         PitchDetectionHandler pdh = new PitchDetectionHandler() {
             @Override
             public void handlePitch(PitchDetectionResult result, AudioEvent audioEvent) {

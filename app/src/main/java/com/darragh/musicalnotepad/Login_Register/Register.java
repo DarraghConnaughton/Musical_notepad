@@ -12,8 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.darragh.musicalnotepad.Pagers.MainActivity;
+import com.darragh.musicalnotepad.Pitch_Detector.Tuner;
 import com.darragh.musicalnotepad.R;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -72,7 +71,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                     Toast.LENGTH_SHORT).show();
                             writeNewUser(task.getResult().getUser().getUid(),username,email);
                             finish();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), Tuner.class));
 
                         } else {
                             Toast.makeText(Register.this, "Could not register.",
@@ -99,7 +98,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), Tuner.class));
                 }
             }
         };

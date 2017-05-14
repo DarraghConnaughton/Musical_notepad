@@ -69,7 +69,7 @@ public class FriendList extends AppCompatActivity {
     private void setUpNavigationBar(){
         navigationBar = (NavigationView) findViewById(R.id.navigationBar);
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,mDrawerLayout,null);
+        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,null,0);
         setActionBarDetails(mDrawerLayout);
     }
 

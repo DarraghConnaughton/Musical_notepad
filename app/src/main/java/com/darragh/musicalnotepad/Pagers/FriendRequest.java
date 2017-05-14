@@ -79,7 +79,7 @@ public class FriendRequest extends AppCompatActivity{
     private void setUpNavigationBar(){
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationBar = (NavigationView) findViewById(R.id.navigationBar);
-        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,mDrawerLayout,null);
+        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,null,0);
         setActionBarDetails(mDrawerLayout);
     }
 

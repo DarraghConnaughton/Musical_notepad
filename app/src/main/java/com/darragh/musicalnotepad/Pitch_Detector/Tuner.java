@@ -24,7 +24,7 @@ import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class Tuner extends AppCompatActivity{
-    private Thread t;
+    private static Thread t;
     private Handler handler = new Handler();
     private AudioDispatcher dispatcher;
     private float note,pitch_freq;
@@ -36,10 +36,11 @@ public class Tuner extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
-        setContentView(R.layout.tuner);
         startTuner();
-        setUpNavigationBar();
+        setContentView(R.layout.tuner);
         instantiateView();
+        setUpNavigationBar();
+
 
     }
 
@@ -89,14 +90,16 @@ public class Tuner extends AppCompatActivity{
         PitchDetectionHandler pdh = new PitchDetectionHandler() {
             @Override
             public void handlePitch(PitchDetectionResult result, AudioEvent audioEvent) {
+                System.out.println("***********   " + result);
                 updateDisplay(result.getPitch());
             }
         };
 
         AudioProcessor p = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
         dispatcher.addAudioProcessor(p);
-        t = new Thread(dispatcher, "Audio Dispatcher");
+        t = new Thread(dispatcher, "Tuner");
         t.start();
+
     }
 
     public String hz_to_note(float frequency){
@@ -246,7 +249,7 @@ public class Tuner extends AppCompatActivity{
     private void setUpNavigationBar(){
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationBar = (NavigationView) findViewById(R.id.navigationBar);
-        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,mDrawerLayout,dispatcher);
+        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,dispatcher,1);
         setActionBarDetails(mDrawerLayout);
     }
 

@@ -243,3 +243,7 @@ I have implemented a midi file and implemented a tuner. Delighted with the new f
 #33
 
 I have added an option that allows you to write a file internally or to print via WIFI. I modified the tuner a little today, allowing a larger window of error, increasing it from needing to be equal, to allowing on or two hz slack. Today I have refactored my friend request adapters. Taking them out of the customer array adapters that I created for both and places the code into a class separate class that will handle them. This will make testing them much easier, I hope. 
+
+#34 
+
+I fixed a bug that arose when using the tuner after the pitch detector. All is well in the world once more, time for some refactoring. 

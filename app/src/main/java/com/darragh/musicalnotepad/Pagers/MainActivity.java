@@ -1,6 +1,5 @@
 package com.darragh.musicalnotepad.Pagers;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -191,13 +190,16 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 isRecording++;
+                NavigationView_Details.incrementRecordCounter();
                 if(isRecording%2==1){
-                    //                record.setEnabled(false);
+                    System.out.println("Recording started : " + isRecording);
+
                     record.setBackgroundResource(R.drawable.record_icon_clicked);
                     pitchDetector.recordAudio();
                     flashingIcon(0);
                 } else
                 {
+                    System.out.println("Recording stopped : " + isRecording);
                     stopRecording();
                 }
             }
@@ -207,25 +209,30 @@ public class MainActivity extends AppCompatActivity{
         discard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                record.setEnabled(true);
-                record.setBackgroundResource(R.drawable.record_icon_not_clicked);
-                WebViewController.disableWebView(myWebView);
-                save.setEnabled(false);
-                discard.setEnabled(false);
-                myWebView.setVisibility(View.INVISIBLE);
-
-                save.setVisibility(View.INVISIBLE);
-                discard.setVisibility(View.INVISIBLE);
-                record.setVisibility(View.VISIBLE);
+                finish();
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//                record.setEnabled(true);
+//                record.setBackgroundResource(R.drawable.record_icon_not_clicked);
+//                WebViewController.disableWebView(myWebView);
+//                save.setEnabled(false);
+//                discard.setEnabled(false);
+//                myWebView.setVisibility(View.INVISIBLE);
+//                enterSongName.setVisibility(View.INVISIBLE);
+//                save.setVisibility(View.INVISIBLE);
+//                discard.setVisibility(View.INVISIBLE);
+//                record.setVisibility(View.VISIBLE);
             }
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("Save has been clicked");
             if(namedSong()){
                 record.setBackgroundResource(R.drawable.record_icon_not_clicked);
+                System.out.println("Before save song");
                 saveSong();
+                System.out.println("After saved song");
                 finish();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
@@ -234,7 +241,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private static boolean namedSong(){
-        return tuneName.length()>0;
+        return enterSongName.getText().length()>0;
     }
 
     public static int getBeats(String timeSignature){
@@ -260,15 +267,15 @@ public class MainActivity extends AppCompatActivity{
         instantiateFirebase();
         instantiateButtons();
         addItemsSpinner();
-        setUpNavigationBar();
         pitchDetector = new PitchDetector();
+        setUpNavigationBar();
         setClickListeners();
     }
 
     private void setUpNavigationBar(){
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationBar = (NavigationView) findViewById(R.id.navigationBar);
-        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,mDrawerLayout,pitchDetector.getDispatcher());
+        NavigationView_Details.setNavigationView(navigationBar,getApplicationContext(),this,pitchDetector.getDispatcher(),0);
         setActionBarDetails(mDrawerLayout);
     }
 

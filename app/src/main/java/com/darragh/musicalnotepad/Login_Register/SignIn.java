@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.darragh.musicalnotepad.Pagers.MainActivity;
+import com.darragh.musicalnotepad.Pitch_Detector.Tuner;
 import com.darragh.musicalnotepad.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -136,7 +137,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                                     writeNewUser(googleUID,googleUsername,googleEmail);
                                 }
                             }
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), Tuner.class));
                         }
 
                         @Override
@@ -156,7 +157,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
         firebaseAuth = firebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, Tuner.class));
         }
         instantiateView();
         setGoogleComponents();
@@ -193,7 +194,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                             finish();
                             Toast.makeText(SignIn.this, "Successful login.",
                                     Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), Tuner.class));
                         } else {
                             Toast.makeText(SignIn.this, "Error login in",
                                     Toast.LENGTH_SHORT).show();
