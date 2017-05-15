@@ -8,9 +8,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by darragh on 20/04/17.
- */
+
 public class kMeansTest {
 
     @Test
@@ -39,6 +37,7 @@ public class kMeansTest {
     }
 
     private static int[] getPositions(ArrayList<ClusterNode> nodes){
+        System.out.println("GET POSITIONS : " + nodes);
         int[] positions = new int[nodes.size()];
         for(int i=0; i<nodes.size(); i++){
             positions[i] = nodes.get(i).position;
@@ -59,7 +58,7 @@ public class kMeansTest {
     //I am going to test a basic noteProgression using the cluster below.
     @Test
     public void testABCFormat(){
-        assertEquals(kMeans.main(convergence_testCluster(),new KeySignature("DMajor")),"_A^aF=f2=C2(c|c2)z3(E3|\nE)=F4(A3|A)");
+        assertEquals(kMeans.main(convergence_testCluster(),new KeySignature("DMajor"),8),"^G^aF=f2=C2(c|c2)z3(E3|\nE)=F4(A3|A)z7|");
     }
 
     //Test the aggregate of k separate clusters, maintain chronological order.
@@ -88,7 +87,10 @@ public class kMeansTest {
 
     @Test
     public void aggregateCluster(){
-        kMeans.main(convergence_testCluster(),new KeySignature("DMajor"));
+        kMeans.main(convergence_testCluster(),new KeySignature("DMajor"),8);
+        for(ClusterNode k: kMeans.getAggregatedCluster()){
+            System.out.println(k.note + " - length: " + k.length + "  cluster: "  +k.cluster);
+        }
         assertArrayEquals(getPositions(kMeans.getAggregatedCluster()),expectedPositions(kMeans.getAggregatedCluster()));
         assertArrayEquals(getNotes(kMeans.getAggregatedCluster()),expectedNotes(kMeans.getAggregatedCluster()));
     }
@@ -133,17 +135,19 @@ public class kMeansTest {
 
     @Test
     public void convergence(){
-        kMeans.main(convergence_testCluster(),new KeySignature("DMajor"));
+        kMeans.main(convergence_testCluster(),new KeySignature("DMajor"),8);
         //Cluster1
+        System.out.println("CLUSTER 1: --------");
         assertArrayEquals(extractLengths(0),lengths_expectedClusterOne());
         assertArrayEquals(extractClusterNumbers(0),expected_extractClusterOneNumbers());
         //Cluster2
+        System.out.println("CLUSTER 2: --------");
         assertArrayEquals(extractLengths(1),lengths_expectedClusterTwo());
         assertArrayEquals(extractClusterNumbers(1),expected_extractClusterTwoNumbers());
         //Cluster3
         assertArrayEquals(extractLengths(2),lengths_expectedClusterThree());
         assertArrayEquals(extractClusterNumbers(2),expected_extractClusterThreeNumbers());
-        //Cluster3
+        //Cluster4
         assertArrayEquals(extractLengths(3),lengths_expectedClusterFour());
         assertArrayEquals(extractClusterNumbers(3),expected_extractClusterFourNumbers());
     }
@@ -165,18 +169,28 @@ public class kMeansTest {
     }
 
     private static int[] extractLengths(int clusterNumber){
+        System.out.println("Extract Lengths -----------" + clusterNumber);
         int[] lengths = new int[kMeans.getClusterList().get(clusterNumber).clusterList.size()];
         for(int i=0; i<lengths.length; i++){
+            System.out.println(kMeans.getClusterList().get(clusterNumber).clusterList.get(i).length + " - " + kMeans.getClusterList().get(clusterNumber).clusterList.get(i).note + " - " +  kMeans.getClusterList().get(clusterNumber).clusterList.get(i).cluster );
             lengths[i] = kMeans.getClusterList().get(clusterNumber).clusterList.get(i).length;
         }
+        System.out.println("End -----------");
         return lengths;
     }
 
+
+    //Rewrite this method
+
     private static int[] extractClusterNumbers(int clusterNumber){
+        System.out.println("Extract Cluster Numbers");
         int[] numbers = new int[kMeans.getClusterList().get(clusterNumber).clusterList.size()];
         for(int i=0; i<numbers.length; i++){
+            System.out.println(kMeans.getClusterList().get(clusterNumber).clusterList.get(i).length + " - " + kMeans.getClusterList().get(clusterNumber).clusterList.get(i).note + " - " +  kMeans.getClusterList().get(clusterNumber).clusterList.get(i).length );
             numbers[i] = kMeans.getClusterList().get(clusterNumber).clusterList.get(i).cluster;
+            System.out.println(numbers[i]);
         }
+        System.out.println("-------------------------");
         return numbers;
     }
 
@@ -191,7 +205,7 @@ public class kMeansTest {
     }
 
     private static int[] expected_extractLengthClusterTwo(){
-        int[] expected = {10,12};
+        int[] expected = {12,10};
         return expected;
     }
 
@@ -225,20 +239,30 @@ public class kMeansTest {
         kMeans.initiateKMeans(fillClosest_OneCluster());
         kMeans.iterateKMeans();
         kMeans.recalibrateCentroids();
+        System.out.println("Cluster 1: ----------------------");
         //Cluster1 with new centroid check.
         assertArrayEquals(extractLengths(0),expected_extractLengthClusterOne());
+        System.out.println(kMeans.getClusterList().get(0).centroid + " - " + 6);
         assertArrayEquals(extractClusterNumbers(0),expected_extractClusterOneNumbers());
         assertEquals(6.0,kMeans.getClusterList().get(0).centroid,0);
+        System.out.println("Cluster 2: ----------------------");
         //Cluster2 with new centroid check.
         assertArrayEquals(extractLengths(1),expected_extractLengthClusterTwo());
+        System.out.println(kMeans.getClusterList().get(1).centroid + " - " + 11);
+
         assertArrayEquals(extractClusterNumbers(1),expected_extractClusterTwoNumbers());
+        System.out.println(kMeans.getClusterList().get(1).centroid + " - " + 11);
         assertEquals(11.0,kMeans.getClusterList().get(1).centroid,0);
         //Cluster3 with new centroid check.
+        System.out.println("Cluster 3: ----------------------");
         assertArrayEquals(extractLengths(2),expected_extractLengthClusterThree());
         assertArrayEquals(extractClusterNumbers(2),expected_extractClusterThreeNumbers());
+        System.out.println(kMeans.getClusterList().get(2).centroid + " - " + 14.5);
         assertEquals(14.5,kMeans.getClusterList().get(2).centroid,0);
         //Cluster4 with new centroid check.
+        System.out.println("Cluster 4: ----------------------");
         assertArrayEquals(extractLengths(3),expected_extractLengthClusterFour());
+        System.out.println(kMeans.getClusterList().get(3).centroid + " - " + 19.66);
         assertArrayEquals(extractClusterNumbers(3),expected_extractClusterFourNumbers());
         assertEquals(19.66666666,kMeans.getClusterList().get(3).centroid,.01);
 

@@ -100,7 +100,11 @@ public class kMeans {
             clusterList.get(closest).clusterList.add(node);
             clusterPositions[closest]++;
             clusterList.get(closest).clusterList.get(clusterPositions[closest]-1).cluster=closest+1;
+            System.out.println();
+            System.out.println(clusterList.get(closest).clusterList.get(clusterPositions[closest]-1).note + " - " + clusterList.get(closest).clusterList.get(clusterPositions[closest]-1).cluster);
         }
+        System.out.println("-----------------------------------------");
+
     }
 
     private static void calculateCentroid(int clusterNumber){
@@ -160,7 +164,7 @@ public class kMeans {
 
     private static ArrayList<ClusterNode> aggregateCluster(){
         int[] clusterPositions = new int[numberOfClusters];
-        ArrayList<ClusterNode> aggregatedCluster = new ArrayList<>();
+        aggregatedCluster = new ArrayList<>();
         for(int i=0; i<clusterNodeSet.size(); i++){
             int[] positions = new int[numberOfClusters];
             for(int j=0; j<numberOfClusters; j++){
@@ -190,6 +194,11 @@ public class kMeans {
                     break;
             }
         }
+        System.out.println("-----------");
+        for(ClusterNode n: aggregatedCluster){
+            System.out.println(n.note + " - clusterNode: " + n.cluster);
+        }
+        System.out.println("-----------");
         return aggregatedCluster;
     }
 

@@ -32,7 +32,7 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.24" />
+            android:layout_weight="0.13" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -59,16 +59,14 @@
             </LinearLayout>
 
             <TextView
-                android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/currentNote"
                 android:layout_weight="1"
                 android:paddingTop="80dp"
-                android:fontFamily="serif-monospace"
-                android:textSize="80sp"
-                android:textStyle="normal|bold"
-                android:textAlignment="center" />
+                android:fontFamily="monospace"
+                android:textSize="100sp"
+                android:layout_gravity="top" />
 
             <LinearLayout
                 android:orientation="vertical"

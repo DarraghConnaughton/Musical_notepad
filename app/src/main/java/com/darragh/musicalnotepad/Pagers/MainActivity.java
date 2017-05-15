@@ -199,7 +199,6 @@ public class MainActivity extends AppCompatActivity{
                     flashingIcon(0);
                 } else
                 {
-                    System.out.println("Recording stopped : " + isRecording);
                     stopRecording();
                 }
             }

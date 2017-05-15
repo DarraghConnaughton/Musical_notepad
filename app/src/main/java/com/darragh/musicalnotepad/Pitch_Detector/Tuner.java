@@ -1,6 +1,7 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,11 +59,11 @@ public class Tuner extends AppCompatActivity{
     private void setFlatOrSharp(){
         if(Math.round(pitch_freq)<=Math.round(note) && !currentNote.getText().equals("")){
             sharp.setText(Math.round(note-pitch_freq) + "Hz - \u266D");
-            flat.setText(null);
+            flat.setText("");
         }
         else if(Math.round(pitch_freq)>=Math.round(note) && !currentNote.getText().equals("")){
            flat.setText(Math.round(pitch_freq-note)+ "Hz - \u266F");
-            sharp.setText(null);
+            sharp.setText("");
         }
     }
 
@@ -73,10 +74,12 @@ public class Tuner extends AppCompatActivity{
                 currentNote.setText(hz_to_note(pitch));
                 if(!inTune){
                     setFlatOrSharp();
+                    currentNote.setTypeface(null, Typeface.NORMAL);
                     currentNote.setTextColor(Color.RED);
                 } else
                 {
                     setNullView();
+                    currentNote.setTypeface(null, Typeface.BOLD);
                     currentNote.setTextColor(Color.GREEN);
                 }
             }
@@ -101,6 +104,8 @@ public class Tuner extends AppCompatActivity{
         t.start();
 
     }
+
+
 
     public String hz_to_note(float frequency){
         if(frequency>538.808f && frequency<=1077.616f){
