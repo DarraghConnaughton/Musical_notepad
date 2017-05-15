@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.darragh.musicalnotepad.Pagers.MainActivity;
 import com.darragh.musicalnotepad.Pitch_Detector.Tuner;
 import com.darragh.musicalnotepad.R;
 import com.google.android.gms.auth.api.Auth;
@@ -60,13 +59,16 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    public void writeNewUser(String uid, String username, String email){
-        User user = new User(username,email);
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = auth.getCurrentUser();
+    private void setProfilePhoto(){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         for(UserInfo profile: firebaseUser.getProviderData()){
             profilePhoto = profile.getPhotoUrl();
         }
+    }
+
+    public void writeNewUser(String uid, String username, String email){
+        User user = new User(username,email);
+        setProfilePhoto();
         user.profilePhoto=profilePhoto.toString();
         Map<String, Object> map = new HashMap<>();
         map.put(getResources().getString(R.string.users)+uid,user);
@@ -173,18 +175,31 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
         signIn.setOnClickListener(this);
         signUp.setOnClickListener(this);
     }
-    private void userLogin(String email, String password){
+
+    private boolean notValid(String email, String password){
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT).show();
-            return;
+            return true;
         }
         if(TextUtils.isEmpty(password)){
             Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
-            return;
+            return true;
         }
+        return false;
+    }
+
+    private void generateProcessDialog(){
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Processing...");
         progressDialog.show();
+    }
+
+    private void userLogin(String email, String password){
+        if(notValid(email,password)){
+            return;
+        }
+        generateProcessDialog();
+
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

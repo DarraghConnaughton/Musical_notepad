@@ -12,14 +12,14 @@ public class kMeans {
     private static double[] previousCentroids;
 
     //For testing purposes
-    private static ArrayList<ClusterNode> aggregatedCluster;
+    private static ArrayList<ClusterNode> aggregatedClusterTest;
     public static int getNumberOfClusters(){
         return numberOfClusters;
     }
     public static ArrayList<Cluster> getClusterList(){
         return clusterList;
     }
-    public static ArrayList<ClusterNode> getAggregatedCluster(){ return aggregatedCluster; }
+    public static ArrayList<ClusterNode> getAggregatedCluster(){ return aggregatedClusterTest; }
 
 
     //-----------------------
@@ -133,9 +133,7 @@ public class kMeans {
         resetClusterLists();
         fillClusters();
         recalibrateCentroids();
-
     }
-
 
     public static void initiateKMeans(ArrayList<ClusterNode> initClusterNodeSet){
         setClusterNodeSet(initClusterNodeSet);
@@ -144,7 +142,7 @@ public class kMeans {
         setCentroids();
     }
 
-    private static boolean convergence(){
+    public static boolean convergence(){
         for(int i=0; i<numberOfClusters; i++){
             if(previousCentroids[i]!=clusterList.get(i).centroid){
                 return false;
@@ -162,9 +160,9 @@ public class kMeans {
         return 0;
     }
 
-    private static ArrayList<ClusterNode> aggregateCluster(){
+    public static ArrayList<ClusterNode> aggregateCluster(){
         int[] clusterPositions = new int[numberOfClusters];
-        aggregatedCluster = new ArrayList<>();
+        ArrayList<ClusterNode> aggregatedCluster = new ArrayList<>();
         for(int i=0; i<clusterNodeSet.size(); i++){
             int[] positions = new int[numberOfClusters];
             for(int j=0; j<numberOfClusters; j++){
@@ -175,30 +173,9 @@ public class kMeans {
                     positions[j] = -1;
                 }
             }
-            switch(correctCluster(i,positions)){
-                case 0:
-                    aggregatedCluster.add(clusterList.get(0).clusterList.get(clusterPositions[0]));
-                    clusterPositions[0]++;
-                    break;
-                case 1:
-                    aggregatedCluster.add(clusterList.get(1).clusterList.get(clusterPositions[1]));
-                    clusterPositions[1]++;
-                    break;
-                case 2:
-                    aggregatedCluster.add(clusterList.get(2).clusterList.get(clusterPositions[2]));
-                    clusterPositions[2]++;
-                    break;
-                case 3:
-                    aggregatedCluster.add(clusterList.get(3).clusterList.get(clusterPositions[3]));
-                    clusterPositions[3]++;
-                    break;
-            }
+            aggregatedCluster.add(clusterList.get(correctCluster(i,positions)).clusterList.get(clusterPositions[correctCluster(i,positions)]));
+            clusterPositions[correctCluster(i,positions)]++;
         }
-        System.out.println("-----------");
-        for(ClusterNode n: aggregatedCluster){
-            System.out.println(n.note + " - clusterNode: " + n.cluster);
-        }
-        System.out.println("-----------");
         return aggregatedCluster;
     }
 

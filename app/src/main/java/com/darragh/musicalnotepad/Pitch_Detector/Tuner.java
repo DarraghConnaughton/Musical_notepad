@@ -41,8 +41,6 @@ public class Tuner extends AppCompatActivity{
         setContentView(R.layout.tuner);
         instantiateView();
         setUpNavigationBar();
-
-
     }
 
     private void setNullView(){
@@ -86,18 +84,14 @@ public class Tuner extends AppCompatActivity{
         });
     }
 
-    /// PRINT FROM WEBVIEW
-
     public void startTuner(){
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0);
         PitchDetectionHandler pdh = new PitchDetectionHandler() {
             @Override
             public void handlePitch(PitchDetectionResult result, AudioEvent audioEvent) {
-                System.out.println("***********   " + result);
                 updateDisplay(result.getPitch());
             }
         };
-
         AudioProcessor p = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
         dispatcher.addAudioProcessor(p);
         t = new Thread(dispatcher, "Tuner");
@@ -105,9 +99,9 @@ public class Tuner extends AppCompatActivity{
 
     }
 
+    ////REFACTOR
 
-
-    public String hz_to_note(float frequency){
+    private float scaleFrequencyDown(float frequency){
         if(frequency>538.808f && frequency<=1077.616f){
             float temp_frequency;
             for(float i=2.0f; i<10.0f; i++){
@@ -128,6 +122,14 @@ public class Tuner extends AppCompatActivity{
                 }
             }
         }
+        return frequency;
+    }
+
+    public String hz_to_note(float frequency){
+        if(frequency>538.808f){
+            frequency=scaleFrequencyDown(frequency);
+        }
+
         pitch_freq=frequency;
         if(frequency>=254.284f && frequency<=269.4045f){
             if(Math.round(frequency)>=260 && Math.round(frequency)<=262){

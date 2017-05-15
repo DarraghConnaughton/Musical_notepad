@@ -7,9 +7,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by darragh on 29/03/17.
- */
 public class PitchDetectorTest {
     private static float[] testNotes = {
             254.285f,269.4045f,    //"C: testing frequency boundaries."
@@ -28,28 +25,20 @@ public class PitchDetectorTest {
     };
     private static String[] expectedOutput = {
             "C","C",
-            "D♭","D♭",
+            "_D","_D",
             "D","D",
-            "E♭","E♭",
+            "_E","_E",
             "E","E",
             "F","F",
-            "G♭","G♭",
+            "_G","_G",
             "G","G",
-            "A♭","A♭",
+            "_A","_A",
             "A","A",
-            "B♭","B♭",
+            "_B","_B",
             "B","B",
             "C","C",
     };
-//    @Test
-//    public void recordAudio() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void stopRecording() throws Exception {
-//
-//    }
+
     public static int[] expectedOutput(){
         int[] expected = {8,6,4,3,6,9};
         return expected;
@@ -80,7 +69,7 @@ public class PitchDetectorTest {
         String[] actualOutput = new String[expectedOutput.length];
         PitchDetector pitchDetector = new PitchDetector();
         for(int i=0; i<testNotes.length; i++){
-            actualOutput[i] = pitchDetector.hz_to_note(testNotes[i]*octave,1);
+            actualOutput[i] = pitchDetector.hz_to_note(testNotes[i]*octave);
             System.out.println(actualOutput[i]);
         }
         return actualOutput;

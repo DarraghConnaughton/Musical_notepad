@@ -9,16 +9,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.darragh.musicalnotepad.R;
 import com.firebase.client.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,14 +60,12 @@ public class FindFriend extends AppCompatActivity{
         });
     }
 
-
-
     private void populateListView(final String searchQuery){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
-                listDetails = gatherUsers(dataSnapshot, searchQuery);
+                listDetails = FriendFinderController.FindPotentialFriends(dataSnapshot, searchQuery,getResources().getString(R.string.users));
                 FindFriendListAdapter potentialFriendList = new FindFriendListAdapter(getApplicationContext(),listDetails);
                 listView.setAdapter(potentialFriendList);
             }
@@ -78,53 +73,6 @@ public class FindFriend extends AppCompatActivity{
             @Override
             public void onCancelled(DatabaseError databaseError){}
         });
-    }
-
-    private boolean notMe(String uid){
-        return !uid.equals(FirebaseAuth.getInstance().getCurrentUser()
-                .getUid());
-    }
-
-    private boolean notFriend(DataSnapshot dataSnapshot,String currentEntry){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)+firebaseAuth.getCurrentUser().getUid()
-                +"/FriendList/").getChildren();
-        for(DataSnapshot data: snap){
-            if(data.getKey().equals(currentEntry)){
-               return false;
-            }
-        }
-        return true;
-    }
-
-    private ArrayList<UserProfileDetails> gatherUsers(DataSnapshot dataSnapshot, String searchQuery){
-        ArrayList<UserProfileDetails> usersFound = new ArrayList<>();
-        Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).getChildren();
-        for(DataSnapshot data: snap){
-            if(notMe(data.getKey()) && notFriend(dataSnapshot,data.getKey().toString())){
-                if(containsSubstring(searchQuery,data.child("username").getValue().toString()) || containsSubstring(searchQuery,data.child("email").getValue().toString())){
-                    if(data.child("/profilePhoto/").exists()){
-                        usersFound.add(new UserProfileDetails(
-                                data.child("username").getValue().toString(),
-                                data.child("email").getValue().toString(),
-                                data.getKey().toString(),
-                                data.child("/profilePhoto/").getValue().toString()));
-                    }
-                    else {
-                        usersFound.add(new UserProfileDetails(
-                                data.child("username").getValue().toString(),
-                                data.child("email").getValue().toString(),
-                                data.getKey().toString()));
-                    }
-                }
-            }
-
-        }
-        return usersFound;
-    }
-
-    private boolean containsSubstring(String searchQuery, String databaseString){
-        return (databaseString.toLowerCase().contains(searchQuery.toLowerCase()));
     }
 
     private void setUpNavigationBar(){

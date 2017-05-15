@@ -5,6 +5,12 @@ import com.google.firebase.database.DataSnapshot;
 
 public class JSONToSongConverter {
     public static Song songFromJSON(Iterable<DataSnapshot> dataSnapshot){
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
+        System.out.println(dataSnapshot);
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&");
         Song song = new Song();
         for(DataSnapshot snap: dataSnapshot){
             System.out.println(snap + " - " +snap.getValue());
@@ -35,6 +41,7 @@ public class JSONToSongConverter {
                     break;
             }
         }
+        System.out.println(song.getName() + " --- " + song.getTimestamp() + "  -  " + song.getNotes());
         return song;
     }
 }

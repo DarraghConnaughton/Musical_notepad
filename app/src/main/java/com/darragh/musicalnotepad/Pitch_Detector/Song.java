@@ -1,8 +1,7 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
 public class Song {
-    private static String name, notes, timestamp, timeSignature, keySignature, L, UID, profilePhoto;
-    public static  String sender;
+    private String name, notes, timestamp, timeSignature, keySignature, L, UID, profilePhoto;
 
     public Song(){}
     public Song(String sTimestamp){
@@ -97,9 +96,6 @@ public class Song {
     }
     public String getL(){
         return L;
-    }
-    public String getSender(){
-        return sender;
     }
     public String getUID(){
         return UID;

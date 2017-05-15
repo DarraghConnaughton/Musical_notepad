@@ -1,15 +1,14 @@
 package com.darragh.musicalnotepad.Pagers;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,20 +75,12 @@ public class DatabaseEntries extends AppCompatActivity {
                         .child(songId).child(listEntriesID.get(position)).getChildren());
                 Intent intent = new Intent(getApplicationContext(),songDisplay.class);
                 intent.putExtra(Timestamp,listEntriesID.get(position));
-                intent.putExtra("Directory",users);
+                intent.putExtra("Directory","/songId/");
                 finish();
                 startActivity(intent);
 
             }
         });
-    }
-
-    private String[] getEmailAddresses(ArrayList<UserProfileDetails> listDetails){
-        String[] emails = new String[listDetails.size()];
-        for(int i=0; i<listDetails.size(); i++){
-            emails[i] = listDetails.get(i).emailAddress;
-        }
-        return emails;
     }
 
     private void setProfilePhoto(DataSnapshot data){
@@ -112,60 +103,19 @@ public class DatabaseEntries extends AppCompatActivity {
         return usersFound;
     }
 
-    private ArrayList<String> selectedFriends(ArrayList<Integer> mSelectedItems,ArrayList<UserProfileDetails> listDetails){
-        ArrayList<String> selectedFriends = new ArrayList<>();
+//    private void getFriendsList(final Iterable<DataSnapshot> snap){
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(final DataSnapshot dataSnapshot) {
+//                DialogController.onCreateDialog(gatherUsers(dataSnapshot),snap,DatabaseEntries.this,profilePhoto);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError){}
+//        });
+//    }
 
-        for(int x: mSelectedItems){
-            selectedFriends.add(listDetails.get(x).UID);
-        }
-        return selectedFriends;
-
-    }
-
-    private void getFriendsList(final Iterable<DataSnapshot> snap){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                onCreateDialog(gatherUsers(dataSnapshot),snap);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError){}
-        });
-    }
-
-    public void onCreateDialog(final ArrayList<UserProfileDetails> listDetails, final Iterable<DataSnapshot> snap) {
-        final ArrayList<Integer> mSelectedItems = new ArrayList<>();
-        AlertDialog.Builder builder = new AlertDialog.Builder(DatabaseEntries.this);
-        String[] entries = getEmailAddresses(listDetails);
-        builder.setTitle(R.string.dialog_title)
-                .setMultiChoiceItems(entries, null,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which,
-                                                boolean isChecked) {
-                                if (isChecked) {
-                                    mSelectedItems.add(which);
-                                } else if (mSelectedItems.contains(which)) {
-                                    mSelectedItems.remove(Integer.valueOf(which));
-                                }
-                            }
-                        })
-                .setPositiveButton(R.string.share, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        SongSharer.shareSong(JSONToSongConverter.songFromJSON(snap),selectedFriends(mSelectedItems,listDetails),profilePhoto);
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-        builder.create();
-        builder.show();
-    }
 
     private void generatePopupMenu(View view, final int position, final DataSnapshot dataSnapshot){
         PopupMenu popupMenu = new PopupMenu(getApplicationContext(),view);
@@ -194,7 +144,7 @@ public class DatabaseEntries extends AppCompatActivity {
                 else if(item.getTitle().equals(getResources().getString(R.string.shareEntry))) {
                     Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child(songId).child(listEntriesID.get(position)).getChildren();
-                    getFriendsList(snap);
+                    DialogController.getFriendsList(snap, DatabaseEntries.this, users);
                 }
                 return true;
             }

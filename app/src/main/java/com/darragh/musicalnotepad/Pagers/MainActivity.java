@@ -79,10 +79,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void addItemsSpinner(){
         spinner1 = (Spinner) findViewById(R.id.spinner1);
-        List<String> keysignatureList = Arrays.asList(getResources().getStringArray(R.array.keysignatureArray));
-
-
-        ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,keysignatureList);
+        ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Arrays.asList(getResources().getStringArray(R.array.keysignatureArray)));
         dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(dataAdapter1);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -97,9 +94,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
         spinner2 = (Spinner) findViewById(R.id.spinner2);
-        List<String> list2 = Arrays.asList(getResources().getStringArray(R.array.timesignatureArray));
-
-        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list2);
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Arrays.asList(getResources().getStringArray(R.array.timesignatureArray)));
         dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(dataAdapter2);
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -210,16 +205,6 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 finish();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
-//                record.setEnabled(true);
-//                record.setBackgroundResource(R.drawable.record_icon_not_clicked);
-//                WebViewController.disableWebView(myWebView);
-//                save.setEnabled(false);
-//                discard.setEnabled(false);
-//                myWebView.setVisibility(View.INVISIBLE);
-//                enterSongName.setVisibility(View.INVISIBLE);
-//                save.setVisibility(View.INVISIBLE);
-//                discard.setVisibility(View.INVISIBLE);
-//                record.setVisibility(View.VISIBLE);
             }
         });
 

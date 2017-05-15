@@ -38,25 +38,32 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         ref.child("users").child(uid).setValue(new User(username,email));
     }
 
+    private boolean notValid(String email, String password, String username){
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if(TextUtils.isEmpty(username)){
+            Toast.makeText(this,"Please enter a username",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if(password.length()<6){
+            Toast.makeText(this,"Password must be at least 6 characters long.",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
     public void registerUser(){
         final String email = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
         final String username = editTextUsername.getText().toString().trim();
 
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(username)){
-            Toast.makeText(this,"Please enter a username",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(password.length()<6){
-            Toast.makeText(this,"Password must be at least 6 characters long.",Toast.LENGTH_SHORT).show();
+        if(notValid(email,password,username)){
             return;
         }
         progressDialog.setMessage("Registering User...");

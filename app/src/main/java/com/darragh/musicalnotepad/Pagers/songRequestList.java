@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class songRequestList extends AppCompatActivity {
     private String users, profilePicture;
-    private Song newSong;
     private NavigationView navigationBar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -61,7 +60,10 @@ public class songRequestList extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
-                ArrayList<Song> songDetails = gatherSongDetails(dataSnapshot);
+                ArrayList<Song> songDetails = SongRequestController.gatherSongDetails(dataSnapshot,users,profilePicture);
+                for(Song s: songDetails){
+                    System.out.println(s.getName() + " - " + s.getTimestamp());
+                }
                 SongRequestListAdapter potentialSongList = new SongRequestListAdapter(getApplicationContext(),songDetails,findViewById(android.R.id.content));
                 potentialSongList.notifyDataSetChanged();
                 listView.setAdapter(potentialSongList);
@@ -70,35 +72,6 @@ public class songRequestList extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError){}
         });
-    }
-
-    private ArrayList<Song> gatherSongDetails(DataSnapshot dataSnapshot){
-        ArrayList<Song> gatheredSongs = new ArrayList<>();
-        Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("/SongRequest/").getChildren();
-        for(DataSnapshot data: snap){
-            Song.sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            if(dataSnapshot.child(users+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
-                newSong = new Song(
-                        data.child("timestamp").getValue().toString(),
-                        data.child("name").getValue().toString(),
-                        data.child("notes").getValue().toString(),
-                        data.child("timeSignature").getValue().toString(),
-                        data.child("keySignature").getValue().toString(),
-                        profilePicture);
-            }
-            else
-            {
-                newSong = new Song(
-                    data.child("timestamp").getValue().toString(),
-                    data.child("name").getValue().toString(),
-                    data.child("notes").getValue().toString(),
-                    data.child("timeSignature").getValue().toString(),
-                    data.child("keySignature").getValue().toString());
-            }
-            gatheredSongs.add(newSong);
-        }
-        return gatheredSongs;
     }
 
     private void setUpNavigationBar(){

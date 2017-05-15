@@ -33,32 +33,6 @@ public class SongRequestListAdapter extends ArrayAdapter{
         this.mainView = _mainView;
     }
 
-//    private void addSongToSongList(final String timeStamp){
-//        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(final DataSnapshot dataSnapshot) {
-//                Map<String,Object> map = new HashMap<>();
-//                Song sentSong = JSONToSongConverter.songFromJSON(dataSnapshot.child(user+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/SongRequest/"+timeStamp+"/").getChildren());
-//
-//                map.put(user+ FirebaseAuth.getInstance().getCurrentUser()
-//                        .getUid()+"/songId/"+timeStamp+"/",sentSong);
-//                databaseReference.updateChildren(map);
-//                SongRequestListController.RemoveSongRequest(timeStamp, databaseReference, sentSong.getUID(),user);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError){}
-//        });
-//    }
-
-//    private void RemoveSongRequest(String timeStamp,DatabaseReference databaseReference, String UID){
-//        databaseReference.child(user+UID+"/PendingSong/"+timeStamp)
-//                .setValue(null);
-//        databaseReference.child(user+FirebaseAuth.getInstance()
-//                .getCurrentUser().getUid()+"/SongRequest/"+timeStamp).setValue(null);
-//    }
-
     private void previewSong(View rowView, final String timeStamp){
         Intent intent = new Intent(getContext(),songDisplay.class);
         intent.putExtra("Timestamp",timeStamp);

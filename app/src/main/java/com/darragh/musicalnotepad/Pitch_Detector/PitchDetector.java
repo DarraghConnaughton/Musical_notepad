@@ -21,6 +21,7 @@ public class PitchDetector {
     private AudioDispatcher dispatcher;
     private static ArrayList<String> list,note;
     private static ArrayList<Integer> note_length;
+    private static int octave;
 
     public AudioDispatcher getDispatcher(){
         return dispatcher;
@@ -39,8 +40,8 @@ public class PitchDetector {
             @Override
             public void handlePitch(PitchDetectionResult result, AudioEvent audioEvent) {
                 final float pitchInHz = result.getPitch();
-                System.out.println(hz_to_note(pitchInHz,1));
-                list.add(hz_to_note(pitchInHz,1));
+                System.out.println(hz_to_note(pitchInHz));
+                list.add(hz_to_note(pitchInHz));
             }
         };
 
@@ -113,9 +114,7 @@ public class PitchDetector {
     }
 
 
-
-    //YOU MIGHT NEED TO DO SOMETHING ABOUT THESE HARDCODED VALUES.
-    public String hz_to_note(float frequency,int octave){
+    private float scaleFrequencyDown(float frequency){
         if(frequency>538.808f && frequency<=1077.616f){
             float temp_frequency;
             for(float i=2.0f; i<10.0f; i++){
@@ -138,6 +137,16 @@ public class PitchDetector {
                 }
             }
         }
+        return frequency;
+    }
+    //YOU MIGHT NEED TO DO SOMETHING ABOUT THESE HARDCODED VALUES.
+    public String hz_to_note(float frequency){
+        octave=1;
+        System.out.println(frequency);
+        if(frequency>538.808f){
+            frequency=scaleFrequencyDown(frequency);
+        }
+        System.out.println(octave + " - - " + frequency);
         if(frequency>=254.284f && frequency<=269.4045f){
             return ("C" + octave);
         } else if(frequency>269.4045f && frequency<=285.424f){

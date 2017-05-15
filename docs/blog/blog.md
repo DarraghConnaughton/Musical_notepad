@@ -247,3 +247,7 @@ I have added an option that allows you to write a file internally or to print vi
 #34 
 
 I fixed a bug that arose when using the tuner after the pitch detector. All is well in the world once more, time for some refactoring. 
+
+#35 
+
+Oh my days I did a lot of refactoring. 38 separate classes from a squashed 10 or so. Really happy with the work. I have checked the kMeans cluster tests and pitch detector tests, these appear to be running smoothly. Tomorrow I move onto my last stretch of factoring followed by my last suite of tests. It will be sad to see the end of this project. I have become too attached. 

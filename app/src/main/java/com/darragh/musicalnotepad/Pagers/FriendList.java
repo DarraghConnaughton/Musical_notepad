@@ -28,35 +28,13 @@ public class FriendList extends AppCompatActivity {
     private NavigationView navigationBar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
-    public ArrayList<UserProfileDetails> gatherUsers(DataSnapshot dataSnapshot){
-        ArrayList<UserProfileDetails> usersFound = new ArrayList<>();
-        Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("/FriendList/").getChildren();
-        for(DataSnapshot data: snap){
-            if(dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("/profilePhoto/").exists()){
-                usersFound.add(new UserProfileDetails(
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
-                        data.getKey(),
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("/profilePhoto/").getValue().toString()));
-            }
-            else {
-                usersFound.add(new UserProfileDetails(
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
-                        dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
-                        data.getKey()));
-            }
-        }
-        return usersFound;
-    }
-
     private void instantiateView(){
         final ListView listView = (ListView) findViewById(R.id.listView);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
-                listDetails = gatherUsers(dataSnapshot);
+                listDetails = FriendListController.gatherFriendList(dataSnapshot,getResources().getString(R.string.users));
                 FriendListAdapter FriendList = new FriendListAdapter(getApplicationContext(),listDetails);
                 listView.setAdapter(FriendList);
             }

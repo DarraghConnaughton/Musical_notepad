@@ -1,7 +1,5 @@
 package com.darragh.musicalnotepad.Login_Register;
 
-import android.net.Uri;
-
 public class User {
 
     public String username,email,profilePhoto;

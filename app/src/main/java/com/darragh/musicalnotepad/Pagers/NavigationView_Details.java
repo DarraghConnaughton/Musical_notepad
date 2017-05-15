@@ -33,7 +33,6 @@ public class NavigationView_Details extends AppCompatActivity{
         TextView username = (TextView) headView.findViewById(R.id.userName);
         TextView email = (TextView) headView.findViewById(R.id.email);
         email.setText(firebaseUser.getEmail());
-        System.out.println(username + " - " + email + " - " + profileImage);
         for(UserInfo profile : firebaseUser.getProviderData()){
             Picasso.with(context).load(profile.getPhotoUrl()+"?sz=500").into(profileImage);
             username.setText(profile.getDisplayName());
@@ -53,10 +52,7 @@ public class NavigationView_Details extends AppCompatActivity{
     }
 
     private static void checkDispatcher(AudioDispatcher dispatcher){
-        System.out.println("*****************************************");
-        System.out.println(isRecording + " - " + dispatcher);
         if(isRecording%2==1){
-            System.out.println("DISPATCHER STOPPED");
             dispatcher.stop();
         }
     }

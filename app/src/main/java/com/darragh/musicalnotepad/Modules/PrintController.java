@@ -19,7 +19,6 @@ public class PrintController {
         webView.loadUrl("file:///android_asset/webDisplay.html");
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-
         PrintManager printManager = (PrintManager) activity.getSystemService(Context.PRINT_SERVICE);
         PrintDocumentAdapter printDocumentAdapter = webView.createPrintDocumentAdapter("Printable");
         printManager.print(displaySong.getName(),printDocumentAdapter,null);
