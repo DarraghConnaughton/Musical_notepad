@@ -1,33 +1,29 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
-/**
- * Created by darragh on 15/05/17.
- */
-
-public class FrequencyController {
-    public static float scaleFrequencyDown(float frequency,int octave){
-        if(frequency>538.808f && frequency<=1077.616f){
+class FrequencyController {
+    public static Frequency scaleFrequencyDown(Frequency freq_octave){
+        if(freq_octave.getFrequency()>538.808f && freq_octave.getFrequency()<=1077.616f){
             float temp_frequency;
             for(float i=2.0f; i<10.0f; i++){
-                temp_frequency = frequency/i;
+                temp_frequency = freq_octave.getFrequency()/i;
                 if(temp_frequency>=261.626f && temp_frequency<=538.808f){
-                    octave = (int)i;
-                    frequency = frequency/i;
+                    freq_octave.setOctave((int)i);
+                    freq_octave.setFrequency(freq_octave.getFrequency()/i);
                     break;
                 }
             }
         }
-        else if(frequency>=1077.616f){
+        else if(freq_octave.getFrequency()>=1077.616f){
             float temp_frequency;
             for(float i=4.0f; i<10.0f; i++){
-                temp_frequency = frequency/i;
+                temp_frequency = freq_octave.getFrequency()/i;
                 if(temp_frequency>=254.284f && temp_frequency<=538.808f){
-                    octave = (int)(i-1.0f);
-                    frequency = frequency/i;
+                    freq_octave.setOctave((int)(i-1.0f));
+                    freq_octave.setFrequency(freq_octave.getFrequency()/i);
                     break;
                 }
             }
         }
-        return frequency;
+        return freq_octave;
     }
 }

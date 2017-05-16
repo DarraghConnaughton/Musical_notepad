@@ -32,7 +32,6 @@ class FriendRequestListAdapter extends ArrayAdapter{
         }
     }
 
-
     private void setButton(final int position){
         acceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +71,8 @@ class FriendRequestListAdapter extends ArrayAdapter{
         acceptRequest = (Button) rowView.findViewById(R.id.acceptRequest);
         declineRequest = (Button) rowView.findViewById(R.id.declineRequest);
         setButton(position);
-        emailAddress.setText("Email Address:  " + users.get(position).emailAddress);
-        userName.setText("User name:  " + users.get(position).userName);
+        emailAddress.setText(users.get(position).emailAddress);
+        userName.setText(users.get(position).userName);
         return rowView;
     }
 }

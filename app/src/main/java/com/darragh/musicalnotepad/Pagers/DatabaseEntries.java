@@ -51,7 +51,7 @@ public class DatabaseEntries extends AppCompatActivity {
     }
 
     private void fillListEntries(DataSnapshot dataSnapshot){
-        Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(songId).getChildren();
+        Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(songId).getChildren();
         for(DataSnapshot data: snap){
             listEntriesName.add(data.child(getResources().getString(R.string.name)).getValue().toString());
             listEntriesID.add(data.child(getResources().getString(R.string.timestamp)).getValue().toString());
@@ -82,40 +82,6 @@ public class DatabaseEntries extends AppCompatActivity {
             }
         });
     }
-
-    private void setProfilePhoto(DataSnapshot data){
-        if(data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
-            profilePhoto = data.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").getValue().toString();
-        }
-    }
-
-    public ArrayList<UserProfileDetails> gatherUsers(DataSnapshot dataSnapshot){
-        setProfilePhoto(dataSnapshot);
-        ArrayList<UserProfileDetails> usersFound = new ArrayList<>();
-        Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("/FriendList/").getChildren();
-        for(DataSnapshot data: snap){
-            usersFound.add(new UserProfileDetails(
-                    dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("username").getValue().toString(),
-                    dataSnapshot.child(getResources().getString(R.string.users)).child(data.getKey()).child("email").getValue().toString(),
-                    data.getKey()));
-        }
-        return usersFound;
-    }
-
-//    private void getFriendsList(final Iterable<DataSnapshot> snap){
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(final DataSnapshot dataSnapshot) {
-//                DialogController.onCreateDialog(gatherUsers(dataSnapshot),snap,DatabaseEntries.this,profilePhoto);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError){}
-//        });
-//    }
-
 
     private void generatePopupMenu(View view, final int position, final DataSnapshot dataSnapshot){
         PopupMenu popupMenu = new PopupMenu(getApplicationContext(),view);
@@ -188,7 +154,6 @@ public class DatabaseEntries extends AppCompatActivity {
         firebaseController();
     }
 
-    @Nullable
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

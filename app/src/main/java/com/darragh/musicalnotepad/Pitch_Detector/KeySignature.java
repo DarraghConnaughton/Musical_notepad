@@ -54,7 +54,6 @@ public class KeySignature {
             abcFormat="Db";
             return Arrays.asList("_B","_E","_A","_D","_G");
         }
-        System.out.println("That's a NULL");
         return null;
     }
     public String getAbcFormat(){
@@ -64,6 +63,7 @@ public class KeySignature {
         return notes;
     }
     public KeySignature(String key){
+        System.out.println(key);
         keySign = key;
         notes = getNotes(key);
     }

@@ -32,26 +32,6 @@ class FindFriendListAdapter extends ArrayAdapter {
             this.context = _context;
         }
 
-//        private void sendFriendRequest(final String UID, final String userName, final String currentUser){
-//            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-//            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(final DataSnapshot dataSnapshot) {
-//                    FirebaseAuth auth = FirebaseAuth.getInstance();
-//                    FirebaseUser firebaseUser = auth.getCurrentUser();
-//                    Map<String,Object> map = new HashMap<>();
-//                    map.put(user+currentUser+"/pendingFriendRequest/"+UID +"/",userName);
-//                    System.out.println(user+UID+"/FriendRequest/"+currentUser+"/");
-//                    System.out.println(firebaseUser.getDisplayName());
-//                    map.put(user+UID+"/FriendRequest/"+currentUser+"/","1");
-//                    databaseReference.updateChildren(map);
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError){}
-//            });
-//        }
-
     private void setButton(final int position){
         Button addFriend = (Button) rowView.findViewById(R.id.addFriend);
         addFriend.setOnClickListener(new View.OnClickListener() {

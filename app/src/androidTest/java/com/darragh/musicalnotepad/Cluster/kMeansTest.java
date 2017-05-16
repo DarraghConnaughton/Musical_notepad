@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-
 public class kMeansTest {
 
     private static int[] getPositions(ArrayList<ClusterNode> nodes){

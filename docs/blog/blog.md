@@ -251,3 +251,7 @@ I fixed a bug that arose when using the tuner after the pitch detector. All is w
 #35 
 
 Oh my days I did a lot of refactoring. 38 separate classes from a squashed 10 or so. Really happy with the work. I have checked the kMeans cluster tests and pitch detector tests, these appear to be running smoothly. Tomorrow I move onto my last stretch of factoring followed by my last suite of tests. It will be sad to see the end of this project. I have become too attached. 
+
+#36 
+
+I discovered a slight bug in my midi playback. Well not a bug. The abc has been processed to handle the key signature in place. This is not the cause with the midi player, which doesn't know anything about the key and relies on clear abc instructions. I created a MIDIController that will convert the abc format back to a version containing all the accidentals necessary to successfully playback. This works properly now.

@@ -24,6 +24,7 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public String chordProgression(){
+        System.out.println(MIDIController.convertABC(song.getKeySignature(),song.getNotes()));
         return song.getNotes();
     }
 

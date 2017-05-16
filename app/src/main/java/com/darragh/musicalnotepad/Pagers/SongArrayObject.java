@@ -2,10 +2,6 @@ package com.darragh.musicalnotepad.Pagers;
 
 import java.util.ArrayList;
 
-/**
- * Created by darragh on 30/04/17.
- */
-
 public class SongArrayObject {
     private ArrayList<String> listEntriesName = new ArrayList<>();
     private ArrayList<String> listEntriesID = new ArrayList<>();

@@ -6,7 +6,7 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
-public class SongRequestController {
+class SongRequestController {
     private static Song newSong;
 
     public static ArrayList<Song> gatherSongDetails(DataSnapshot dataSnapshot, String users, String profilePicture){

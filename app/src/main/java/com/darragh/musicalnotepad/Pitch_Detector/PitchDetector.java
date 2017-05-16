@@ -21,7 +21,6 @@ public class PitchDetector {
     private AudioDispatcher dispatcher;
     private static ArrayList<String> list,note;
     private static ArrayList<Integer> note_length;
-    private static int octave;
 
     public AudioDispatcher getDispatcher(){
         return dispatcher;
@@ -114,65 +113,37 @@ public class PitchDetector {
     }
 
 
-    private float scaleFrequencyDown(float frequency){
-        if(frequency>538.808f && frequency<=1077.616f){
-            float temp_frequency;
-            for(float i=2.0f; i<10.0f; i++){
-                temp_frequency = frequency/i;
-                if(temp_frequency>=261.626f && temp_frequency<=538.808f){
-                    octave = (int)i;
-                    frequency = frequency/i;
-                    break;
-                }
-            }
-        }
-        else if(frequency>=1077.616f){
-            float temp_frequency;
-            for(float i=4.0f; i<10.0f; i++){
-                temp_frequency = frequency/i;
-                if(temp_frequency>=254.284f && temp_frequency<=538.808f){
-                    octave = (int)(i-1.0f);
-                    frequency = frequency/i;
-                    break;
-                }
-            }
-        }
-        return frequency;
-    }
-    //YOU MIGHT NEED TO DO SOMETHING ABOUT THESE HARDCODED VALUES.
     public String hz_to_note(float frequency){
-        octave=1;
-        System.out.println(frequency);
+        Frequency freq_octave = new Frequency(frequency,1);
         if(frequency>538.808f){
-            frequency=scaleFrequencyDown(frequency);
+            freq_octave = FrequencyController.scaleFrequencyDown(freq_octave);
         }
-        System.out.println(octave + " - - " + frequency);
-        if(frequency>=254.284f && frequency<=269.4045f){
-            return ("C" + octave);
-        } else if(frequency>269.4045f && frequency<=285.424f){
-            return ("_D" + octave);
-        } else if(frequency>285.424f && frequency<=302.396f){
-            return ("D" + octave);
-        } else if(frequency>302.396f && frequency<=320.3775f){
-            return ("_E" + octave);
-        } else if(frequency>320.3775f && frequency<=339.428f){
-            return ("E" + octave);
-        } else if(frequency>339.428f && frequency<=359.611f){
-            return ("F" + octave);
-        } else if(frequency>359.611f && frequency<=380.9945f){
-            return ("_G" + octave);
-        } else if(frequency>380.9945f && frequency<=403.65f){
-            return ("G" + octave);
-        } else if(frequency>403.65f && frequency<=427.6525f){
-            return ("_A" + octave);
-        } else if(frequency>427.6525f && frequency<=453.082f){
-            return ("A" + octave);
-        } else if(frequency>453.082f && frequency<=480.0236f){
-            return ("_B" + octave);
-        } else if(frequency>480.0236f && frequency<=508.567f){
-            return ("B" + octave);
-        } else if(frequency>508.567f && frequency<=538.808f){
-            return ("C" + (octave+1));
+        if(freq_octave.getFrequency()>=254.284f && freq_octave.getFrequency()<=269.4045f){
+            return ("C" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>269.4045f && freq_octave.getFrequency()<=285.424f){
+            return ("_D" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>285.424f && freq_octave.getFrequency()<=302.396f){
+            return ("D" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>302.396f && freq_octave.getFrequency()<=320.3775f){
+            return ("_E" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>320.3775f && freq_octave.getFrequency()<=339.428f){
+            return ("E" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>339.428f && freq_octave.getFrequency()<=359.611f){
+            return ("F" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>359.611f && freq_octave.getFrequency()<=380.9945f){
+            return ("_G" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>380.9945f && freq_octave.getFrequency()<=403.65f){
+            return ("G" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>403.65f && freq_octave.getFrequency()<=427.6525f){
+            return ("_A" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>427.6525f && freq_octave.getFrequency()<=453.082f){
+            return ("A" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>453.082f && freq_octave.getFrequency()<=480.0236f){
+            return ("_B" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>480.0236f && freq_octave.getFrequency()<=508.567f){
+            return ("B" + freq_octave.getOctave());
+        } else if(freq_octave.getFrequency()>508.567f && freq_octave.getFrequency()<=538.808f){
+            return ("C" + (freq_octave.getOctave()+1));
         } else
             return "SPACE";
     }

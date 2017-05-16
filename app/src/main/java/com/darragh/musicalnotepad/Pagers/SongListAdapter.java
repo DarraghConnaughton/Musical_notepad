@@ -44,10 +44,10 @@ public class SongListAdapter extends ArrayAdapter<String> {
         TextView timeSign = (TextView) rowView.findViewById(R.id.time);
         TextView createdDate = (TextView) rowView.findViewById(R.id.creationDate);
 
-        createdDate.setText("Date: " + creationDate(Long.parseLong(timestamp.get(position))));
-        textView.setText("Name: " + entries.get(position));
-        keySign.setText("Key: " + keySignature.get(position));
-        timeSign.setText("Time: " + timeSignature.get(position));
+        createdDate.setText(creationDate(Long.parseLong(timestamp.get(position))));
+        textView.setText(entries.get(position));
+        keySign.setText(keySignature.get(position));
+        timeSign.setText(timeSignature.get(position));
 
         if(!profilePicture.get(position).equals("1")){
             ImageView imageView = (ImageView) rowView.findViewById(R.id.profilePhoto);

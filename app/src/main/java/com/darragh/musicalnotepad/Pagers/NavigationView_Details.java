@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,6 @@ import com.squareup.picasso.Picasso;
 import be.tarsos.dsp.AudioDispatcher;
 
 public class NavigationView_Details extends AppCompatActivity{
-    private static ActionBarDrawerToggle actionBarDrawerToggle;
     private static int isRecording;
 
     public static void setProfilePicture(NavigationView navigationView, Context context){

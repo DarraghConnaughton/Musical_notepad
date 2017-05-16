@@ -2,4 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--Frequency_Controller-->
+    <item name="second_octave_lower_bound" format="float" type="dimen">538.808f</item>
+
 </resources>

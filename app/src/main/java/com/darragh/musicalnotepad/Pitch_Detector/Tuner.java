@@ -99,157 +99,76 @@ public class Tuner extends AppCompatActivity{
 
     }
 
-    ////REFACTOR
-
-    private float scaleFrequencyDown(float frequency){
-        if(frequency>538.808f && frequency<=1077.616f){
-            float temp_frequency;
-            for(float i=2.0f; i<10.0f; i++){
-                temp_frequency = frequency/i;
-                if(temp_frequency>=261.626f && temp_frequency<=538.808f){
-                    frequency = frequency/i;
-                    break;
-                }
-            }
+    private void checkIntune(float frequency, int lowerBound, int higherBound){
+        if(Math.round(frequency)>=lowerBound && Math.round(frequency)<=higherBound){
+            inTune=true;
         }
-        else if(frequency>=1077.616f){
-            float temp_frequency;
-            for(float i=4.0f; i<10.0f; i++){
-                temp_frequency = frequency/i;
-                if(temp_frequency>=254.284f && temp_frequency<=538.808f){
-                    frequency = frequency/i;
-                    break;
-                }
-            }
+        else{
+            inTune=false;
         }
-        return frequency;
     }
 
     public String hz_to_note(float frequency){
+        Frequency freq_octave = new Frequency(frequency,1);
         if(frequency>538.808f){
-            frequency=scaleFrequencyDown(frequency);
+            freq_octave = FrequencyController.scaleFrequencyDown(freq_octave);
         }
-
-        pitch_freq=frequency;
-        if(frequency>=254.284f && frequency<=269.4045f){
-            if(Math.round(frequency)>=260 && Math.round(frequency)<=262){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
+        pitch_freq=freq_octave.getFrequency();
+        if(freq_octave.getFrequency()>=254.284f && freq_octave.getFrequency()<=269.4045f){
+            checkIntune(freq_octave.getFrequency(),260,262);
             note=261.63f;
             return "C";
-        } else if(frequency>269.4045f && frequency<=285.424f){
+        } else if(freq_octave.getFrequency()>269.4045f && freq_octave.getFrequency()<=285.424f){
             note=277.18f;
-            if(Math.round(frequency)>=276 && Math.round(frequency)<=278){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
+            checkIntune(freq_octave.getFrequency(),276,278);
             return "D\u266D";
-        } else if(frequency>285.424f && frequency<=302.396f){
-            if(Math.round(frequency)>=292 && Math.round(frequency)<=294){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
+        } else if(freq_octave.getFrequency()>285.424f && freq_octave.getFrequency()<=302.396f){
+            checkIntune(freq_octave.getFrequency(),292,294);
             note=293.66f;
             return "D";
-        } else if(frequency>302.396f && frequency<=320.3775f){
+        } else if(freq_octave.getFrequency()>302.396f && freq_octave.getFrequency()<=320.3775f){
+            checkIntune(freq_octave.getFrequency(),310,312);
             note=311.13f;
-            if(Math.round(frequency)>=310 && Math.round(frequency)<=312){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "E\u266D";
-        } else if(frequency>320.3775f && frequency<=339.428f){
-            if(Math.round(frequency)>=329 && Math.round(frequency)<=331){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
+        } else if(freq_octave.getFrequency()>320.3775f && freq_octave.getFrequency()<=339.428f){
+            checkIntune(freq_octave.getFrequency(),329,331);
             note=329.63f;
             return "E";
-        } else if(frequency>339.428f && frequency<=359.611f){
+        } else if(freq_octave.getFrequency()>339.428f && freq_octave.getFrequency()<=359.611f){
+            checkIntune(freq_octave.getFrequency(),348,350);
             note=349.23f;
-            if(Math.round(frequency)>=348 && Math.round(frequency)<=350){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "F";
-        } else if(frequency>359.611f && frequency<=380.9945f){
+        } else if(freq_octave.getFrequency()>359.611f && freq_octave.getFrequency()<=380.9945f){
+            checkIntune(freq_octave.getFrequency(),369,371);
             note=369.99f;
-            if(Math.round(frequency)>=369 && Math.round(frequency)<=371){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "G\u266D";
-        } else if(frequency>380.9945f && frequency<=403.65f){
+        } else if(freq_octave.getFrequency()>380.9945f && freq_octave.getFrequency()<=403.65f){
+            checkIntune(freq_octave.getFrequency(),391,393);
             note=392.00f;
-            if(Math.round(frequency)>=391 && Math.round(frequency)<=393){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "G";
-        } else if(frequency>403.65f && frequency<=427.6525f){
+        } else if(freq_octave.getFrequency()>403.65f && freq_octave.getFrequency()<=427.6525f){
+            checkIntune(freq_octave.getFrequency(),414,416);
             note=415.30f;
-            if(Math.round(frequency)>=414 && Math.round(frequency)<=416){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "A\u266D";
-        } else if(frequency>427.6525f && frequency<=453.082f){
+        } else if(freq_octave.getFrequency()>427.6525f && freq_octave.getFrequency()<=453.082f){
+            checkIntune(freq_octave.getFrequency(),439,441);
             note=440.00f;
-            if(Math.round(frequency)>=439 && Math.round(frequency)<=441){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "A";
-        } else if(frequency>453.082f && frequency<=480.0236f){
+        } else if(freq_octave.getFrequency()>453.082f && freq_octave.getFrequency()<=480.0236f){
+            checkIntune(freq_octave.getFrequency(),465,467);
             note=466.16f;
-            if(Math.round(frequency)>=465 && Math.round(frequency)<=467){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "B\u266D";
-        } else if(frequency>480.0236f && frequency<=508.567f){
+        } else if(freq_octave.getFrequency()>480.0236f && freq_octave.getFrequency()<=508.567f){
+            checkIntune(freq_octave.getFrequency(),493,495);
             note=493.88f;
-            if(Math.round(frequency)>=493 && Math.round(frequency)<=495){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "B";
-        } else if(frequency>508.567f && frequency<=538.808f){
+        } else if(freq_octave.getFrequency()>508.567f && freq_octave.getFrequency()<=538.808f){
+            checkIntune(freq_octave.getFrequency(),522,524);
             note=523.25f;
-            if(Math.round(frequency)>=522 && Math.round(frequency)<=524){
-                inTune=true;
-            }
-            else{
-                inTune=false;
-            }
             return "C";
         } else
             note=0f;
+            inTune=false;
             return "";
     }
 
