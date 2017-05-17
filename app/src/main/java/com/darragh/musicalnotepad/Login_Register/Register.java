@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonRegister;
+    private static String _email,_password,_username;
     private EditText editTextEmail;
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -58,11 +59,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         return false;
     }
 
-    public void registerUser(){
-        final String email = editTextEmail.getText().toString().trim();
-        final String password = editTextPassword.getText().toString().trim();
-        final String username = editTextUsername.getText().toString().trim();
-
+    public void registerUser(final String username, final String email, final String password){
         if(notValid(email,password,username)){
             return;
         }
@@ -97,7 +94,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         instantiateView();
     }
 
-    private void setFirebase(){
+    public void setFirebase(){
         Firebase.setAndroidContext(getApplicationContext());
         firebaseAuth = firebaseAuth.getInstance();
         stateListener = new FirebaseAuth.AuthStateListener(){
@@ -111,7 +108,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         };
     }
 
-    private void instantiateView(){
+    public void instantiateView(){
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         editTextEmail = (EditText) findViewById(R.id.editEmail);
         editTextUsername = (EditText) findViewById(R.id.userName);
@@ -135,11 +132,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    private void gatherUserInformation(){
+        _email = editTextEmail.getText().toString().trim();
+        _password = editTextPassword.getText().toString().trim();
+        _username = editTextUsername.getText().toString().trim();
+    }
 
     @Override
     public void onClick(View view){
         if(view == buttonRegister){
-            registerUser();
+            gatherUserInformation();
+            registerUser(_username,_email,_password);
         }
         if(view == textViewSignIn){
             finish();

@@ -5,6 +5,8 @@ import android.widget.TextView;
 
 import com.darragh.musicalnotepad.Cluster.ClusterNode;
 import com.darragh.musicalnotepad.Cluster.kMeans;
+import com.darragh.musicalnotepad.Objects.Frequency;
+import com.darragh.musicalnotepad.Objects.KeySignature;
 
 import java.util.ArrayList;
 
@@ -39,7 +41,6 @@ public class PitchDetector {
             @Override
             public void handlePitch(PitchDetectionResult result, AudioEvent audioEvent) {
                 final float pitchInHz = result.getPitch();
-                System.out.println(hz_to_note(pitchInHz));
                 list.add(hz_to_note(pitchInHz));
             }
         };
@@ -93,7 +94,7 @@ public class PitchDetector {
         }
     }
 
-    public String stopRecording(TextView outputDisplay,KeySignature keySignature, int timeSignature){
+    public String stopRecording(TextView outputDisplay, KeySignature keySignature, int timeSignature){
         dispatcher.stop();
         outputDisplay.setVisibility(View.VISIBLE);
         processAudioInput();

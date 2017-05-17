@@ -8,6 +8,9 @@ android {
             force 'com.android.support:support-annotations:24.2.1'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     defaultConfig {
         applicationId "com.darragh.musicalnotepad"
         minSdkVersion 16

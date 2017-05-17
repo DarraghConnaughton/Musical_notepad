@@ -29,13 +29,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login_Register.SignIn"/>
-        <activity android:name=".Pagers.MainActivity"/>
-        <activity android:name=".Pagers.FriendList"/>
-        <activity android:name=".Pagers.FriendRequest"/>
-        <activity android:name=".Pagers.songRequestList"/>
-        <activity android:name=".Pagers.DatabaseEntries"/>
-        <activity android:name=".Pagers.FindFriend"/>
-        <activity android:name=".Pagers.songDisplay"/>
+        <activity android:name=".RecordAudio.MainActivity"/>
+        <activity android:name=".FriendList.FriendList"/>
+        <activity android:name=".FriendRequest.FriendRequest"/>
+        <activity android:name=".SongRequest.songRequestList"/>
+        <activity android:name=".DatabaseEntries.DatabaseEntries"/>
+        <activity android:name=".FriendFinder.FindFriend"/>
+        <activity android:name=".Modules.songDisplay"/>
         <activity android:name=".Pitch_Detector.Tuner"/>
 
     </application>

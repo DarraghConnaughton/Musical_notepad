@@ -1,6 +1,6 @@
 package com.darragh.musicalnotepad.Cluster;
 
-import com.darragh.musicalnotepad.Pitch_Detector.KeySignature;
+import com.darragh.musicalnotepad.Objects.KeySignature;
 
 import java.util.ArrayList;
 
@@ -78,15 +78,18 @@ public class kMeans {
     }
 
     public static int closestCluster(double[] distances){
-        double min = distances[0];
-        int minIndex=0;
-        for(int i=0; i<distances.length; i++){
-            if(min>distances[i]){
-                min = distances[i];
-                minIndex = i;
+        if(distances.length>0){
+            double min = distances[0];
+            int minIndex=0;
+            for(int i=0; i<distances.length; i++){
+                if(min>distances[i]){
+                    min = distances[i];
+                    minIndex = i;
+                }
             }
+            return minIndex;
         }
-        return minIndex;
+        return 0;
     }
 
     public static void fillClusters(){
@@ -100,10 +103,7 @@ public class kMeans {
             clusterList.get(closest).clusterList.add(node);
             clusterPositions[closest]++;
             clusterList.get(closest).clusterList.get(clusterPositions[closest]-1).cluster=closest+1;
-            System.out.println();
-            System.out.println(clusterList.get(closest).clusterList.get(clusterPositions[closest]-1).note + " - " + clusterList.get(closest).clusterList.get(clusterPositions[closest]-1).cluster);
         }
-        System.out.println("-----------------------------------------");
 
     }
 

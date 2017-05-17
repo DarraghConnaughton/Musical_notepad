@@ -255,3 +255,7 @@ Oh my days I did a lot of refactoring. 38 separate classes from a squashed 10 or
 #36 
 
 I discovered a slight bug in my midi playback. Well not a bug. The abc has been processed to handle the key signature in place. This is not the cause with the midi player, which doesn't know anything about the key and relies on clear abc instructions. I created a MIDIController that will convert the abc format back to a version containing all the accidentals necessary to successfully playback. This works properly now.
+
+#37 
+
+I wrote Espresso tests to handle Login and Register simulation. Need to find a way to test firebase components, currently experiencing difficulties with my approach. I increase the tempo of the midi playback as well to spice things up. 

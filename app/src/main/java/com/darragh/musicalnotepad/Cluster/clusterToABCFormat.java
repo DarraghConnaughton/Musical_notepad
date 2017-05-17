@@ -1,6 +1,6 @@
 package com.darragh.musicalnotepad.Cluster;
 
-import com.darragh.musicalnotepad.Pitch_Detector.KeySignature;
+import com.darragh.musicalnotepad.Objects.KeySignature;
 
 import java.util.ArrayList;
 
@@ -108,15 +108,12 @@ public class clusterToABCFormat {
     public static String sortAccidentals(KeySignature key, String note){
         if(key.getType().equals("sharp")){
             if(key.getNotes().contains(key.flat_to_sharp(note).substring(0,note.length()-1))) {
-                System.out.println("key.flat_to_sharp(note).substring(1, note.length()): " + key.flat_to_sharp(note).substring(1, note.length()));
                 return key.flat_to_sharp(note).substring(1, note.length());
             } else {
-                System.out.println("key.flat_to_sharp(note): " + key.flat_to_sharp(note));
                 return key.flat_to_sharp(note);
             }
         } else if(key.getType().equals("flat")){
             if(key.getNotes().contains(note.substring(0,note.length()-1))){
-                System.out.println("key.flat_to_sharp(note): " + key.flat_to_sharp(note));
                 return note.substring(1, note.length());
             }
         }

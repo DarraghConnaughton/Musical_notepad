@@ -1,5 +1,7 @@
 package com.darragh.musicalnotepad.Pitch_Detector;
 
+import com.darragh.musicalnotepad.Objects.Frequency;
+
 class FrequencyController {
     public static Frequency scaleFrequencyDown(Frequency freq_octave){
         if(freq_octave.getFrequency()>538.808f && freq_octave.getFrequency()<=1077.616f){

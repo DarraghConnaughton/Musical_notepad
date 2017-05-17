@@ -1,6 +1,6 @@
 package com.darragh.musicalnotepad;
 
-import com.darragh.musicalnotepad.Pitch_Detector.KeySignature;
+import com.darragh.musicalnotepad.Objects.KeySignature;
 
 import org.junit.Test;
 

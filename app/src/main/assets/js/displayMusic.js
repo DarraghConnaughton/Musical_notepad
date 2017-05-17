@@ -9,7 +9,7 @@ function getTuneDetails(){
 
 function playAudio(){
     var piano = new Instrument('piano');
-    piano.play(chordProgression());
+    piano.play({tempo:200},chordProgression());
 }
 
 function chordProgression(){

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.darragh.musicalnotepad.Pitch_Detector.Song;
+import com.darragh.musicalnotepad.Objects.Song;
 
 public class WebViewController extends Activity {
 

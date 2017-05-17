@@ -12,7 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.darragh.musicalnotepad.Pagers.NavigationView_Details;
+import com.darragh.musicalnotepad.Modules.NavigationView_Details;
+import com.darragh.musicalnotepad.Objects.Frequency;
 import com.darragh.musicalnotepad.R;
 import com.firebase.client.Firebase;
 

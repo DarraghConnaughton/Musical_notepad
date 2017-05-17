@@ -8,7 +8,7 @@ import android.print.PrintManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.darragh.musicalnotepad.Pitch_Detector.Song;
+import com.darragh.musicalnotepad.Objects.Song;
 
 @TargetApi(21)
 public class PrintController {

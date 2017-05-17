@@ -1,6 +1,6 @@
 package com.darragh.musicalnotepad;
 
-import com.darragh.musicalnotepad.Pagers.MainActivity;
+import com.darragh.musicalnotepad.RecordAudio.MainActivity;
 import com.darragh.musicalnotepad.Pitch_Detector.PitchDetector;
 
 import org.junit.Test;
