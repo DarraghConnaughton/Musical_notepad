@@ -14,12 +14,15 @@ import android.widget.Toast;
 
 import com.darragh.musicalnotepad.Pitch_Detector.Tuner;
 import com.darragh.musicalnotepad.R;
-import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,8 +38,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
 
     public void writeNewUser(String uid, String username, String email){
-        Firebase ref = new Firebase("https://musicalnotepad-9002a.firebaseio.com/");
-        ref.child("users").child(uid).setValue(new User(username,email));
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("users").child(uid).setValue(new User(username,email));
     }
 
     private boolean notValid(String email, String password, String username){
@@ -95,7 +98,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void setFirebase(){
-        Firebase.setAndroidContext(getApplicationContext());
         firebaseAuth = firebaseAuth.getInstance();
         stateListener = new FirebaseAuth.AuthStateListener(){
             @Override

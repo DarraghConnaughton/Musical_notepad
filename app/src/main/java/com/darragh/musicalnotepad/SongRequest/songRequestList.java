@@ -13,7 +13,6 @@ import android.widget.ListView;
 import com.darragh.musicalnotepad.Modules.NavigationView_Details;
 import com.darragh.musicalnotepad.Objects.Song;
 import com.darragh.musicalnotepad.R;
-import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +30,6 @@ public class songRequestList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setStrings();
         setContentView(R.layout.songrequestlist);
         setUpNavigationBar();

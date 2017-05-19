@@ -21,7 +21,6 @@ import com.darragh.musicalnotepad.Modules.JSONToSongConverter;
 import com.darragh.musicalnotepad.Modules.NavigationView_Details;
 import com.darragh.musicalnotepad.Modules.songDisplay;
 import com.darragh.musicalnotepad.Objects.SongArrayObject;
-import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.database.DataSnapshot;
@@ -160,7 +159,6 @@ public class DatabaseEntries extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.databaseentries);
         instantiateView();
         instantiateVariables();

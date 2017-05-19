@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.darragh.musicalnotepad.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,7 +24,6 @@ import static org.junit.Assert.*;
 public class RegisterTest {
     private String email,password,username;
 
-
     @Rule
     public ActivityTestRule<Register> mActivityRule = new ActivityTestRule<>(
             Register.class);
@@ -31,9 +31,9 @@ public class RegisterTest {
     @Before
     public void initValidString() {
         // Specify a valid string.
-        email = "testUser11@gmail.com";
-        username = "testUser1";
-        password = "1234oclockrock";
+        email = "uda2j2@mail.com";
+        username = "ggtd";
+        password = "1234oclockrockd";
     }
 
     @Test

@@ -14,7 +14,6 @@ import android.widget.ListView;
 import com.darragh.musicalnotepad.Modules.NavigationView_Details;
 import com.darragh.musicalnotepad.Objects.UserProfileDetails;
 import com.darragh.musicalnotepad.R;
-import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -72,7 +71,6 @@ public class FriendRequest extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.friendrequest);
         setUpNavigationBar();
         instantiateView();

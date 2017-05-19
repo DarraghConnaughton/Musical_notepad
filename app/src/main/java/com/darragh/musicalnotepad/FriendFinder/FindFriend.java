@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.darragh.musicalnotepad.Modules.NavigationView_Details;
 import com.darragh.musicalnotepad.Objects.UserProfileDetails;
 import com.darragh.musicalnotepad.R;
-import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +37,6 @@ public class FindFriend extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.findfriends);
         setUpNavigationBar();
         instantiateView();

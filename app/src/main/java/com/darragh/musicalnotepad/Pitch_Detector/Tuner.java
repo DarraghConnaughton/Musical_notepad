@@ -6,16 +6,20 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.darragh.musicalnotepad.Manifest;
 import com.darragh.musicalnotepad.Modules.NavigationView_Details;
 import com.darragh.musicalnotepad.Objects.Frequency;
 import com.darragh.musicalnotepad.R;
-import com.firebase.client.Firebase;
+import com.darragh.musicalnotepad.RecordAudio.MainActivity;
+
+import java.util.List;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -25,7 +29,7 @@ import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
-public class Tuner extends AppCompatActivity{
+public class Tuner extends AppCompatActivity {
     private static Thread t;
     private Handler handler = new Handler();
     private AudioDispatcher dispatcher;
@@ -37,12 +41,14 @@ public class Tuner extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
+
         startTuner();
         setContentView(R.layout.tuner);
         instantiateView();
         setUpNavigationBar();
     }
+
+
 
     private void setNullView(){
         flat.setText("");
@@ -86,7 +92,9 @@ public class Tuner extends AppCompatActivity{
     }
 
     public void startTuner(){
+        System.out.println("----- Start Tuner -----");
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0);
+        System.out.println("Dispatcher has been created: " + dispatcher);
         PitchDetectionHandler pdh = new PitchDetectionHandler() {
             @Override
             public void handlePitch(PitchDetectionResult result, AudioEvent audioEvent) {
@@ -94,8 +102,11 @@ public class Tuner extends AppCompatActivity{
             }
         };
         AudioProcessor p = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
+        System.out.println("AudioProcessor has been created: " + p);
+
         dispatcher.addAudioProcessor(p);
         t = new Thread(dispatcher, "Tuner");
+        System.out.println("----- Before thread starts -----");
         t.start();
 
     }
@@ -195,4 +206,5 @@ public class Tuner extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item)||actionBarDrawerToggle.onOptionsItemSelected(item);
     }
+
 }

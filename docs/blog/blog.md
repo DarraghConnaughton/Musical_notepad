@@ -259,3 +259,13 @@ I discovered a slight bug in my midi playback. Well not a bug. The abc has been 
 #37 
 
 I wrote Espresso tests to handle Login and Register simulation. Need to find a way to test firebase components, currently experiencing difficulties with my approach. I increase the tempo of the midi playback as well to spice things up. 
+
+#38 
+
+Some bugs discovered from my user tests:
+
+* User id is displayed in friend list. 
+* Long click display returns null. 
+* Song request displays current users picture.
+* Friendlist doesn't show pictures. 
+* Null object sent using sharing button on songDisplay.

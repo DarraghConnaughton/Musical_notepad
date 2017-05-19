@@ -28,7 +28,6 @@ import com.darragh.musicalnotepad.Pitch_Detector.Tuner;
 import com.darragh.musicalnotepad.R;
 import com.darragh.musicalnotepad.Login_Register.SignIn;
 import com.darragh.musicalnotepad.Objects.Song;
-import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -58,9 +57,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
-        Firebase.setAndroidContext(getApplicationContext());
         try{
             instantiateView();
         } catch (InterruptedException e){
