@@ -16,7 +16,7 @@ I have neglected this blog. I have successfully added the audio recorder to the 
 
 #Third Entry
 
-Replacing the MediaRecorder with an AudioRecord proved to be much more difficult that initially expected. MediaRecorder completes the entire process
+Replacing the MediaRecorder with an AudioRecord proved to be much more difficult than initially expected. MediaRecorder completes the entire process
 for you, you barely need to do a thing. AudioRecord on the other hand, requires you to read and store the audio, short by short. 
 * Discover a way of playing music to ensure earlier steps are working correctly. 
 
@@ -24,7 +24,7 @@ I have calculated the magnitude and frequency using:
 * magnitude - Math.sqrt((buffer[i]*buffer[i])+(buffer[i+1]*buffer[i+1]))
 * frequency - Index * SampleRate/N
 
-The output is rather strange. I am using a pure tone of 440Hz, although my answer does not reflect this. 
+The output is rather strange. I am using a pure tone of 440 Hz, although my answer does not reflect this. 
 
 #Fourth Entry
 
@@ -62,7 +62,7 @@ dealing with the task: Set up a database. Steps include:
 
 #Eighth Entry
 
-I have decided to use Firebase data base instead. I have connected to the database and sent data. There is no authentication at the moment, this can be added at a later
+I have decided to use Firebase database instead. I have connected to the database and sent data. There is no authentication at the moment, this can be added at a later
 stage. I have decided to refactor the code. It is getting quite messy, soon it will be difficult to make any sense of it. 
 
 #Ninth Entry
@@ -84,7 +84,7 @@ My solution to this is either:
 This is a long overdue entry, a lot has changed. I decided to use a javascript library - abcjs to print my sheet music. In order to do this I needed to set up a 
 WebView inside my application that would display the HTML. I have this successfully working at the moment, printing a generic song. I am also able to pass parameters 
 from the Java side as well. I am now working on the display of the project. I have created a login and register page. These pages connect to the firebase database. 
-I am currently debugging the transition stage between pages, as my app keeps briefly crashing. Overall I am delighted with my progress. A fellow class mate suggested I 
+I am currently debugging the transition stage between pages, as my app keeps briefly crashing. Overall I am delighted with my progress. A fellow classmate suggested I 
 use a pager to display my content, this will come in time. My current goals are as follows:
 
 * Fix bug occuring with activity swapping. 
@@ -94,7 +94,7 @@ use a pager to display my content, this will come in time. My current goals are 
 
 #Eleventh Entry
 
-Great progress has been made yet again, woo. I have removed the bug mentioned above. I have also created the log in button. I have implemented the page mentioned above,
+Great progress has been made yet again, woo. I have removed the bug mentioned above. I have also created the login button. I have implemented the page mentioned above,
 it looks very slick. Goals:
 
 * Store and retrieve song, ensuring song is stored under user profile. 
@@ -136,7 +136,7 @@ plenty for me to focus on now for the next week. I have also created a flat-to-s
 
 #17 
 
-A serious amount of tests have been written. The flat-to-sharp converter works. I have discovered a bug, if there is no input, it crashes. The output is now correct for DMajor, it looks really good. I will try GMajor now to see if all is well. I need to test CMajor as well. 
+A serious amount of tests have been written. The flat-to-sharp converter works. I have discovered a bug, if there is no input, it crashes. The output is now correct for DMajor, it looks really good. I will try G Major now to see if all is well. I need to test C Major as well. 
 
 #18 
 I have implemented each of the keys. There are a few minor things I need to sort before moving onwards:
@@ -152,17 +152,17 @@ currently refactoring my code, it was badly needed. So far so good:
 * Implement a directory hierarchy which segregates scripts based on their functionality.
 * Refactor code, include: create tools for webView/SongToJson.
 
---- Fun note, my .gitignore included *.java, my java files were never backed up onto git.... ever. Scary to think of what could of happened. #gitNoob
+--- Fun note, my .gitignore included *.java, my java files were never backed up onto git.... ever. Scary to think of what could've happened. #gitNoob
 
 #20
-Goals from task #19 have been taken care of. I have decided to code kMeans Cluster from scratch. Currently the cluster are hardcoded, which leaves little room for expansion, not to mention the smell emitting from it. I am at the final stage of this now, with a brand new test suit. It is possible for kmeans to get into an infinite loop, I have decided to add a counter to prevent this from happening. 
+Goals from task #19 have been taken care of. I have decided to code k Means Cluster from scratch. Currently the cluster are hard coded, which leaves little room for expansion, not to mention the smell emitting from it. I am at the final stage of this now, with a brand new test suit. It is possible for k means to get into an infinite loop, I have decided to add a counter to prevent this from happening. 
 
 * Finish KMeans.
 * Cluster to notes will be rewritten also. 
 
 #21
 
-KMeans is complete and tested. I have completed the ABCFormatConverter. It handles any note length at the moment, maintaining the correct beat count for each bar. When the note carries over the bar, a tie has been introduced. This section has been tested as well. Minute problem however, Accidentals within the keySignature are not taken care of. This needs to be fixed. I was reading about Coefficient of Variation, which may come in handy as a second condition for determining the number of clusters. Short notes are not being represented as cleanly as I want. 
+KMeans is complete and tested. I have completed the ABCFormatConverter. It handles any note length at the moment, maintaining the correct beat count for each bar. When the note carries over the bar, a tie has been introduced. This section has been tested as well. Minute problem however, Accidentals within the key Signature are not taken care of. This needs to be fixed. I was reading about Coefficient of Variation, which may come in handy as a second condition for determining the number of clusters. Short notes are not being represented as cleanly as I want. 
 
 #22
 
@@ -176,32 +176,32 @@ Moving forward, my primary focus is XML and display. These goals are provisional
 
 #23
 
-I decided to get rid of the pager-fragment implementation. It was extremely difficult to operate the drawer-navigation bar in tandem with the fragments. Both rely on touch input, and fragment had a high precedence. I have a nagivation bar that connects you to record audio, database entries and logout. These all work, except for logout currently. This shouldn't be a problem, just a bit of tweeking is needed. The design can be updated as well, but I am happy with it currently. I had to refactor my code aswell, as a standard activity differs from a fragment activity, nothing too difficult however.
+I decided to get rid of the pager-fragment implementation. It was extremely difficult to operate the drawer-navigation bar in tandem with the fragments. Both rely on touch input, and fragment had a high precedence. I have a navigation bar that connects you to record audio, database entries and logout. These all work, except for logout currently. This shouldn't be a problem, just a bit of tweaking is needed. The design can be updated as well, but I am happy with it currently. I had to refactor my code as well, as a standard activity differs from a fragment activity, nothing too difficult however.
 
 * Fix logout button.
 
 #24
 
-I have introduced a UserProfile page and a Friend finder that allows you to search database for other users. Code isn't working at the moment. I need to create /songId/ and /Friend Requests/ in same directory, then on request save the users UID in this folder. 
+I have introduced a UserProfile page and a Friend finder that allows you to search database for other users. Code isn't working at the moment. I need to create /songId/ and /Friend Requests/ in same directory, then on request save the user's UID in this folder. 
 
 * Add two directories.
-* Put a user request in incoming requests on the recipents side. 
+* Put a user request in incoming requests on the recipient's side. 
 * Create a popup, if you accept: Added to database, given a flag indicating which user it is from.
 
 #25 
 
-Problem fixed. I have added those two directories plus 2 more. You can add friends now. This is a two part process; firstly you send a request to the user which is stored in the FriendRequest folder within their userprofile. In tandem, another folder called PendingFriendRequest stores an identical copy of the request. Permission on the Firebase database needed to be modified to allow a user to write to a directory on another users account. I created an personalised Array adapter that displays PendingFriendRequests. I implemented a friendsList, allowing you to see all your currently held friends. 
+Problem fixed. I have added those two directories plus 2 more. You can add friends now. This is a two part process; firstly you send a request to the user which is stored in the FriendRequest folder within their userprofile. In tandem, another folder called PendingFriendRequest stores an identical copy of the request. Permission on the Firebase database needed to be modified to allow a user to write to a directory on another user's account. I created an personalised Array adapter that displays PendingFriendRequests. I implemented a friendsList, allowing you to see all your currently held friends. 
 
-You can now successfull send songs to a friend. Data transfer is similar to approach above. Custom ArrayAdapter have been generated to care for the ListView. Selection of the data you wish to share is done through a popup Dialog. Here are a handful of my goals moving forward:
+You can now successfully send songs to a friend. Data transfer is similar to approach above. Custom ArrayAdapter have been generated to care for the ListView. Selection of the data you wish to share is done through a popup Dialog. Here are a handful of my goals moving forward:
 
 * Accept song, story in database. Two separate lists?
 * Set user profile picture on the new songs. 
-* Modify Adapters to make them response to button.onClick(). 
-* Discover bug with Dads phone. 
+* Modify Adapters to make them respond to button.onClick(). 
+* Discover bug with Dad's phone. 
 
 #26 
 
-I can now send songs between users. Each some has a uid identifying the creator and a profile picture, only if it was recieved. The format for these songs is very nice. I have implemented a record button that flashes red when pressed. I got rid of the only two button system, record and stop, in place of a single button system that uses modulus to tell whether the audio is recording or not. Right now I have all the functionality I aimed achieved. I will undoubtedly discover a few errors within the next few days. Until then, I am focussed on design, design, design.
+I can now send songs between users. Each some has a uid identifying the creator and a profile picture, only if it was received. The format for these songs is very nice. I have implemented a record button that flashes red when pressed. I got rid of the only two button system, record and stop, in place of a single button system that uses modulus to tell whether the audio is recording or not. Right now I have all the functionality I aimed achieved. I will undoubtedly discover a few errors within the next few days. Until then, I am focussed on design, design, design.
 
 #27 
 
@@ -209,7 +209,7 @@ I have added icons to the navigation bar and removed user profile. Instead I wil
 
 #28
 
-User profile has been removed and replaced with a navigation_header located at the top of the drawer_layout. The overall design looks much neater with this. The top bar includes the users profile picture with their name and email address. I decluttered the record_audio page as well. It was getting far to messy. I decided to go for a leaner look. My plan now is to reload listview after button is clicked. This piece of functionality will be used multiple times on different lists. After this I am onto my final stretch of testing.  
+User profile has been removed and replaced with a navigation_header located at the top of the drawer_layout. The overall design looks much neater with this. The top bar includes the user's profile picture with their name and email address. I decluttered the record_audio page as well. It was getting far to messy. I decided to go for a leaner look. My plan now is to reload listview after button is clicked. This piece of functionality will be used multiple times on different lists. After this I am onto my final stretch of testing.  
 
 #29
 
@@ -242,7 +242,7 @@ I have implemented a midi file and implemented a tuner. Delighted with the new f
 
 #33
 
-I have added an option that allows you to write a file internally or to print via WIFI. I modified the tuner a little today, allowing a larger window of error, increasing it from needing to be equal, to allowing on or two hz slack. Today I have refactored my friend request adapters. Taking them out of the customer array adapters that I created for both and places the code into a class separate class that will handle them. This will make testing them much easier, I hope. 
+I have added an option that allows you to write a file internally or to print via WIFI. I modified the tuner a little today, allowing a larger window of error, increasing it from needing to be equal, to allowing one or two hz slack. Today I have refactored my friend request adapters. Taking them out of the customer array adapters that I created for both and places the code into a class separate class that will handle them. This will make testing them much easier, I hope. 
 
 #34 
 
@@ -264,8 +264,10 @@ I wrote Espresso tests to handle Login and Register simulation. Need to find a w
 
 Some bugs discovered from my user tests:
 
-* User id is displayed in friend list. 
+* User id is displayed in friend list. [SOLVED]
 * Long click display returns null. [SOLVED]
-* Song request displays current users picture [SOLVED].
-* Friendlist doesn't show pictures. 
+* Song request displays current user's picture [SOLVED].
+* Friend List doesn't show pictures. [SOLVED]
 * Null object sent using sharing button on songDisplay.[SOLVED]
+
+
