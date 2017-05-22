@@ -265,7 +265,7 @@ I wrote Espresso tests to handle Login and Register simulation. Need to find a w
 Some bugs discovered from my user tests:
 
 * User id is displayed in friend list. 
-* Long click display returns null. 
-* Song request displays current users picture.
+* Long click display returns null. [SOLVED]
+* Song request displays current users picture [SOLVED].
 * Friendlist doesn't show pictures. 
-* Null object sent using sharing button on songDisplay.
+* Null object sent using sharing button on songDisplay.[SOLVED]

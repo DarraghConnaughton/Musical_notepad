@@ -97,4 +97,8 @@ public class FindFriend extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item)||actionBarDrawerToggle.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }

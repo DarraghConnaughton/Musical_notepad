@@ -105,7 +105,7 @@ public class DatabaseEntries extends AppCompatActivity {
                     JSONToSongConverter.songFromJSON(snap);
                     Intent intent = new Intent(getApplicationContext(),songDisplay.class);
                     intent.putExtra(Timestamp,listEntriesID.get(position));
-                    intent.putExtra("Directory",users);
+                    intent.putExtra("Directory","/songId/");
                     finish();
                     startActivity(intent);
                 }
@@ -187,6 +187,10 @@ public class DatabaseEntries extends AppCompatActivity {
             return actionBarDrawerToggle.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item)||actionBarDrawerToggle.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
 

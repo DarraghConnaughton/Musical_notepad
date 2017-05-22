@@ -9,10 +9,16 @@
     <script src="js/abcjs_basic_3.0-min.js" type="text/javascript"></script>
     <script src="js/musical.js" type="text/javascript"></script>
     <div id="notation"></div>
+
+    <button type="button" onclick="playAudio();">Play audio</button>
+    <b><p style="font-size:20px;"id="abcnotation"></p></b>
     <h2 id="demo"></h2>
     <script type="text/javascript">displayMusic();</script>
 
-    <button type="button" onclick="playAudio();">Play audio</button>
+    <script type="text/javascript">
+      document.getElementById("abcnotation").innerHTML=getABCTuneDetails();
+    </script>
+
 
 </head>
 <body>

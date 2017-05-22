@@ -26,6 +26,11 @@ public class JavaScriptInterface {
         return "%%staffwidth 200\nX: 1 \nT: " + song.getName() + " \nM: " + song.getTimeSignature() + " \nL: " + song.getL() + "\nK: " + song.getKeySignature() + "\n" + song.getNotes();
     }
 
+    @JavascriptInterface
+    public String sendABCData(){
+        return "X: 1 <br>T: " + song.getName() + " <br>M: " + song.getTimeSignature() + " <br>L: " + song.getL() + "<br>K: " + song.getKeySignature() + "<br>" + song.getNotes();
+    }
+
 
 }
 

@@ -14,9 +14,10 @@ public class FriendListController {
         for(DataSnapshot data: snap){
             if(dataSnapshot.child(users).child(data.getKey()).child("/profilePhoto/").exists()){
                 usersFound.add(new UserProfileDetails(
+                        dataSnapshot.child(users).child(data.getKey()).child("username").getValue().toString(),
                         dataSnapshot.child(users).child(data.getKey()).child("email").getValue().toString(),
                         data.getKey(),
-                        dataSnapshot.child(users).child(data.getKey()).child("/profilePhoto/").getValue().toString()));
+                        dataSnapshot.child(users).child(data.getKey()).child("profilePhoto").getValue().toString()));
             }
             else {
                 usersFound.add(new UserProfileDetails(

@@ -67,7 +67,6 @@
         </LinearLayout>
 
         <TextView
-            android:text="TextView"
             android:layout_width="306dp"
             android:layout_height="wrap_content"
             android:id="@+id/userEmail"

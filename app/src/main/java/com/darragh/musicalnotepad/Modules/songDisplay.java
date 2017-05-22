@@ -91,7 +91,7 @@ public class songDisplay extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> snap = dataSnapshot.child(intent.getStringExtra("Directory")).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("/songId/").child(intent.getStringExtra("Timestamp")).getChildren();
+                Iterable<DataSnapshot> snap = dataSnapshot.child(getResources().getString(R.string.users)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("/songId/").child(intent.getStringExtra("Timestamp")).getChildren();
                 DialogController.getFriendsList(snap,songDisplay.this,getResources().getString(R.string.users));
             }
 
@@ -121,5 +121,9 @@ public class songDisplay extends AppCompatActivity {
             return actionBarDrawerToggle.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item)||actionBarDrawerToggle.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

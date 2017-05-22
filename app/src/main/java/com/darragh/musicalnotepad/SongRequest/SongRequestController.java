@@ -14,14 +14,14 @@ class SongRequestController {
         Iterable<DataSnapshot> snap = dataSnapshot.child(users).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("/SongRequest/").getChildren();
         for(DataSnapshot data: snap){
-            if(dataSnapshot.child(users+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profilePhoto/").exists()){
+            if(!data.child("profilePhoto").getValue().equals(null)){
                 newSong = new Song(
                         data.child("timestamp").getValue().toString(),
                         data.child("name").getValue().toString(),
                         data.child("notes").getValue().toString(),
                         data.child("timeSignature").getValue().toString(),
                         data.child("keySignature").getValue().toString(),
-                        profilePicture);
+                        data.child("profilePhoto").getValue().toString());
                 newSong.setUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
             }
             else {

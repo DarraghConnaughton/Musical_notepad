@@ -43,7 +43,8 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="117dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="0.03">
 
                 <Space
                     android:layout_width="match_parent"
@@ -62,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/currentNote"
-                android:layout_weight="1"
+                android:layout_weight="0.64"
                 android:paddingTop="80dp"
                 android:fontFamily="monospace"
                 android:textSize="100sp"
@@ -70,7 +71,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="124dp"
+                android:layout_width="115dp"
                 android:layout_height="match_parent">
 
                 <Space

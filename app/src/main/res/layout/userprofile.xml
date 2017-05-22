@@ -4,7 +4,7 @@
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="150dp"
         android:weightSum="1"
-    android:background="@drawable/background5"
+    android:background="@drawable/design"
         android:paddingLeft="10dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -16,6 +16,7 @@
             app:riv_border_width="2dip"
             android:layout_gravity="right"
             app:riv_border_color="#333333"
+            android:paddingTop="8dp"
             app:riv_mutate_background="true"
             app:riv_oval="true" />
 

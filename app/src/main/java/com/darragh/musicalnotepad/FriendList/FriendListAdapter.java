@@ -32,6 +32,7 @@ public class FriendListAdapter extends ArrayAdapter{
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
+            System.out.println(users.get(position).emailAddress + " - " + users.get(position).userName + " - " + users.get(position).profileImageUri);
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.friendlistrow, parent, false);
             profilePicture = (ImageView) rowView.findViewById(R.id.imageView);

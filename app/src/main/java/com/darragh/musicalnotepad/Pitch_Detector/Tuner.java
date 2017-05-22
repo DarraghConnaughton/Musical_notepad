@@ -179,6 +179,7 @@ public class Tuner extends AppCompatActivity {
             note=523.25f;
             return "C";
         } else
+//            setNullView();
             note=0f;
             inTune=false;
             return "";
@@ -205,6 +206,10 @@ public class Tuner extends AppCompatActivity {
             return actionBarDrawerToggle.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item)||actionBarDrawerToggle.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
 }
