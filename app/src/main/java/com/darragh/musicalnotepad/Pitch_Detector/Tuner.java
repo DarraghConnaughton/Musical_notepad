@@ -92,9 +92,7 @@ public class Tuner extends AppCompatActivity {
     }
 
     public void startTuner(){
-        System.out.println("----- Start Tuner -----");
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 0);
-        System.out.println("Dispatcher has been created: " + dispatcher);
         PitchDetectionHandler pdh = new PitchDetectionHandler() {
             @Override
             public void handlePitch(PitchDetectionResult result, AudioEvent audioEvent) {
@@ -102,11 +100,8 @@ public class Tuner extends AppCompatActivity {
             }
         };
         AudioProcessor p = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, pdh);
-        System.out.println("AudioProcessor has been created: " + p);
-
         dispatcher.addAudioProcessor(p);
         t = new Thread(dispatcher, "Tuner");
-        System.out.println("----- Before thread starts -----");
         t.start();
 
     }
